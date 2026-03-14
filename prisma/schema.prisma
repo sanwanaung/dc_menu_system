@@ -1,12 +1,7 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
   provider = "prisma-client"
-  output   = "./generated/prisma"
+  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -14,7 +9,184 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  name  String
-  email String  @unique
+  id            String    @id @default(cuid())
+  name          String
+  email         String
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  role       String?
+  banned     Boolean?  @default(false)
+  banReason  String?
+  banExpires DateTime?
+
+  userRatings MenuItemRating[]
+
+  @@unique([email])
+  @@map("user")
 }
+
+model Session {
+  id        String   @id  @default(cuid())
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  impersonatedBy String?
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+model MenuCategory {
+  id        String   @id  @default(cuid())
+  name      String
+  displayOrder Int  @default(0)
+  isAvailable Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  MenuItems  MenuItem[]
+
+  @@unique([name])
+  @@map("menu_category")
+}
+
+model MenuItem {
+  id             String   @id @default(cuid())
+  name           String
+  description    String?
+  price          Decimal  @db.Decimal(10, 2)
+  displayOrder   Int  @default(0)
+  categoryId     String
+  isAvailable    Boolean  @default(true)
+  category       MenuCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  ratingAverage  Float    @default(0)
+  ratingCount    Int      @default(0)
+
+  menuItemImages MenuItemImage[]
+  menuItemAddons MenuItemAddon[]
+  MenuItemVariantOptions MenuItemVariantOption[]
+  menuItemRatings MenuItemRating[]
+
+  @@index([categoryId])
+  @@map("menu_item")
+}
+
+model MenuItemRating {
+  id         String   @id @default(cuid())
+  menuItemId String
+  comment    String?
+  userId     String
+  rating     Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+
+  @@index([menuItemId])
+  @@unique([menuItemId, userId])
+  @@map("menu_item_rating")
+}
+
+model VariantOption {
+  id         String   @id @default(cuid())
+  name       String
+  price      Decimal  @db.Decimal(10, 2) @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  MenuItemVariantOptions MenuItemVariantOption[]
+
+  @@map("variant_option")
+}
+
+model MenuItemVariantOption {
+  id             String   @id @default(cuid())
+  menuItemId     String
+  variantOptionId String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  menuItem       MenuItem       @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  variantOption  VariantOption  @relation(fields: [variantOptionId], references: [id], onDelete: Cascade)
+
+  @@unique([menuItemId, variantOptionId])
+  @@index([menuItemId])
+  @@index([variantOptionId])
+  @@map("menu_item_variant_option")
+}
+
+model MenuItemImage {
+  id         String   @id @default(cuid())
+  menuItemId String
+  url        String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+
+  @@index([menuItemId])
+  @@map("menu_item_image")
+}
+
+model MenuItemAddon {
+  id         String   @id @default(cuid())
+  menuItemId String
+  name       String
+  price      Decimal  @db.Decimal(10, 2) @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+
+  @@index([menuItemId])
+  @@map("menu_item_addon")
+}
+
