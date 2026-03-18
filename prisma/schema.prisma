@@ -19,19 +19,20 @@ model User {
   sessions      Session[]
   accounts      Account[]
 
-  role       String?
   banned     Boolean?  @default(false)
   banReason  String?
   banExpires DateTime?
 
   userRatings MenuItemRating[]
 
+  role String?
+
   @@unique([email])
   @@map("user")
 }
 
 model Session {
-  id        String   @id  @default(cuid())
+  id        String   @id @default(cuid())
   expiresAt DateTime
   token     String
   createdAt DateTime @default(now())
@@ -80,39 +81,80 @@ model Verification {
   @@map("verification")
 }
 
-model MenuCategory {
-  id        String   @id  @default(cuid())
-  name      String
-  displayOrder Int  @default(0)
-  isAvailable Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Room {
+  id           String @id @default(cuid())
+  name         String
+  imgUrl       String?
+  roomQR       String
+  type         String
+  floor        String
 
-  MenuItems  MenuItem[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  menuItemRating  MenuItemRating[]
+
+  @@index([name])
+  @@map("room")
+}
+
+enum RoomServiceStatus  {
+  PENDING
+  ACCEPTED
+  CANCELED
+  FINISHED
+}
+
+model RoomServiceOrder {
+  id          String  @id @default(cuid())
+  roomId      String
+  date        DateTime
+  startTime   DateTime
+  endTime     DateTime
+  notes       String?
+  status      RoomServiceStatus @default(PENDING)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([roomId, date])
+  @@index([roomId, status])
+  @@map("room_service_order")
+}
+
+model MenuCategory {
+  id           String   @id @default(cuid())
+  name         String
+  displayOrder Int      @default(0)
+  isAvailable  Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  MenuItems MenuItem[]
 
   @@unique([name])
   @@map("menu_category")
 }
 
 model MenuItem {
-  id             String   @id @default(cuid())
-  name           String
-  description    String?
-  price          Decimal  @db.Decimal(10, 2)
-  displayOrder   Int  @default(0)
-  categoryId     String
-  isAvailable    Boolean  @default(true)
-  category       MenuCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id           String       @id @default(cuid())
+  name         String
+  description  String?
+  price        Decimal      @db.Decimal(10, 2)
+  displayOrder Int          @default(0)
+  categoryId   String
+  isAvailable  Boolean      @default(true)
+  category     MenuCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 
-  ratingAverage  Float    @default(0)
-  ratingCount    Int      @default(0)
+  ratingAverage Float @default(0)
+  ratingCount   Int   @default(0)
 
-  menuItemImages MenuItemImage[]
-  menuItemAddons MenuItemAddon[]
+  menuItemImages         MenuItemImage[]
+  menuItemAddons         MenuItemAddon[]
   MenuItemVariantOptions MenuItemVariantOption[]
-  menuItemRatings MenuItemRating[]
+  menuItemRatings        MenuItemRating[]
 
   @@index([categoryId])
   @@map("menu_item")
@@ -120,27 +162,28 @@ model MenuItem {
 
 model MenuItemRating {
   id         String   @id @default(cuid())
-  menuItemId String
   comment    String?
-  userId     String
+  menuItemId String
+  userId     String?
+  roomId     String
   rating     Int      @default(0)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  menuItem   MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  user     User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  room     Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
   @@index([menuItemId])
-  @@unique([menuItemId, userId])
   @@map("menu_item_rating")
 }
 
 model VariantOption {
-  id         String   @id @default(cuid())
-  name       String
-  price      Decimal  @db.Decimal(10, 2) @default(0)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        String   @id @default(cuid())
+  name      String
+  price     Decimal  @db.Decimal(10, 2) @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   MenuItemVariantOptions MenuItemVariantOption[]
 
@@ -148,14 +191,14 @@ model VariantOption {
 }
 
 model MenuItemVariantOption {
-  id             String   @id @default(cuid())
-  menuItemId     String
+  id              String   @id @default(cuid())
+  menuItemId      String
   variantOptionId String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
-  menuItem       MenuItem       @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
-  variantOption  VariantOption  @relation(fields: [variantOptionId], references: [id], onDelete: Cascade)
+  menuItem      MenuItem      @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  variantOption VariantOption @relation(fields: [variantOptionId], references: [id], onDelete: Cascade)
 
   @@unique([menuItemId, variantOptionId])
   @@index([menuItemId])
@@ -170,7 +213,7 @@ model MenuItemImage {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  menuItem   MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
 
   @@index([menuItemId])
   @@map("menu_item_image")
@@ -184,9 +227,10 @@ model MenuItemAddon {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  menuItem   MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
 
   @@index([menuItemId])
   @@map("menu_item_addon")
 }
+
 

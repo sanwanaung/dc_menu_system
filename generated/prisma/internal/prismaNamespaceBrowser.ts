@@ -54,7 +54,16 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  Room: 'Room',
+  RoomServiceOrder: 'RoomServiceOrder',
+  MenuCategory: 'MenuCategory',
+  MenuItem: 'MenuItem',
+  MenuItemRating: 'MenuItemRating',
+  VariantOption: 'VariantOption',
+  MenuItemVariantOption: 'MenuItemVariantOption',
+  MenuItemImage: 'MenuItemImage',
+  MenuItemAddon: 'MenuItemAddon'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -80,7 +89,11 @@ export const UserScalarFieldEnum = {
   emailVerified: 'emailVerified',
   image: 'image',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  banned: 'banned',
+  banReason: 'banReason',
+  banExpires: 'banExpires',
+  role: 'role'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -94,7 +107,8 @@ export const SessionScalarFieldEnum = {
   updatedAt: 'updatedAt',
   ipAddress: 'ipAddress',
   userAgent: 'userAgent',
-  userId: 'userId'
+  userId: 'userId',
+  impersonatedBy: 'impersonatedBy'
 } as const
 
 export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
@@ -129,6 +143,123 @@ export const VerificationScalarFieldEnum = {
 } as const
 
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
+
+
+export const RoomScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  imgUrl: 'imgUrl',
+  roomQR: 'roomQR',
+  type: 'type',
+  floor: 'floor',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RoomScalarFieldEnum = (typeof RoomScalarFieldEnum)[keyof typeof RoomScalarFieldEnum]
+
+
+export const RoomServiceOrderScalarFieldEnum = {
+  id: 'id',
+  roomId: 'roomId',
+  date: 'date',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  notes: 'notes',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RoomServiceOrderScalarFieldEnum = (typeof RoomServiceOrderScalarFieldEnum)[keyof typeof RoomServiceOrderScalarFieldEnum]
+
+
+export const MenuCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  displayOrder: 'displayOrder',
+  isAvailable: 'isAvailable',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MenuCategoryScalarFieldEnum = (typeof MenuCategoryScalarFieldEnum)[keyof typeof MenuCategoryScalarFieldEnum]
+
+
+export const MenuItemScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  price: 'price',
+  displayOrder: 'displayOrder',
+  categoryId: 'categoryId',
+  isAvailable: 'isAvailable',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  ratingAverage: 'ratingAverage',
+  ratingCount: 'ratingCount'
+} as const
+
+export type MenuItemScalarFieldEnum = (typeof MenuItemScalarFieldEnum)[keyof typeof MenuItemScalarFieldEnum]
+
+
+export const MenuItemRatingScalarFieldEnum = {
+  id: 'id',
+  comment: 'comment',
+  menuItemId: 'menuItemId',
+  userId: 'userId',
+  roomId: 'roomId',
+  rating: 'rating',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MenuItemRatingScalarFieldEnum = (typeof MenuItemRatingScalarFieldEnum)[keyof typeof MenuItemRatingScalarFieldEnum]
+
+
+export const VariantOptionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  price: 'price',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VariantOptionScalarFieldEnum = (typeof VariantOptionScalarFieldEnum)[keyof typeof VariantOptionScalarFieldEnum]
+
+
+export const MenuItemVariantOptionScalarFieldEnum = {
+  id: 'id',
+  menuItemId: 'menuItemId',
+  variantOptionId: 'variantOptionId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MenuItemVariantOptionScalarFieldEnum = (typeof MenuItemVariantOptionScalarFieldEnum)[keyof typeof MenuItemVariantOptionScalarFieldEnum]
+
+
+export const MenuItemImageScalarFieldEnum = {
+  id: 'id',
+  menuItemId: 'menuItemId',
+  url: 'url',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MenuItemImageScalarFieldEnum = (typeof MenuItemImageScalarFieldEnum)[keyof typeof MenuItemImageScalarFieldEnum]
+
+
+export const MenuItemAddonScalarFieldEnum = {
+  id: 'id',
+  menuItemId: 'menuItemId',
+  name: 'name',
+  price: 'price',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MenuItemAddonScalarFieldEnum = (typeof MenuItemAddonScalarFieldEnum)[keyof typeof MenuItemAddonScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -61,3 +61,48 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Verification = Prisma.VerificationModel
+/**
+ * Model Room
+ * 
+ */
+export type Room = Prisma.RoomModel
+/**
+ * Model RoomServiceOrder
+ * 
+ */
+export type RoomServiceOrder = Prisma.RoomServiceOrderModel
+/**
+ * Model MenuCategory
+ * 
+ */
+export type MenuCategory = Prisma.MenuCategoryModel
+/**
+ * Model MenuItem
+ * 
+ */
+export type MenuItem = Prisma.MenuItemModel
+/**
+ * Model MenuItemRating
+ * 
+ */
+export type MenuItemRating = Prisma.MenuItemRatingModel
+/**
+ * Model VariantOption
+ * 
+ */
+export type VariantOption = Prisma.VariantOptionModel
+/**
+ * Model MenuItemVariantOption
+ * 
+ */
+export type MenuItemVariantOption = Prisma.MenuItemVariantOptionModel
+/**
+ * Model MenuItemImage
+ * 
+ */
+export type MenuItemImage = Prisma.MenuItemImageModel
+/**
+ * Model MenuItemAddon
+ * 
+ */
+export type MenuItemAddon = Prisma.MenuItemAddonModel

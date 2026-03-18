@@ -1,13 +1,17 @@
 import { prismaAdapter } from "@better-auth/prisma-adapter";
 import { betterAuth } from "better-auth";
 import prisma from "./prisma";
-import { admin } from "better-auth/plugins";
+import { admin as adminPlugin } from "better-auth/plugins";
+import { ac, admin, subAdmin, user } from "@/lib/permissions";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
   experimental: { joins: true },
+  emailAndPassword: {
+    enabled: true,
+  },
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -18,5 +22,14 @@ export const auth = betterAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
     },
   },
-  plugins: [admin()],
+  plugins: [
+    adminPlugin({
+      ac,
+      roles: {
+        admin,
+        subAdmin,
+        user,
+      },
+    }),
+  ],
 });

@@ -1,0 +1,93 @@
+import {
+  BarChart3,
+  ShieldCheck,
+  Sparkles,
+  UtensilsCrossed,
+} from "lucide-react";
+
+const WelcomeMsg = () => {
+  return (
+    <section className="relative hidden w-1/2 flex-col justify-between overflow-hidden rounded-lg border bg-muted/30 p-10 lg:flex">
+      <div className="pointer-events-none absolute -left-20 -top-20 size-72 rounded-full bg-primary/10 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-24 -right-24 size-72 rounded-full bg-chart-1/10 blur-3xl" />
+
+      <div className="relative">
+        <div className="flex items-center gap-2">
+          <div className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground shadow-sm">
+            <Sparkles className="size-5" aria-hidden="true" />
+          </div>
+          <div className="leading-tight">
+            <p className="text-sm font-medium">Hotel QR Ordering</p>
+            <p className="text-xs text-muted-foreground">
+              Admin & Menu Manager
+            </p>
+          </div>
+        </div>
+
+        <h1 className="mt-8 text-balance text-3xl font-semibold tracking-tight">
+          Welcome back.
+        </h1>
+        <p className="mt-3 max-w-md text-pretty text-sm text-muted-foreground">
+          Sign in with your preferred provider to manage menus, orders, and
+          insights.
+        </p>
+
+        <ul className="mt-8 space-y-3 text-sm">
+          <li className="flex items-start gap-3">
+            <div className="mt-0.5 grid size-7 place-items-center rounded-lg bg-background/60 ring-1 ring-foreground/10">
+              <UtensilsCrossed
+                className="size-4 text-muted-foreground"
+                aria-hidden="true"
+              />
+            </div>
+            <div>
+              <p className="font-medium">Menus in minutes</p>
+              <p className="text-muted-foreground">
+                Update items, pricing, variants, and availability.
+              </p>
+            </div>
+          </li>
+
+          <li className="flex items-start gap-3">
+            <div className="mt-0.5 grid size-7 place-items-center rounded-lg bg-background/60 ring-1 ring-foreground/10">
+              <BarChart3
+                className="size-4 text-muted-foreground"
+                aria-hidden="true"
+              />
+            </div>
+            <div>
+              <p className="font-medium">Actionable analytics</p>
+              <p className="text-muted-foreground">
+                Understand what sells and what needs attention.
+              </p>
+            </div>
+          </li>
+
+          <li className="flex items-start gap-3">
+            <div className="mt-0.5 grid size-7 place-items-center rounded-lg bg-background/60 ring-1 ring-foreground/10">
+              <ShieldCheck
+                className="size-4 text-muted-foreground"
+                aria-hidden="true"
+              />
+            </div>
+            <div>
+              <p className="font-medium">Secure access</p>
+              <p className="text-muted-foreground">
+                Social sign-in and modern session handling.
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div className="relative rounded-2xl border bg-background/60 p-5 ring-1 ring-foreground/10">
+        <p className="text-sm font-medium">Tip</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Use your work account for faster approvals and fewer access issues.
+        </p>
+      </div>
+    </section>
+  );
+};
+
+export default WelcomeMsg;

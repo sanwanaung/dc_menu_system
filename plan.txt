@@ -1,0 +1,313 @@
+
+
+You are a senior frontend architect.
+
+Generate a complete Admin Dashboard UI for a hotel QR ordering system.
+
+Follow professional frontend architecture.
+
+Use reusable components and clean separation of concerns.
+
+1. Based on my prisma db design, room and roomservice page only. But don't touch , edit and modified any other files.
+    - admin can create , edit, Delete
+    - admin can update roomservice status 
+    - if you have any other recommends , try it.
+
+2. You can check and inspires my prisma db design but don't edit and modify.
+
+3. if you want to create necessary component files , use -> components/admin folder(for better folder Structure) to create necessary component files.
+
+4. Don't intergrate with backend and db. You can create demo datas in demo.ts file and use it.
+
+5. The other features will be implemeted later. I just want Room and RoomService Features only Now.
+
+6. Code should be production quality.
+
+7. Don't touch, edit and modify and unnecessary file included prisma schema file.
+
+---
+
+ADMIN LAYOUT
+
+Files:
+
+1. use shadcn ui if you want shadcn UI doesn't exist, install from shadcn.
+
+2. main -> src/app/(admin)/page.tsx and layout.tsx
+           src/app/(admin)/admin/dashboard/page.tsx 
+
+3. if you want to create necessary components , use -> components/admin folderto create necessary components.
+
+4. don't intergrate with backend.if you want you can use demo datas. you can create demo datas in demo.tsx file that exists in root directory.
+    * src/components/admin
+
+5. The Features that i want is listed in below ->
+    Sidebar:
+    * Dashboard
+    * Users
+    * Menu Categories
+    * Menu Items
+    * Variants & Addons
+    * Ratings & Reviews
+    * Orders
+    * Analytics
+
+    Layout requirements:
+    * Collapsible sidebar
+    * Mobile responsive
+    * Active route highlight
+    * Top header bar
+    * Clean dashboard UI
+
+    DASHBOARD PAGE
+    Create dashboard widgets.
+    Stats Cards:
+    * Total Users
+    * Active Users
+    * Orders Today
+    * Average Rating
+    Widgets:
+    * Most Popular Menu Items
+    * Recent orders
+6. Other Features will be later. I just want Dashboard Features only Now.
+7. Code should be production quality.
+
+
+
+
+You are a senior frontend architect.
+Generate a complete login design page.
+
+1.  modified authentication login page.
+
+2.  main file -> src/app/(auth)/layout.tsx
+                src/app/(auth)/signin/page.tsx
+
+3.  don't create any components file. Just use src/app/(auth)/signin/page.tsx file only. All code in that one file.
+
+4.  don't intergrate with backend and don't modify existing code that intergrate with backend.
+5. Code should be production quality.
+
+
+
+---
+
+USERS MANAGEMENT
+
+Users table with:
+
+Columns:
+
+* Name
+* Email
+* Role
+* Banned
+* Last Login
+* Total Ratings
+
+Features:
+
+* Search
+* Role filter
+* Pagination
+* Sort columns
+
+Actions:
+
+* Edit
+* Ban / Unban
+* View Ratings
+
+---
+
+MENU CATEGORIES MANAGEMENT
+
+Table columns:
+
+* Name
+* Display Order
+* Availability
+* Number of menu items
+
+Features:
+
+* Add category
+* Edit category
+* Delete category
+* Drag and drop ordering
+
+Use dnd-kit for drag sorting.
+
+---
+
+MENU ITEMS MANAGEMENT
+
+Table columns:
+
+* Image
+* Name
+* Category
+* Price
+* Availability
+* Rating average
+* Popularity score
+
+Features:
+
+* Search
+* Category filter
+* Toggle availability
+* Edit modal
+
+Edit form fields:
+
+* Name
+* Description
+* Price
+* Category
+* Availability
+* Image upload
+* Variant options select
+* Addons select
+
+---
+
+VARIANTS & ADDONS MANAGEMENT
+
+Variant Options table:
+
+Columns:
+
+* Name
+* Extra Price
+* Linked Menu Items
+* Created Date
+
+Addons table:
+
+Columns:
+
+* Name
+* Extra Price
+* Linked Menu Items
+
+Actions:
+
+* Add
+* Edit
+* Delete
+
+---
+
+RATINGS & REVIEWS PAGE
+
+Table columns:
+
+* Menu Item
+* User
+* Rating
+* Comment
+* Date
+
+Features:
+
+* Rating filter
+* Menu item filter
+* Date filter
+* Delete review
+
+Widgets:
+
+* Average rating per category
+* Top rated items
+* Items with rating < 3.5
+
+---
+
+ORDERS MANAGEMENT
+
+Table columns:
+
+* Order ID
+* User
+* Items
+* Total price
+* Status
+* Created date
+
+Status badges:
+
+* Pending
+* Preparing
+* Completed
+* Cancelled
+
+Features:
+
+* Status filter
+* Update order status
+* Order detail modal
+
+---
+
+ANALYTICS PAGE
+
+Charts:
+
+* Sales over time (Line chart)
+* Category sales distribution (Pie chart)
+* Top selling items (Bar chart)
+
+Stats:
+
+* Total revenue
+* Total orders
+* Average order value
+
+Use Recharts.
+
+---
+
+API LAYER
+
+Create reusable API services using Axios.
+
+Structure:
+
+lib/api/client.ts
+lib/api/admin.ts
+
+---
+
+REACT QUERY HOOKS
+
+Create hooks:
+
+useUsers()
+useMenuItems()
+useCategories()
+useOrders()
+useRatings()
+
+Structure:
+
+hooks/admin/useUsers.ts
+hooks/admin/useMenuItems.ts
+hooks/admin/useOrders.ts
+hooks/admin/useRatings.ts
+
+---
+
+CODING STANDARDS
+
+* Use TypeScript everywhere
+* Use reusable components
+* Use loading states
+* Use error states
+* Use empty states
+* Use Tailwind for styling
+* Use modern UI patterns
+
+---
+
+
