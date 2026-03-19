@@ -113,14 +113,14 @@ export const demoDashboard: {
 };
 
 export type DemoRoom = {
-  id: string;
+  // id: string;
   name: string;
-  imgUrl?: string | null;
+  // imgUrl?: string | null;
   roomQR: string;
   type: string;
   floor: string;
-  createdAt: string;
-  updatedAt: string;
+  // createdAt: string;
+  // updatedAt: string;
 };
 
 export type DemoRoomServiceStatus =
@@ -147,45 +147,45 @@ const todayYmd = today.toISOString().slice(0, 10);
 
 export const demoRooms: DemoRoom[] = [
   {
-    id: "rm_101",
+    // id: "rm_101",
     name: "Room 101",
-    imgUrl: null,
+    // imgUrl: null,
     roomQR: "QR-RM-101",
     type: "Deluxe King",
     floor: "1",
-    createdAt: new Date(now - 25 * 24 * 60 * 60 * 1000).toISOString(),
-    updatedAt: new Date(now - 2 * 24 * 60 * 60 * 1000).toISOString(),
+    // createdAt: new Date(now - 25 * 24 * 60 * 60 * 1000).toISOString(),
+    // updatedAt: new Date(now - 2 * 24 * 60 * 60 * 1000).toISOString(),
   },
-  {
-    id: "rm_214",
-    name: "Room 214",
-    imgUrl: null,
-    roomQR: "QR-RM-214",
-    type: "Superior Twin",
-    floor: "2",
-    createdAt: new Date(now - 21 * 24 * 60 * 60 * 1000).toISOString(),
-    updatedAt: new Date(now - 3 * 24 * 60 * 60 * 1000).toISOString(),
-  },
-  {
-    id: "rm_508",
-    name: "Room 508",
-    imgUrl: null,
-    roomQR: "QR-RM-508",
-    type: "Executive Suite",
-    floor: "5",
-    createdAt: new Date(now - 40 * 24 * 60 * 60 * 1000).toISOString(),
-    updatedAt: new Date(now - 7 * 24 * 60 * 60 * 1000).toISOString(),
-  },
-  {
-    id: "rm_612",
-    name: "Room 612",
-    imgUrl: null,
-    roomQR: "QR-RM-612",
-    type: "Deluxe Twin",
-    floor: "6",
-    createdAt: new Date(now - 15 * 24 * 60 * 60 * 1000).toISOString(),
-    updatedAt: new Date(now - 1 * 24 * 60 * 60 * 1000).toISOString(),
-  },
+  // {
+  //   id: "rm_214",
+  //   name: "Room 214",
+  //   imgUrl: null,
+  //   roomQR: "QR-RM-214",
+  //   type: "Superior Twin",
+  //   floor: "2",
+  //   createdAt: new Date(now - 21 * 24 * 60 * 60 * 1000).toISOString(),
+  //   updatedAt: new Date(now - 3 * 24 * 60 * 60 * 1000).toISOString(),
+  // },
+  // {
+  //   id: "rm_508",
+  //   name: "Room 508",
+  //   imgUrl: null,
+  //   roomQR: "QR-RM-508",
+  //   type: "Executive Suite",
+  //   floor: "5",
+  //   createdAt: new Date(now - 40 * 24 * 60 * 60 * 1000).toISOString(),
+  //   updatedAt: new Date(now - 7 * 24 * 60 * 60 * 1000).toISOString(),
+  // },
+  // {
+  //   id: "rm_612",
+  //   name: "Room 612",
+  //   imgUrl: null,
+  //   roomQR: "QR-RM-612",
+  //   type: "Deluxe Twin",
+  //   floor: "6",
+  //   createdAt: new Date(now - 15 * 24 * 60 * 60 * 1000).toISOString(),
+  //   updatedAt: new Date(now - 1 * 24 * 60 * 60 * 1000).toISOString(),
+  // },
 ];
 
 export const demoRoomServiceOrders: DemoRoomServiceOrder[] = [
