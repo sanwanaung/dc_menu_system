@@ -1,11 +1,15 @@
 import { AdminLayout } from "@/components/admin/admin-layout";
-import { demoRooms } from "../../../../../demo";
-import { RoomsPage } from "@/components/admin/rooms/rooms-page-client";
+import { RoomsPage } from "@/components/admin/rooms/room";
+import { getRooms } from "@/actions/room";
+import { toast } from "sonner";
 
-export default function AdminRoomsPage() {
+export default async function AdminRoomsPage() {
+  const rooms = await getRooms();
+  if (rooms.error) return toast.error(rooms.error);
+
   return (
     <AdminLayout>
-      <RoomsPage initialRooms={demoRooms} />
+      <RoomsPage initialRooms={rooms.data || []} />
     </AdminLayout>
   );
 }

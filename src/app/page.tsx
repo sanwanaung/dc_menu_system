@@ -20,7 +20,7 @@ export default function Home() {
           <div>{data?.user.name}</div>
           <div>{data?.user.emailVerified}</div>
           <div>{data?.session.token}</div>
-          <div>{data?.session.ipAddress}</div>
+          <div>{data?.user.role}</div>
         </div>
         <Button
           variant="default"
@@ -37,6 +37,16 @@ export default function Home() {
           }}
         >
           Signout
+        </Button>
+        <Button
+          variant="default"
+          size="lg"
+          className="cursor-pointer"
+          onClick={async () => {
+            router.push("/admin/dashboard");
+          }}
+        >
+          Dashboard
         </Button>
       </div>
     </div>

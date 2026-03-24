@@ -12,12 +12,14 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useNewRoom } from "@/hooks/use-new-room";
 
 export const AdminLayout = ({
   children,
 }: Readonly<{ children: React.ReactNode }>) => {
   const pathname = usePathname();
   const [clientPathname, setClientPathname] = useState("");
+  const { onOpen } = useNewRoom();
 
   useEffect(() => {
     setClientPathname(pathname.split("/")[2]);
@@ -30,7 +32,7 @@ export const AdminLayout = ({
           <CardTitle className="capitalize">{clientPathname}</CardTitle>
           <CardDescription>Manage your {clientPathname}.</CardDescription>
           <CardAction>
-            <Button type="button" size="sm">
+            <Button type="button" size="sm" onClick={onOpen}>
               <Plus className="mr-1.5 size-4" />
               Add room
             </Button>

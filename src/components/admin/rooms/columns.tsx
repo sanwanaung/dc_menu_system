@@ -2,19 +2,39 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import Actions from "@/components/admin/rooms/actions";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export type RoomType = {
-  //   id: string;
+  id: string;
   name: string;
   roomQR: string;
-  //   imgUrl: string;
   type: string;
   floor: string;
-  //   createdAt: string;
-  //   updatedAt: string;
 };
 
 export const columns: ColumnDef<RoomType>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "name",
     header: "Name",
@@ -35,7 +55,7 @@ export const columns: ColumnDef<RoomType>[] = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
-      return <Actions id={row.id} />;
+      return <Actions id={row.original.id} />;
     },
   },
 ];

@@ -223,18 +223,18 @@ export type RoomOrderByWithRelationInput = {
 
 export type RoomWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  roomQR?: string
   AND?: Prisma.RoomWhereInput | Prisma.RoomWhereInput[]
   OR?: Prisma.RoomWhereInput[]
   NOT?: Prisma.RoomWhereInput | Prisma.RoomWhereInput[]
   name?: Prisma.StringFilter<"Room"> | string
   imgUrl?: Prisma.StringNullableFilter<"Room"> | string | null
-  roomQR?: Prisma.StringFilter<"Room"> | string
   type?: Prisma.StringFilter<"Room"> | string
   floor?: Prisma.StringFilter<"Room"> | string
   createdAt?: Prisma.DateTimeFilter<"Room"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Room"> | Date | string
   menuItemRating?: Prisma.MenuItemRatingListRelationFilter
-}, "id">
+}, "id" | "roomQR">
 
 export type RoomOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

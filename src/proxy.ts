@@ -2,7 +2,7 @@ import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const roles = ["admin", "subAdmin"];
+const roles = ["ADMIN", "SUBADMIN"];
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

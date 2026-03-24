@@ -1,27 +1,73 @@
 "use client";
 
+import { getRoom } from "@/actions/room";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Edit, MoreHorizontal } from "lucide-react";
+import { useDeleteRoom } from "@/hooks/use-delete-room";
+import { useEditRoom } from "@/hooks/use-edit-room";
+import { authClient } from "@/lib/auth-client";
+import { EyeIcon, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 type ActionProps = {
   id: string;
 };
 
 const Actions = ({ id }: ActionProps) => {
+  const { onOpen } = useEditRoom();
+  const { onOpenDelete } = useDeleteRoom();
+  const router = useRouter();
+  const session = authClient.useSession();
+
+  if (session.error) return;
+  const handlePreviewQR = async (id: string) => {
+    if (session.data?.user.role !== "ADMIN")
+      return toast.error("You don't have permission!");
+    if (!id) return;
+    const room = await getRoom({ id });
+    if (room.error) return toast.error(room.error);
+    router.push(`/admin/rooms/${id}`);
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <MoreHorizontal className="size-4" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem>
-          <Edit className="size-4" />
+      <DropdownMenuContent className="rounded-sm">
+        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onClick={() => {
+            if (session.data?.user.role !== "ADMIN")
+              return toast.error("You don't have permission!");
+            onOpen(id);
+          }}
+        >
+          <Pencil className="size-4 mr-2" />
           Edit
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            if (session.data?.user.role !== "ADMIN")
+              return toast.error("You don't have permission!");
+            onOpenDelete(id);
+          }}
+          className="text-red-500 hover:text-red-400"
+        >
+          <Trash2 className="size-4 mr-2 " />
+          Delete
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handlePreviewQR(id)}>
+          <EyeIcon className="size-4 mr-2" />
+          Preview QR
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

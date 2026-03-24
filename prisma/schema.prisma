@@ -85,7 +85,7 @@ model Room {
   id           String @id @default(cuid())
   name         String
   imgUrl       String?
-  roomQR       String
+  roomQR       String @unique
   type         String
   floor        String
 
@@ -94,7 +94,7 @@ model Room {
 
   menuItemRating  MenuItemRating[]
 
-  @@index([name])
+  @@index([name, roomQR])
   @@map("room")
 }
 
