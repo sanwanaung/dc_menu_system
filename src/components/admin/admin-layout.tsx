@@ -31,12 +31,14 @@ export const AdminLayout = ({
         <CardHeader className="border-b">
           <CardTitle className="capitalize">{clientPathname}</CardTitle>
           <CardDescription>Manage your {clientPathname}.</CardDescription>
-          <CardAction>
-            <Button type="button" size="sm" onClick={onOpen}>
-              <Plus className="mr-1.5 size-4" />
-              Add room
-            </Button>
-          </CardAction>
+          {clientPathname === "rooms" && (
+            <CardAction>
+              <Button type="button" size="sm" onClick={onOpen}>
+                <Plus className="mr-1.5 size-4" />
+                Add room
+              </Button>
+            </CardAction>
+          )}
         </CardHeader>
         <CardContent className="space-y-4">{children}</CardContent>
       </Card>

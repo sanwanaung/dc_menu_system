@@ -28,8 +28,8 @@ export type RoomServiceOrderMinAggregateOutputType = {
   id: string | null
   roomId: string | null
   date: Date | null
-  startTime: Date | null
-  endTime: Date | null
+  startTime: string | null
+  endTime: string | null
   notes: string | null
   status: $Enums.RoomServiceStatus | null
   createdAt: Date | null
@@ -40,8 +40,8 @@ export type RoomServiceOrderMaxAggregateOutputType = {
   id: string | null
   roomId: string | null
   date: Date | null
-  startTime: Date | null
-  endTime: Date | null
+  startTime: string | null
+  endTime: string | null
   notes: string | null
   status: $Enums.RoomServiceStatus | null
   createdAt: Date | null
@@ -175,8 +175,8 @@ export type RoomServiceOrderGroupByOutputType = {
   id: string
   roomId: string
   date: Date
-  startTime: Date
-  endTime: Date
+  startTime: string
+  endTime: string
   notes: string | null
   status: $Enums.RoomServiceStatus
   createdAt: Date
@@ -208,12 +208,13 @@ export type RoomServiceOrderWhereInput = {
   id?: Prisma.StringFilter<"RoomServiceOrder"> | string
   roomId?: Prisma.StringFilter<"RoomServiceOrder"> | string
   date?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
-  startTime?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
-  endTime?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
+  startTime?: Prisma.StringFilter<"RoomServiceOrder"> | string
+  endTime?: Prisma.StringFilter<"RoomServiceOrder"> | string
   notes?: Prisma.StringNullableFilter<"RoomServiceOrder"> | string | null
   status?: Prisma.EnumRoomServiceStatusFilter<"RoomServiceOrder"> | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
+  room?: Prisma.XOR<Prisma.RoomScalarRelationFilter, Prisma.RoomWhereInput>
 }
 
 export type RoomServiceOrderOrderByWithRelationInput = {
@@ -226,6 +227,7 @@ export type RoomServiceOrderOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  room?: Prisma.RoomOrderByWithRelationInput
 }
 
 export type RoomServiceOrderWhereUniqueInput = Prisma.AtLeast<{
@@ -236,12 +238,13 @@ export type RoomServiceOrderWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.RoomServiceOrderWhereInput | Prisma.RoomServiceOrderWhereInput[]
   roomId?: Prisma.StringFilter<"RoomServiceOrder"> | string
   date?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
-  startTime?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
-  endTime?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
+  startTime?: Prisma.StringFilter<"RoomServiceOrder"> | string
+  endTime?: Prisma.StringFilter<"RoomServiceOrder"> | string
   notes?: Prisma.StringNullableFilter<"RoomServiceOrder"> | string | null
   status?: Prisma.EnumRoomServiceStatusFilter<"RoomServiceOrder"> | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
+  room?: Prisma.XOR<Prisma.RoomScalarRelationFilter, Prisma.RoomWhereInput>
 }, "id" | "roomId_date">
 
 export type RoomServiceOrderOrderByWithAggregationInput = {
@@ -266,8 +269,8 @@ export type RoomServiceOrderScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"RoomServiceOrder"> | string
   roomId?: Prisma.StringWithAggregatesFilter<"RoomServiceOrder"> | string
   date?: Prisma.DateTimeWithAggregatesFilter<"RoomServiceOrder"> | Date | string
-  startTime?: Prisma.DateTimeWithAggregatesFilter<"RoomServiceOrder"> | Date | string
-  endTime?: Prisma.DateTimeWithAggregatesFilter<"RoomServiceOrder"> | Date | string
+  startTime?: Prisma.StringWithAggregatesFilter<"RoomServiceOrder"> | string
+  endTime?: Prisma.StringWithAggregatesFilter<"RoomServiceOrder"> | string
   notes?: Prisma.StringNullableWithAggregatesFilter<"RoomServiceOrder"> | string | null
   status?: Prisma.EnumRoomServiceStatusWithAggregatesFilter<"RoomServiceOrder"> | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"RoomServiceOrder"> | Date | string
@@ -276,22 +279,22 @@ export type RoomServiceOrderScalarWhereWithAggregatesInput = {
 
 export type RoomServiceOrderCreateInput = {
   id?: string
-  roomId: string
   date: Date | string
-  startTime: Date | string
-  endTime: Date | string
+  startTime: string
+  endTime: string
   notes?: string | null
   status?: $Enums.RoomServiceStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  room: Prisma.RoomCreateNestedOneWithoutRoomServiceInput
 }
 
 export type RoomServiceOrderUncheckedCreateInput = {
   id?: string
   roomId: string
   date: Date | string
-  startTime: Date | string
-  endTime: Date | string
+  startTime: string
+  endTime: string
   notes?: string | null
   status?: $Enums.RoomServiceStatus
   createdAt?: Date | string
@@ -300,22 +303,22 @@ export type RoomServiceOrderUncheckedCreateInput = {
 
 export type RoomServiceOrderUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  roomId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRoomServiceStatusFieldUpdateOperationsInput | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  room?: Prisma.RoomUpdateOneRequiredWithoutRoomServiceNestedInput
 }
 
 export type RoomServiceOrderUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   roomId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRoomServiceStatusFieldUpdateOperationsInput | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -326,8 +329,8 @@ export type RoomServiceOrderCreateManyInput = {
   id?: string
   roomId: string
   date: Date | string
-  startTime: Date | string
-  endTime: Date | string
+  startTime: string
+  endTime: string
   notes?: string | null
   status?: $Enums.RoomServiceStatus
   createdAt?: Date | string
@@ -336,10 +339,9 @@ export type RoomServiceOrderCreateManyInput = {
 
 export type RoomServiceOrderUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  roomId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRoomServiceStatusFieldUpdateOperationsInput | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -350,12 +352,22 @@ export type RoomServiceOrderUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   roomId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRoomServiceStatusFieldUpdateOperationsInput | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type RoomServiceOrderListRelationFilter = {
+  every?: Prisma.RoomServiceOrderWhereInput
+  some?: Prisma.RoomServiceOrderWhereInput
+  none?: Prisma.RoomServiceOrderWhereInput
+}
+
+export type RoomServiceOrderOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type RoomServiceOrderRoomIdDateCompoundUniqueInput = {
@@ -399,8 +411,157 @@ export type RoomServiceOrderMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type RoomServiceOrderCreateNestedManyWithoutRoomInput = {
+  create?: Prisma.XOR<Prisma.RoomServiceOrderCreateWithoutRoomInput, Prisma.RoomServiceOrderUncheckedCreateWithoutRoomInput> | Prisma.RoomServiceOrderCreateWithoutRoomInput[] | Prisma.RoomServiceOrderUncheckedCreateWithoutRoomInput[]
+  connectOrCreate?: Prisma.RoomServiceOrderCreateOrConnectWithoutRoomInput | Prisma.RoomServiceOrderCreateOrConnectWithoutRoomInput[]
+  createMany?: Prisma.RoomServiceOrderCreateManyRoomInputEnvelope
+  connect?: Prisma.RoomServiceOrderWhereUniqueInput | Prisma.RoomServiceOrderWhereUniqueInput[]
+}
+
+export type RoomServiceOrderUncheckedCreateNestedManyWithoutRoomInput = {
+  create?: Prisma.XOR<Prisma.RoomServiceOrderCreateWithoutRoomInput, Prisma.RoomServiceOrderUncheckedCreateWithoutRoomInput> | Prisma.RoomServiceOrderCreateWithoutRoomInput[] | Prisma.RoomServiceOrderUncheckedCreateWithoutRoomInput[]
+  connectOrCreate?: Prisma.RoomServiceOrderCreateOrConnectWithoutRoomInput | Prisma.RoomServiceOrderCreateOrConnectWithoutRoomInput[]
+  createMany?: Prisma.RoomServiceOrderCreateManyRoomInputEnvelope
+  connect?: Prisma.RoomServiceOrderWhereUniqueInput | Prisma.RoomServiceOrderWhereUniqueInput[]
+}
+
+export type RoomServiceOrderUpdateManyWithoutRoomNestedInput = {
+  create?: Prisma.XOR<Prisma.RoomServiceOrderCreateWithoutRoomInput, Prisma.RoomServiceOrderUncheckedCreateWithoutRoomInput> | Prisma.RoomServiceOrderCreateWithoutRoomInput[] | Prisma.RoomServiceOrderUncheckedCreateWithoutRoomInput[]
+  connectOrCreate?: Prisma.RoomServiceOrderCreateOrConnectWithoutRoomInput | Prisma.RoomServiceOrderCreateOrConnectWithoutRoomInput[]
+  upsert?: Prisma.RoomServiceOrderUpsertWithWhereUniqueWithoutRoomInput | Prisma.RoomServiceOrderUpsertWithWhereUniqueWithoutRoomInput[]
+  createMany?: Prisma.RoomServiceOrderCreateManyRoomInputEnvelope
+  set?: Prisma.RoomServiceOrderWhereUniqueInput | Prisma.RoomServiceOrderWhereUniqueInput[]
+  disconnect?: Prisma.RoomServiceOrderWhereUniqueInput | Prisma.RoomServiceOrderWhereUniqueInput[]
+  delete?: Prisma.RoomServiceOrderWhereUniqueInput | Prisma.RoomServiceOrderWhereUniqueInput[]
+  connect?: Prisma.RoomServiceOrderWhereUniqueInput | Prisma.RoomServiceOrderWhereUniqueInput[]
+  update?: Prisma.RoomServiceOrderUpdateWithWhereUniqueWithoutRoomInput | Prisma.RoomServiceOrderUpdateWithWhereUniqueWithoutRoomInput[]
+  updateMany?: Prisma.RoomServiceOrderUpdateManyWithWhereWithoutRoomInput | Prisma.RoomServiceOrderUpdateManyWithWhereWithoutRoomInput[]
+  deleteMany?: Prisma.RoomServiceOrderScalarWhereInput | Prisma.RoomServiceOrderScalarWhereInput[]
+}
+
+export type RoomServiceOrderUncheckedUpdateManyWithoutRoomNestedInput = {
+  create?: Prisma.XOR<Prisma.RoomServiceOrderCreateWithoutRoomInput, Prisma.RoomServiceOrderUncheckedCreateWithoutRoomInput> | Prisma.RoomServiceOrderCreateWithoutRoomInput[] | Prisma.RoomServiceOrderUncheckedCreateWithoutRoomInput[]
+  connectOrCreate?: Prisma.RoomServiceOrderCreateOrConnectWithoutRoomInput | Prisma.RoomServiceOrderCreateOrConnectWithoutRoomInput[]
+  upsert?: Prisma.RoomServiceOrderUpsertWithWhereUniqueWithoutRoomInput | Prisma.RoomServiceOrderUpsertWithWhereUniqueWithoutRoomInput[]
+  createMany?: Prisma.RoomServiceOrderCreateManyRoomInputEnvelope
+  set?: Prisma.RoomServiceOrderWhereUniqueInput | Prisma.RoomServiceOrderWhereUniqueInput[]
+  disconnect?: Prisma.RoomServiceOrderWhereUniqueInput | Prisma.RoomServiceOrderWhereUniqueInput[]
+  delete?: Prisma.RoomServiceOrderWhereUniqueInput | Prisma.RoomServiceOrderWhereUniqueInput[]
+  connect?: Prisma.RoomServiceOrderWhereUniqueInput | Prisma.RoomServiceOrderWhereUniqueInput[]
+  update?: Prisma.RoomServiceOrderUpdateWithWhereUniqueWithoutRoomInput | Prisma.RoomServiceOrderUpdateWithWhereUniqueWithoutRoomInput[]
+  updateMany?: Prisma.RoomServiceOrderUpdateManyWithWhereWithoutRoomInput | Prisma.RoomServiceOrderUpdateManyWithWhereWithoutRoomInput[]
+  deleteMany?: Prisma.RoomServiceOrderScalarWhereInput | Prisma.RoomServiceOrderScalarWhereInput[]
+}
+
 export type EnumRoomServiceStatusFieldUpdateOperationsInput = {
   set?: $Enums.RoomServiceStatus
+}
+
+export type RoomServiceOrderCreateWithoutRoomInput = {
+  id?: string
+  date: Date | string
+  startTime: string
+  endTime: string
+  notes?: string | null
+  status?: $Enums.RoomServiceStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type RoomServiceOrderUncheckedCreateWithoutRoomInput = {
+  id?: string
+  date: Date | string
+  startTime: string
+  endTime: string
+  notes?: string | null
+  status?: $Enums.RoomServiceStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type RoomServiceOrderCreateOrConnectWithoutRoomInput = {
+  where: Prisma.RoomServiceOrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.RoomServiceOrderCreateWithoutRoomInput, Prisma.RoomServiceOrderUncheckedCreateWithoutRoomInput>
+}
+
+export type RoomServiceOrderCreateManyRoomInputEnvelope = {
+  data: Prisma.RoomServiceOrderCreateManyRoomInput | Prisma.RoomServiceOrderCreateManyRoomInput[]
+  skipDuplicates?: boolean
+}
+
+export type RoomServiceOrderUpsertWithWhereUniqueWithoutRoomInput = {
+  where: Prisma.RoomServiceOrderWhereUniqueInput
+  update: Prisma.XOR<Prisma.RoomServiceOrderUpdateWithoutRoomInput, Prisma.RoomServiceOrderUncheckedUpdateWithoutRoomInput>
+  create: Prisma.XOR<Prisma.RoomServiceOrderCreateWithoutRoomInput, Prisma.RoomServiceOrderUncheckedCreateWithoutRoomInput>
+}
+
+export type RoomServiceOrderUpdateWithWhereUniqueWithoutRoomInput = {
+  where: Prisma.RoomServiceOrderWhereUniqueInput
+  data: Prisma.XOR<Prisma.RoomServiceOrderUpdateWithoutRoomInput, Prisma.RoomServiceOrderUncheckedUpdateWithoutRoomInput>
+}
+
+export type RoomServiceOrderUpdateManyWithWhereWithoutRoomInput = {
+  where: Prisma.RoomServiceOrderScalarWhereInput
+  data: Prisma.XOR<Prisma.RoomServiceOrderUpdateManyMutationInput, Prisma.RoomServiceOrderUncheckedUpdateManyWithoutRoomInput>
+}
+
+export type RoomServiceOrderScalarWhereInput = {
+  AND?: Prisma.RoomServiceOrderScalarWhereInput | Prisma.RoomServiceOrderScalarWhereInput[]
+  OR?: Prisma.RoomServiceOrderScalarWhereInput[]
+  NOT?: Prisma.RoomServiceOrderScalarWhereInput | Prisma.RoomServiceOrderScalarWhereInput[]
+  id?: Prisma.StringFilter<"RoomServiceOrder"> | string
+  roomId?: Prisma.StringFilter<"RoomServiceOrder"> | string
+  date?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
+  startTime?: Prisma.StringFilter<"RoomServiceOrder"> | string
+  endTime?: Prisma.StringFilter<"RoomServiceOrder"> | string
+  notes?: Prisma.StringNullableFilter<"RoomServiceOrder"> | string | null
+  status?: Prisma.EnumRoomServiceStatusFilter<"RoomServiceOrder"> | $Enums.RoomServiceStatus
+  createdAt?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
+}
+
+export type RoomServiceOrderCreateManyRoomInput = {
+  id?: string
+  date: Date | string
+  startTime: string
+  endTime: string
+  notes?: string | null
+  status?: $Enums.RoomServiceStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type RoomServiceOrderUpdateWithoutRoomInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.StringFieldUpdateOperationsInput | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumRoomServiceStatusFieldUpdateOperationsInput | $Enums.RoomServiceStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type RoomServiceOrderUncheckedUpdateWithoutRoomInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.StringFieldUpdateOperationsInput | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumRoomServiceStatusFieldUpdateOperationsInput | $Enums.RoomServiceStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type RoomServiceOrderUncheckedUpdateManyWithoutRoomInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startTime?: Prisma.StringFieldUpdateOperationsInput | string
+  endTime?: Prisma.StringFieldUpdateOperationsInput | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumRoomServiceStatusFieldUpdateOperationsInput | $Enums.RoomServiceStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -415,6 +576,7 @@ export type RoomServiceOrderSelect<ExtArgs extends runtime.Types.Extensions.Inte
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  room?: boolean | Prisma.RoomDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["roomServiceOrder"]>
 
 export type RoomServiceOrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -427,6 +589,7 @@ export type RoomServiceOrderSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  room?: boolean | Prisma.RoomDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["roomServiceOrder"]>
 
 export type RoomServiceOrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -439,6 +602,7 @@ export type RoomServiceOrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  room?: boolean | Prisma.RoomDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["roomServiceOrder"]>
 
 export type RoomServiceOrderSelectScalar = {
@@ -454,16 +618,27 @@ export type RoomServiceOrderSelectScalar = {
 }
 
 export type RoomServiceOrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "roomId" | "date" | "startTime" | "endTime" | "notes" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["roomServiceOrder"]>
+export type RoomServiceOrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  room?: boolean | Prisma.RoomDefaultArgs<ExtArgs>
+}
+export type RoomServiceOrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  room?: boolean | Prisma.RoomDefaultArgs<ExtArgs>
+}
+export type RoomServiceOrderIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  room?: boolean | Prisma.RoomDefaultArgs<ExtArgs>
+}
 
 export type $RoomServiceOrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "RoomServiceOrder"
-  objects: {}
+  objects: {
+    room: Prisma.$RoomPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     roomId: string
     date: Date
-    startTime: Date
-    endTime: Date
+    startTime: string
+    endTime: string
     notes: string | null
     status: $Enums.RoomServiceStatus
     createdAt: Date
@@ -862,6 +1037,7 @@ readonly fields: RoomServiceOrderFieldRefs;
  */
 export interface Prisma__RoomServiceOrderClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  room<T extends Prisma.RoomDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RoomDefaultArgs<ExtArgs>>): Prisma.Prisma__RoomClient<runtime.Types.Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -894,8 +1070,8 @@ export interface RoomServiceOrderFieldRefs {
   readonly id: Prisma.FieldRef<"RoomServiceOrder", 'String'>
   readonly roomId: Prisma.FieldRef<"RoomServiceOrder", 'String'>
   readonly date: Prisma.FieldRef<"RoomServiceOrder", 'DateTime'>
-  readonly startTime: Prisma.FieldRef<"RoomServiceOrder", 'DateTime'>
-  readonly endTime: Prisma.FieldRef<"RoomServiceOrder", 'DateTime'>
+  readonly startTime: Prisma.FieldRef<"RoomServiceOrder", 'String'>
+  readonly endTime: Prisma.FieldRef<"RoomServiceOrder", 'String'>
   readonly notes: Prisma.FieldRef<"RoomServiceOrder", 'String'>
   readonly status: Prisma.FieldRef<"RoomServiceOrder", 'RoomServiceStatus'>
   readonly createdAt: Prisma.FieldRef<"RoomServiceOrder", 'DateTime'>
@@ -917,6 +1093,10 @@ export type RoomServiceOrderFindUniqueArgs<ExtArgs extends runtime.Types.Extensi
    */
   omit?: Prisma.RoomServiceOrderOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoomServiceOrderInclude<ExtArgs> | null
+  /**
    * Filter, which RoomServiceOrder to fetch.
    */
   where: Prisma.RoomServiceOrderWhereUniqueInput
@@ -935,6 +1115,10 @@ export type RoomServiceOrderFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.
    */
   omit?: Prisma.RoomServiceOrderOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoomServiceOrderInclude<ExtArgs> | null
+  /**
    * Filter, which RoomServiceOrder to fetch.
    */
   where: Prisma.RoomServiceOrderWhereUniqueInput
@@ -952,6 +1136,10 @@ export type RoomServiceOrderFindFirstArgs<ExtArgs extends runtime.Types.Extensio
    * Omit specific fields from the RoomServiceOrder
    */
   omit?: Prisma.RoomServiceOrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoomServiceOrderInclude<ExtArgs> | null
   /**
    * Filter, which RoomServiceOrder to fetch.
    */
@@ -1001,6 +1189,10 @@ export type RoomServiceOrderFindFirstOrThrowArgs<ExtArgs extends runtime.Types.E
    */
   omit?: Prisma.RoomServiceOrderOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoomServiceOrderInclude<ExtArgs> | null
+  /**
    * Filter, which RoomServiceOrder to fetch.
    */
   where?: Prisma.RoomServiceOrderWhereInput
@@ -1049,6 +1241,10 @@ export type RoomServiceOrderFindManyArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.RoomServiceOrderOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoomServiceOrderInclude<ExtArgs> | null
+  /**
    * Filter, which RoomServiceOrders to fetch.
    */
   where?: Prisma.RoomServiceOrderWhereInput
@@ -1092,6 +1288,10 @@ export type RoomServiceOrderCreateArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.RoomServiceOrderOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoomServiceOrderInclude<ExtArgs> | null
+  /**
    * The data needed to create a RoomServiceOrder.
    */
   data: Prisma.XOR<Prisma.RoomServiceOrderCreateInput, Prisma.RoomServiceOrderUncheckedCreateInput>
@@ -1125,6 +1325,10 @@ export type RoomServiceOrderCreateManyAndReturnArgs<ExtArgs extends runtime.Type
    */
   data: Prisma.RoomServiceOrderCreateManyInput | Prisma.RoomServiceOrderCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoomServiceOrderIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1139,6 +1343,10 @@ export type RoomServiceOrderUpdateArgs<ExtArgs extends runtime.Types.Extensions.
    * Omit specific fields from the RoomServiceOrder
    */
   omit?: Prisma.RoomServiceOrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoomServiceOrderInclude<ExtArgs> | null
   /**
    * The data needed to update a RoomServiceOrder.
    */
@@ -1191,6 +1399,10 @@ export type RoomServiceOrderUpdateManyAndReturnArgs<ExtArgs extends runtime.Type
    * Limit how many RoomServiceOrders to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoomServiceOrderIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1205,6 +1417,10 @@ export type RoomServiceOrderUpsertArgs<ExtArgs extends runtime.Types.Extensions.
    * Omit specific fields from the RoomServiceOrder
    */
   omit?: Prisma.RoomServiceOrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoomServiceOrderInclude<ExtArgs> | null
   /**
    * The filter to search for the RoomServiceOrder to update in case it exists.
    */
@@ -1231,6 +1447,10 @@ export type RoomServiceOrderDeleteArgs<ExtArgs extends runtime.Types.Extensions.
    * Omit specific fields from the RoomServiceOrder
    */
   omit?: Prisma.RoomServiceOrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoomServiceOrderInclude<ExtArgs> | null
   /**
    * Filter which RoomServiceOrder to delete.
    */
@@ -1263,4 +1483,8 @@ export type RoomServiceOrderDefaultArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the RoomServiceOrder
    */
   omit?: Prisma.RoomServiceOrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoomServiceOrderInclude<ExtArgs> | null
 }
