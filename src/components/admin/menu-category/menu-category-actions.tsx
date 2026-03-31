@@ -1,0 +1,74 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useNewMenuCategory } from "@/hooks/use-new-menucategory";
+import { LayoutGrid, Plus, Search } from "lucide-react";
+import { AvailabilityFilter, SortKey } from "./menu-category-utils";
+
+type Props = {
+  filter: AvailabilityFilter;
+  setFilter: (v: AvailabilityFilter) => void;
+  sort: SortKey;
+  setSort: (v: SortKey) => void;
+};
+
+const MenuCategoryActions = ({ setFilter, filter, sort, setSort }: Props) => {
+  const { onOpenNewMenuCategory } = useNewMenuCategory();
+
+  return (
+    <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="relative w-full sm:max-w-sm">
+          <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            // value={query}
+            // onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search categories..."
+            className="pl-9"
+          />
+        </div>
+
+        <Select
+          value={filter}
+          onValueChange={(v) => setFilter(v as AvailabilityFilter)}
+        >
+          <SelectTrigger size="sm">
+            <SelectValue placeholder="Filter" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All</SelectItem>
+            <SelectItem value="available">Available</SelectItem>
+            <SelectItem value="unavailable">Unavailable</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <Select value={sort} onValueChange={(v) => setSort(v as SortKey)}>
+          <SelectTrigger size="sm">
+            <LayoutGrid className="size-4 text-muted-foreground" />
+            <SelectValue placeholder="Sort" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="displayOrderAsc">Order (asc)</SelectItem>
+            <SelectItem value="nameAsc">Name (A–Z)</SelectItem>
+            <SelectItem value="updatedDesc">Recently updated</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <Button type="button" onClick={() => onOpenNewMenuCategory()}>
+        <Plus className="mr-1.5 size-4" />
+        Create category
+      </Button>
+    </div>
+  );
+};
+
+export default MenuCategoryActions;

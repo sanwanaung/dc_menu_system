@@ -25,10 +25,16 @@ model User {
 
   userRatings MenuItemRating[]
 
-  role String?
+  role String?  @default("USER")
 
   @@unique([email])
   @@map("user")
+}
+
+enum UserRole {
+  admin
+  subadmin
+  user
 }
 
 model Session {
@@ -93,6 +99,7 @@ model Room {
   updatedAt  DateTime @updatedAt
 
   menuItemRating  MenuItemRating[]
+  roomService     RoomServiceOrder[]
 
   @@index([name, roomQR])
   @@map("room")
@@ -109,10 +116,12 @@ model RoomServiceOrder {
   id          String  @id @default(cuid())
   roomId      String
   date        DateTime
-  startTime   DateTime
-  endTime     DateTime
+  startTime   String
+  endTime     String
   notes       String?
   status      RoomServiceStatus @default(PENDING)
+
+  room        Room    @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt

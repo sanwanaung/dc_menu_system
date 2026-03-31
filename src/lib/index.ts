@@ -2,9 +2,9 @@ import crypto from "crypto";
 import QRCode from "qrcode";
 
 export const allowedUserRole = {
-  ADMIN: "ADMIN",
-  SUBADMIN: "SUBADMIN",
-  USER: "USER",
+  ADMIN: "admin",
+  SUBADMIN: "subadmin",
+  USER: "user",
 };
 
 export const generateQrFile = async (roomName: string, roomQR: string) => {

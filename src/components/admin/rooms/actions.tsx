@@ -28,7 +28,7 @@ const Actions = ({ id }: ActionProps) => {
 
   if (session.error) return;
   const handlePreviewQR = async (id: string) => {
-    if (session.data?.user.role !== "ADMIN")
+    if (session.data?.user.role !== "admin")
       return toast.error("You don't have permission!");
     if (!id) return;
     const room = await getRoom({ id });
@@ -46,7 +46,7 @@ const Actions = ({ id }: ActionProps) => {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={() => {
-            if (session.data?.user.role !== "ADMIN")
+            if (session.data?.user.role !== "admin")
               return toast.error("You don't have permission!");
             onOpen(id);
           }}
@@ -56,11 +56,11 @@ const Actions = ({ id }: ActionProps) => {
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
-            if (session.data?.user.role !== "ADMIN")
+            if (session.data?.user.role !== "admin")
               return toast.error("You don't have permission!");
             onOpenDelete(id);
           }}
-          className="text-red-500 hover:text-red-400"
+          variant="destructive"
         >
           <Trash2 className="size-4 mr-2 " />
           Delete

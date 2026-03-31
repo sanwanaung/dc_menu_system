@@ -22,7 +22,7 @@ export const adminNav: AdminNavItem[] = [
   { label: "Rooms", href: "/admin/rooms", icon: BedDouble },
   {
     label: "Room Service Orders",
-    href: "/admin/orders",
+    href: "/admin/room-services",
     icon: ClipboardList,
   },
   { label: "Users", href: "/admin/users", icon: Users },
