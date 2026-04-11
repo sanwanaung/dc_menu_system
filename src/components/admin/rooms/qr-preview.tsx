@@ -1,9 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { allowedUserRole } from "@/lib";
+import { authClient } from "@/lib/auth-client";
 import { ArrowLeft, ExternalLink, Loader2, Printer } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 
 type QrPreviewProps = {
   backHref?: string;
@@ -78,6 +81,7 @@ export default function QrPreview({
   roomName,
   roomQR,
 }: QrPreviewProps) {
+  const session = authClient.useSession();
   const [loadedUrl, setLoadedUrl] = useState<string | null>(null);
   const [errorUrl, setErrorUrl] = useState<string | null>(null);
   const [banner, setBanner] = useState<BannerState | null>(null);
@@ -102,6 +106,7 @@ export default function QrPreview({
           event === "requested"
             ? "[RoomQR] Print requested"
             : "[RoomQR] Print dialog closed",
+          // Just blabla blabla
           {
             roomId,
             roomName: roomName || "",
@@ -151,8 +156,8 @@ export default function QrPreview({
   }, [log]);
 
   const onPrint = useCallback(() => {
-    log("requested");
-
+    if (session.data?.user.role !== allowedUserRole.ADMIN)
+      return toast.error("You don't have permission!");
     if (!imgUrl) {
       setBanner({ kind: "warn", url: null, text: "No QR image available." });
       return;
@@ -192,7 +197,7 @@ export default function QrPreview({
         text: "Printing failed. The QR image was opened in a new tab.",
       });
     }
-  }, [imgUrl, log, status]);
+  }, [imgUrl, log, status, session.data?.user.role]);
 
   return (
     <div className="no-print flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

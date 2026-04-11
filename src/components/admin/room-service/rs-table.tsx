@@ -9,13 +9,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatTime, statusVariant, toStatusLabel } from "@/utils";
-import { RoomServiceOrder } from "generated/prisma/client";
 import { format } from "date-fns";
 import {} from "date-fns/locale";
 import { Tag } from "../shared/tag";
 import Actions from "./actions";
+import { RoomServiceDTO } from "@/types/room-service";
 
-type RoomServiceWithRoom = RoomServiceOrder & {
+type RoomServiceWithRoom = RoomServiceDTO & {
   room: {
     name: string;
   };
@@ -44,7 +44,7 @@ const RoomServiceDataTable = ({ rs }: { rs: Props }) => {
           const endTime = formatTime(t.endTime, t.date);
           return (
             <TableRow key={t.id}>
-              <TableCell>{t.room.name}</TableCell>
+              <TableCell>{t.room?.name}</TableCell>
               <TableCell>{format(new Date(t.date), "dd/MM/yyy")}</TableCell>
               <TableCell>{startTime}</TableCell>
               <TableCell>{endTime}</TableCell>

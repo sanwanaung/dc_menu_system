@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2, Wand2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 import {
   Dialog,
@@ -27,13 +27,11 @@ import { useNewMenuCategory } from "@/hooks/use-new-menucategory";
 import { Checkbox } from "@/components/ui/checkbox";
 import { menuCategoryFormSchema } from "@/schemas/menu-category";
 import { useCallback, useEffect, useState } from "react";
-import {
-  createNewMenuCategory,
-  getMenuCategory,
-  updateMenuCategory,
-} from "@/actions/menu-category";
+import { getMenuCategory } from "@/actions/menu-category";
 import { toast } from "sonner";
 import { MenuCategory } from "generated/prisma/client";
+import { useNewMenuCategoryMutation } from "@/hooks/mutations/menu-category/use-new-menucategory";
+import { useUpdateMenuCategoryMutation } from "@/hooks/mutations/menu-category/use-update-menucategory";
 
 type FormInput = z.input<typeof menuCategoryFormSchema>;
 
@@ -43,11 +41,11 @@ const defaultValues: FormInput = {
   isAvailable: true,
 };
 
-export const NewMenuCategory = () => {
+export const NewMenuCategoryForm = () => {
+  const mutation = useNewMenuCategoryMutation();
+  const updateMutation = useUpdateMenuCategoryMutation();
   const { isOpen, onClose, mode, id } = useNewMenuCategory();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
   const [editMenuCId, setEditMenuCId] = useState<string>("");
   const [defaultMCVs, setDefaultMCVs] =
     useState<Pick<MenuCategory, "name" | "displayOrder" | "isAvailable">>();
@@ -84,22 +82,20 @@ export const NewMenuCategory = () => {
 
   const handleOpenChange = useCallback(
     (open: boolean) => {
-      if (!open && !isSubmitting) onClose();
+      if (!open && !mutation.isPending) onClose();
     },
-    [onClose, isSubmitting],
+    [onClose, mutation.isPending],
   );
 
   const handleCreateNewMenuCategory = async (data: FormInput) => {
-    setIsSubmitting(true);
-    const result = await createNewMenuCategory(data);
-    setIsSubmitting(false);
-    form.reset({
-      name: "",
-      isAvailable: false,
-      displayOrder: 0,
-    });
-    if (result.error) return toast.error(result.error);
-    toast.success(result.message);
+    mutation.mutate({ form: data });
+    if (mutation.isSuccess || mutation.isError) {
+      form.reset({
+        name: "",
+        isAvailable: false,
+        displayOrder: 0,
+      });
+    }
   };
 
   const handleEidtMenuCategory = async (data: FormInput) => {
@@ -109,23 +105,20 @@ export const NewMenuCategory = () => {
       defaultMCVs?.displayOrder !== data.displayOrder ||
       defaultMCVs?.isAvailable !== data.isAvailable;
     if (!isValid) return toast.error("Nothing hasn't changed yet!");
-    setIsEditing(true);
-    const result = await updateMenuCategory(editMenuCId, data);
-    setIsEditing(false);
-    if (result.error) return toast.error(result.error);
-    toast.success(result.message);
+    updateMutation.mutate({ id: editMenuCId, form: data });
+    if (updateMutation.isSuccess || updateMutation.isError) return onClose();
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent
         className="sm:max-w-lg"
-        showCloseButton={!isSubmitting}
+        showCloseButton={!mutation.isPending}
         onEscapeKeyDown={(e) => {
-          if (isSubmitting) e.preventDefault();
+          if (mutation.isPending) e.preventDefault();
         }}
         onPointerDownOutside={(e) => {
-          if (isSubmitting) e.preventDefault();
+          if (mutation.isPending) e.preventDefault();
         }}
       >
         <DialogHeader>
@@ -159,7 +152,7 @@ export const NewMenuCategory = () => {
                     id="menu-category-name"
                     placeholder="Breakfast"
                     autoComplete="off"
-                    disabled={isSubmitting}
+                    disabled={mutation.isPending}
                     aria-invalid={fieldState.invalid}
                     autoFocus
                   />
@@ -185,7 +178,7 @@ export const NewMenuCategory = () => {
                     inputMode="numeric"
                     min={0}
                     step={1}
-                    disabled={isSubmitting}
+                    disabled={mutation.isPending}
                     value={(field.value as number) ?? 0}
                     onChange={(e) => field.onChange(Number(e.target.value))}
                     aria-invalid={fieldState.invalid}
@@ -209,7 +202,7 @@ export const NewMenuCategory = () => {
                     id="menu-category-available"
                     checked={field.value}
                     onCheckedChange={(checked) => field.onChange(!!checked)}
-                    disabled={isSubmitting}
+                    disabled={mutation.isPending}
                     aria-label="Available"
                   />
                   <div className="grid gap-0.5 leading-snug">
@@ -229,15 +222,17 @@ export const NewMenuCategory = () => {
               type="button"
               variant="outline"
               onClick={() => onClose()}
-              disabled={isSubmitting || isEditing}
+              disabled={mutation.isPending || updateMutation.isPending}
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              disabled={isSubmitting || isLoading || isEditing}
+              disabled={
+                mutation.isPending || isLoading || updateMutation.isPending
+              }
             >
-              {isSubmitting || isEditing ? (
+              {mutation.isPending || updateMutation.isPending ? (
                 <Loader2 className="animate-spin size-4" />
               ) : mode === "create" ? (
                 "Create"

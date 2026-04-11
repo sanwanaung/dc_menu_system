@@ -38,6 +38,7 @@ export type VariantOptionMinAggregateOutputType = {
   id: string | null
   name: string | null
   price: runtime.Decimal | null
+  variantGroupId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -46,6 +47,7 @@ export type VariantOptionMaxAggregateOutputType = {
   id: string | null
   name: string | null
   price: runtime.Decimal | null
+  variantGroupId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -54,6 +56,7 @@ export type VariantOptionCountAggregateOutputType = {
   id: number
   name: number
   price: number
+  variantGroupId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -72,6 +75,7 @@ export type VariantOptionMinAggregateInputType = {
   id?: true
   name?: true
   price?: true
+  variantGroupId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -80,6 +84,7 @@ export type VariantOptionMaxAggregateInputType = {
   id?: true
   name?: true
   price?: true
+  variantGroupId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -88,6 +93,7 @@ export type VariantOptionCountAggregateInputType = {
   id?: true
   name?: true
   price?: true
+  variantGroupId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -183,6 +189,7 @@ export type VariantOptionGroupByOutputType = {
   id: string
   name: string
   price: runtime.Decimal
+  variantGroupId: string | null
   createdAt: Date
   updatedAt: Date
   _count: VariantOptionCountAggregateOutputType | null
@@ -214,8 +221,10 @@ export type VariantOptionWhereInput = {
   id?: Prisma.StringFilter<"VariantOption"> | string
   name?: Prisma.StringFilter<"VariantOption"> | string
   price?: Prisma.DecimalFilter<"VariantOption"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  variantGroupId?: Prisma.StringNullableFilter<"VariantOption"> | string | null
   createdAt?: Prisma.DateTimeFilter<"VariantOption"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"VariantOption"> | Date | string
+  variantGroup?: Prisma.XOR<Prisma.VariantGroupNullableScalarRelationFilter, Prisma.VariantGroupWhereInput> | null
   MenuItemVariantOptions?: Prisma.MenuItemVariantOptionListRelationFilter
 }
 
@@ -223,8 +232,10 @@ export type VariantOptionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  variantGroupId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  variantGroup?: Prisma.VariantGroupOrderByWithRelationInput
   MenuItemVariantOptions?: Prisma.MenuItemVariantOptionOrderByRelationAggregateInput
 }
 
@@ -235,8 +246,10 @@ export type VariantOptionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.VariantOptionWhereInput | Prisma.VariantOptionWhereInput[]
   name?: Prisma.StringFilter<"VariantOption"> | string
   price?: Prisma.DecimalFilter<"VariantOption"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  variantGroupId?: Prisma.StringNullableFilter<"VariantOption"> | string | null
   createdAt?: Prisma.DateTimeFilter<"VariantOption"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"VariantOption"> | Date | string
+  variantGroup?: Prisma.XOR<Prisma.VariantGroupNullableScalarRelationFilter, Prisma.VariantGroupWhereInput> | null
   MenuItemVariantOptions?: Prisma.MenuItemVariantOptionListRelationFilter
 }, "id">
 
@@ -244,6 +257,7 @@ export type VariantOptionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  variantGroupId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.VariantOptionCountOrderByAggregateInput
@@ -260,6 +274,7 @@ export type VariantOptionScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"VariantOption"> | string
   name?: Prisma.StringWithAggregatesFilter<"VariantOption"> | string
   price?: Prisma.DecimalWithAggregatesFilter<"VariantOption"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  variantGroupId?: Prisma.StringNullableWithAggregatesFilter<"VariantOption"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"VariantOption"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"VariantOption"> | Date | string
 }
@@ -270,6 +285,7 @@ export type VariantOptionCreateInput = {
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  variantGroup?: Prisma.VariantGroupCreateNestedOneWithoutOptionsInput
   MenuItemVariantOptions?: Prisma.MenuItemVariantOptionCreateNestedManyWithoutVariantOptionInput
 }
 
@@ -277,6 +293,7 @@ export type VariantOptionUncheckedCreateInput = {
   id?: string
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  variantGroupId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   MenuItemVariantOptions?: Prisma.MenuItemVariantOptionUncheckedCreateNestedManyWithoutVariantOptionInput
@@ -288,6 +305,7 @@ export type VariantOptionUpdateInput = {
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  variantGroup?: Prisma.VariantGroupUpdateOneWithoutOptionsNestedInput
   MenuItemVariantOptions?: Prisma.MenuItemVariantOptionUpdateManyWithoutVariantOptionNestedInput
 }
 
@@ -295,6 +313,7 @@ export type VariantOptionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  variantGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   MenuItemVariantOptions?: Prisma.MenuItemVariantOptionUncheckedUpdateManyWithoutVariantOptionNestedInput
@@ -304,6 +323,7 @@ export type VariantOptionCreateManyInput = {
   id?: string
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  variantGroupId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -320,6 +340,7 @@ export type VariantOptionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  variantGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -328,6 +349,7 @@ export type VariantOptionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  variantGroupId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -340,6 +362,7 @@ export type VariantOptionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  variantGroupId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -348,6 +371,7 @@ export type VariantOptionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  variantGroupId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -356,9 +380,61 @@ export type VariantOptionSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
 }
 
+export type VariantOptionListRelationFilter = {
+  every?: Prisma.VariantOptionWhereInput
+  some?: Prisma.VariantOptionWhereInput
+  none?: Prisma.VariantOptionWhereInput
+}
+
+export type VariantOptionOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
 export type VariantOptionScalarRelationFilter = {
   is?: Prisma.VariantOptionWhereInput
   isNot?: Prisma.VariantOptionWhereInput
+}
+
+export type VariantOptionCreateNestedManyWithoutVariantGroupInput = {
+  create?: Prisma.XOR<Prisma.VariantOptionCreateWithoutVariantGroupInput, Prisma.VariantOptionUncheckedCreateWithoutVariantGroupInput> | Prisma.VariantOptionCreateWithoutVariantGroupInput[] | Prisma.VariantOptionUncheckedCreateWithoutVariantGroupInput[]
+  connectOrCreate?: Prisma.VariantOptionCreateOrConnectWithoutVariantGroupInput | Prisma.VariantOptionCreateOrConnectWithoutVariantGroupInput[]
+  createMany?: Prisma.VariantOptionCreateManyVariantGroupInputEnvelope
+  connect?: Prisma.VariantOptionWhereUniqueInput | Prisma.VariantOptionWhereUniqueInput[]
+}
+
+export type VariantOptionUncheckedCreateNestedManyWithoutVariantGroupInput = {
+  create?: Prisma.XOR<Prisma.VariantOptionCreateWithoutVariantGroupInput, Prisma.VariantOptionUncheckedCreateWithoutVariantGroupInput> | Prisma.VariantOptionCreateWithoutVariantGroupInput[] | Prisma.VariantOptionUncheckedCreateWithoutVariantGroupInput[]
+  connectOrCreate?: Prisma.VariantOptionCreateOrConnectWithoutVariantGroupInput | Prisma.VariantOptionCreateOrConnectWithoutVariantGroupInput[]
+  createMany?: Prisma.VariantOptionCreateManyVariantGroupInputEnvelope
+  connect?: Prisma.VariantOptionWhereUniqueInput | Prisma.VariantOptionWhereUniqueInput[]
+}
+
+export type VariantOptionUpdateManyWithoutVariantGroupNestedInput = {
+  create?: Prisma.XOR<Prisma.VariantOptionCreateWithoutVariantGroupInput, Prisma.VariantOptionUncheckedCreateWithoutVariantGroupInput> | Prisma.VariantOptionCreateWithoutVariantGroupInput[] | Prisma.VariantOptionUncheckedCreateWithoutVariantGroupInput[]
+  connectOrCreate?: Prisma.VariantOptionCreateOrConnectWithoutVariantGroupInput | Prisma.VariantOptionCreateOrConnectWithoutVariantGroupInput[]
+  upsert?: Prisma.VariantOptionUpsertWithWhereUniqueWithoutVariantGroupInput | Prisma.VariantOptionUpsertWithWhereUniqueWithoutVariantGroupInput[]
+  createMany?: Prisma.VariantOptionCreateManyVariantGroupInputEnvelope
+  set?: Prisma.VariantOptionWhereUniqueInput | Prisma.VariantOptionWhereUniqueInput[]
+  disconnect?: Prisma.VariantOptionWhereUniqueInput | Prisma.VariantOptionWhereUniqueInput[]
+  delete?: Prisma.VariantOptionWhereUniqueInput | Prisma.VariantOptionWhereUniqueInput[]
+  connect?: Prisma.VariantOptionWhereUniqueInput | Prisma.VariantOptionWhereUniqueInput[]
+  update?: Prisma.VariantOptionUpdateWithWhereUniqueWithoutVariantGroupInput | Prisma.VariantOptionUpdateWithWhereUniqueWithoutVariantGroupInput[]
+  updateMany?: Prisma.VariantOptionUpdateManyWithWhereWithoutVariantGroupInput | Prisma.VariantOptionUpdateManyWithWhereWithoutVariantGroupInput[]
+  deleteMany?: Prisma.VariantOptionScalarWhereInput | Prisma.VariantOptionScalarWhereInput[]
+}
+
+export type VariantOptionUncheckedUpdateManyWithoutVariantGroupNestedInput = {
+  create?: Prisma.XOR<Prisma.VariantOptionCreateWithoutVariantGroupInput, Prisma.VariantOptionUncheckedCreateWithoutVariantGroupInput> | Prisma.VariantOptionCreateWithoutVariantGroupInput[] | Prisma.VariantOptionUncheckedCreateWithoutVariantGroupInput[]
+  connectOrCreate?: Prisma.VariantOptionCreateOrConnectWithoutVariantGroupInput | Prisma.VariantOptionCreateOrConnectWithoutVariantGroupInput[]
+  upsert?: Prisma.VariantOptionUpsertWithWhereUniqueWithoutVariantGroupInput | Prisma.VariantOptionUpsertWithWhereUniqueWithoutVariantGroupInput[]
+  createMany?: Prisma.VariantOptionCreateManyVariantGroupInputEnvelope
+  set?: Prisma.VariantOptionWhereUniqueInput | Prisma.VariantOptionWhereUniqueInput[]
+  disconnect?: Prisma.VariantOptionWhereUniqueInput | Prisma.VariantOptionWhereUniqueInput[]
+  delete?: Prisma.VariantOptionWhereUniqueInput | Prisma.VariantOptionWhereUniqueInput[]
+  connect?: Prisma.VariantOptionWhereUniqueInput | Prisma.VariantOptionWhereUniqueInput[]
+  update?: Prisma.VariantOptionUpdateWithWhereUniqueWithoutVariantGroupInput | Prisma.VariantOptionUpdateWithWhereUniqueWithoutVariantGroupInput[]
+  updateMany?: Prisma.VariantOptionUpdateManyWithWhereWithoutVariantGroupInput | Prisma.VariantOptionUpdateManyWithWhereWithoutVariantGroupInput[]
+  deleteMany?: Prisma.VariantOptionScalarWhereInput | Prisma.VariantOptionScalarWhereInput[]
 }
 
 export type VariantOptionCreateNestedOneWithoutMenuItemVariantOptionsInput = {
@@ -375,18 +451,76 @@ export type VariantOptionUpdateOneRequiredWithoutMenuItemVariantOptionsNestedInp
   update?: Prisma.XOR<Prisma.XOR<Prisma.VariantOptionUpdateToOneWithWhereWithoutMenuItemVariantOptionsInput, Prisma.VariantOptionUpdateWithoutMenuItemVariantOptionsInput>, Prisma.VariantOptionUncheckedUpdateWithoutMenuItemVariantOptionsInput>
 }
 
+export type VariantOptionCreateWithoutVariantGroupInput = {
+  id?: string
+  name: string
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  MenuItemVariantOptions?: Prisma.MenuItemVariantOptionCreateNestedManyWithoutVariantOptionInput
+}
+
+export type VariantOptionUncheckedCreateWithoutVariantGroupInput = {
+  id?: string
+  name: string
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  MenuItemVariantOptions?: Prisma.MenuItemVariantOptionUncheckedCreateNestedManyWithoutVariantOptionInput
+}
+
+export type VariantOptionCreateOrConnectWithoutVariantGroupInput = {
+  where: Prisma.VariantOptionWhereUniqueInput
+  create: Prisma.XOR<Prisma.VariantOptionCreateWithoutVariantGroupInput, Prisma.VariantOptionUncheckedCreateWithoutVariantGroupInput>
+}
+
+export type VariantOptionCreateManyVariantGroupInputEnvelope = {
+  data: Prisma.VariantOptionCreateManyVariantGroupInput | Prisma.VariantOptionCreateManyVariantGroupInput[]
+  skipDuplicates?: boolean
+}
+
+export type VariantOptionUpsertWithWhereUniqueWithoutVariantGroupInput = {
+  where: Prisma.VariantOptionWhereUniqueInput
+  update: Prisma.XOR<Prisma.VariantOptionUpdateWithoutVariantGroupInput, Prisma.VariantOptionUncheckedUpdateWithoutVariantGroupInput>
+  create: Prisma.XOR<Prisma.VariantOptionCreateWithoutVariantGroupInput, Prisma.VariantOptionUncheckedCreateWithoutVariantGroupInput>
+}
+
+export type VariantOptionUpdateWithWhereUniqueWithoutVariantGroupInput = {
+  where: Prisma.VariantOptionWhereUniqueInput
+  data: Prisma.XOR<Prisma.VariantOptionUpdateWithoutVariantGroupInput, Prisma.VariantOptionUncheckedUpdateWithoutVariantGroupInput>
+}
+
+export type VariantOptionUpdateManyWithWhereWithoutVariantGroupInput = {
+  where: Prisma.VariantOptionScalarWhereInput
+  data: Prisma.XOR<Prisma.VariantOptionUpdateManyMutationInput, Prisma.VariantOptionUncheckedUpdateManyWithoutVariantGroupInput>
+}
+
+export type VariantOptionScalarWhereInput = {
+  AND?: Prisma.VariantOptionScalarWhereInput | Prisma.VariantOptionScalarWhereInput[]
+  OR?: Prisma.VariantOptionScalarWhereInput[]
+  NOT?: Prisma.VariantOptionScalarWhereInput | Prisma.VariantOptionScalarWhereInput[]
+  id?: Prisma.StringFilter<"VariantOption"> | string
+  name?: Prisma.StringFilter<"VariantOption"> | string
+  price?: Prisma.DecimalFilter<"VariantOption"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  variantGroupId?: Prisma.StringNullableFilter<"VariantOption"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"VariantOption"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"VariantOption"> | Date | string
+}
+
 export type VariantOptionCreateWithoutMenuItemVariantOptionsInput = {
   id?: string
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  variantGroup?: Prisma.VariantGroupCreateNestedOneWithoutOptionsInput
 }
 
 export type VariantOptionUncheckedCreateWithoutMenuItemVariantOptionsInput = {
   id?: string
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  variantGroupId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -413,9 +547,45 @@ export type VariantOptionUpdateWithoutMenuItemVariantOptionsInput = {
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  variantGroup?: Prisma.VariantGroupUpdateOneWithoutOptionsNestedInput
 }
 
 export type VariantOptionUncheckedUpdateWithoutMenuItemVariantOptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  variantGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type VariantOptionCreateManyVariantGroupInput = {
+  id?: string
+  name: string
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type VariantOptionUpdateWithoutVariantGroupInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  MenuItemVariantOptions?: Prisma.MenuItemVariantOptionUpdateManyWithoutVariantOptionNestedInput
+}
+
+export type VariantOptionUncheckedUpdateWithoutVariantGroupInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  MenuItemVariantOptions?: Prisma.MenuItemVariantOptionUncheckedUpdateManyWithoutVariantOptionNestedInput
+}
+
+export type VariantOptionUncheckedUpdateManyWithoutVariantGroupInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -458,8 +628,10 @@ export type VariantOptionSelect<ExtArgs extends runtime.Types.Extensions.Interna
   id?: boolean
   name?: boolean
   price?: boolean
+  variantGroupId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  variantGroup?: boolean | Prisma.VariantOption$variantGroupArgs<ExtArgs>
   MenuItemVariantOptions?: boolean | Prisma.VariantOption$MenuItemVariantOptionsArgs<ExtArgs>
   _count?: boolean | Prisma.VariantOptionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["variantOption"]>
@@ -468,43 +640,55 @@ export type VariantOptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   name?: boolean
   price?: boolean
+  variantGroupId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  variantGroup?: boolean | Prisma.VariantOption$variantGroupArgs<ExtArgs>
 }, ExtArgs["result"]["variantOption"]>
 
 export type VariantOptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   price?: boolean
+  variantGroupId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  variantGroup?: boolean | Prisma.VariantOption$variantGroupArgs<ExtArgs>
 }, ExtArgs["result"]["variantOption"]>
 
 export type VariantOptionSelectScalar = {
   id?: boolean
   name?: boolean
   price?: boolean
+  variantGroupId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type VariantOptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "price" | "createdAt" | "updatedAt", ExtArgs["result"]["variantOption"]>
+export type VariantOptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "price" | "variantGroupId" | "createdAt" | "updatedAt", ExtArgs["result"]["variantOption"]>
 export type VariantOptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  variantGroup?: boolean | Prisma.VariantOption$variantGroupArgs<ExtArgs>
   MenuItemVariantOptions?: boolean | Prisma.VariantOption$MenuItemVariantOptionsArgs<ExtArgs>
   _count?: boolean | Prisma.VariantOptionCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type VariantOptionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type VariantOptionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type VariantOptionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  variantGroup?: boolean | Prisma.VariantOption$variantGroupArgs<ExtArgs>
+}
+export type VariantOptionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  variantGroup?: boolean | Prisma.VariantOption$variantGroupArgs<ExtArgs>
+}
 
 export type $VariantOptionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "VariantOption"
   objects: {
+    variantGroup: Prisma.$VariantGroupPayload<ExtArgs> | null
     MenuItemVariantOptions: Prisma.$MenuItemVariantOptionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     price: runtime.Decimal
+    variantGroupId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["variantOption"]>
@@ -901,6 +1085,7 @@ readonly fields: VariantOptionFieldRefs;
  */
 export interface Prisma__VariantOptionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  variantGroup<T extends Prisma.VariantOption$variantGroupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VariantOption$variantGroupArgs<ExtArgs>>): Prisma.Prisma__VariantGroupClient<runtime.Types.Result.GetResult<Prisma.$VariantGroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   MenuItemVariantOptions<T extends Prisma.VariantOption$MenuItemVariantOptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VariantOption$MenuItemVariantOptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MenuItemVariantOptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -934,6 +1119,7 @@ export interface VariantOptionFieldRefs {
   readonly id: Prisma.FieldRef<"VariantOption", 'String'>
   readonly name: Prisma.FieldRef<"VariantOption", 'String'>
   readonly price: Prisma.FieldRef<"VariantOption", 'Decimal'>
+  readonly variantGroupId: Prisma.FieldRef<"VariantOption", 'String'>
   readonly createdAt: Prisma.FieldRef<"VariantOption", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"VariantOption", 'DateTime'>
 }
@@ -1185,6 +1371,10 @@ export type VariantOptionCreateManyAndReturnArgs<ExtArgs extends runtime.Types.E
    */
   data: Prisma.VariantOptionCreateManyInput | Prisma.VariantOptionCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VariantOptionIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1255,6 +1445,10 @@ export type VariantOptionUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.E
    * Limit how many VariantOptions to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VariantOptionIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1321,6 +1515,25 @@ export type VariantOptionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many VariantOptions to delete.
    */
   limit?: number
+}
+
+/**
+ * VariantOption.variantGroup
+ */
+export type VariantOption$variantGroupArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the VariantGroup
+   */
+  select?: Prisma.VariantGroupSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the VariantGroup
+   */
+  omit?: Prisma.VariantGroupOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VariantGroupInclude<ExtArgs> | null
+  where?: Prisma.VariantGroupWhereInput
 }
 
 /**

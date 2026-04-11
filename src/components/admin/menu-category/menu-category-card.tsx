@@ -1,6 +1,5 @@
 "use client";
 
-import type { MenuCategory } from "./types";
 import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -14,12 +13,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { format } from "date-fns";
 import { MoreHorizontal, Pencil, Trash2, Eye, EyeOff } from "lucide-react";
+import { MenuCategoryDTO } from "@/types/menu-category";
 
 type Props = {
-  category: MenuCategory;
-  onEdit: (category: MenuCategory) => void;
-  onDelete: (category: MenuCategory) => void;
-  onToggleAvailability: (category: MenuCategory) => void;
+  category: MenuCategoryDTO;
+  onEdit: (category: MenuCategoryDTO) => void;
+  onDelete: (category: MenuCategoryDTO) => void;
+  onToggleAvailability: (category: MenuCategoryDTO) => void;
 };
 
 function AvailabilityPill({ isAvailable }: { isAvailable: boolean }) {

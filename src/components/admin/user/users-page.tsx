@@ -1,26 +1,38 @@
 "use client";
 
 import { getFormatedData, normalize } from "@/utils";
-import { User } from "generated/prisma/client";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { DataTable } from "./data-table";
 import { columns, UserType } from "./columns";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { getUsers } from "@/actions/user";
+import { PaginationState } from "@tanstack/react-table";
+import { Loader2 } from "lucide-react";
 
-type Props = {
-  initialUsers: User[];
-};
-
-const UserPage = ({ initialUsers }: Props) => {
-  const [users, setUsers] = useState(() => initialUsers ?? []);
+const UserPage = () => {
   const [query, setQuery] = useState<string>("");
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 2,
+  });
 
-  useEffect(() => {
-    setUsers(initialUsers);
-  }, [initialUsers]);
+  const { data, isPending, isLoading } = useQuery({
+    queryKey: ["user", pagination.pageIndex, pagination.pageSize],
+    queryFn: () =>
+      getUsers({
+        limit: pagination.pageSize,
+        offset: Number(pagination.pageIndex),
+      }),
+    placeholderData: keepPreviousData,
+  });
+
+  const allUsers = useMemo(() => {
+    return data?.data?.items ?? [];
+  }, [data]);
 
   const filteredUsers = useMemo(() => {
     const q = normalize(query);
-    return users
+    return allUsers
       .filter((r) => {
         if (!q) return true;
         return (
@@ -32,7 +44,7 @@ const UserPage = ({ initialUsers }: Props) => {
       .sort((a, b) =>
         a.name.localeCompare(b.name, undefined, { numeric: true }),
       );
-  }, [users, query]);
+  }, [allUsers, query]);
 
   const generatedUsers = getFormatedData(filteredUsers, [
     "id",
@@ -41,16 +53,24 @@ const UserPage = ({ initialUsers }: Props) => {
     "role",
   ]) as UserType[];
 
-  console.log("ggg:");
-
   return (
     <>
-      <DataTable
-        data={generatedUsers}
-        columns={columns}
-        query={query}
-        setQuery={setQuery}
-      />
+      {isPending || isLoading ? (
+        <div className=" flex items-center justify-center w-full min-h-100">
+          <Loader2 className="animate-spin size-6" />
+        </div>
+      ) : (
+        <DataTable
+          data={generatedUsers}
+          columns={columns}
+          query={query}
+          setQuery={setQuery}
+          pagination={pagination}
+          setPagination={setPagination}
+          rowsCount={data?.data?.meta.total ?? 0}
+          pageCount={data?.data?.meta.pageCount ?? 0}
+        />
+      )}
     </>
   );
 };

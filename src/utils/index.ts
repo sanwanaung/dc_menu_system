@@ -1,3 +1,4 @@
+import { RoomServiceDTOStatus } from "@/types/room-service/room-service.dto";
 import { format, set } from "date-fns";
 
 export function generateFilterOptions<T>(data: T[], key: keyof T) {
@@ -36,7 +37,8 @@ export function getFormatedData<T, K extends keyof T>(data: T[], keys: K[]) {
 }
 
 export function formatTime(time: string, d: Date) {
-  const [hours, minutes, seconds] = time.split(":").map(Number);
+  if (!time || !d) return;
+  const [hours, minutes, seconds] = time?.split(":").map(Number);
 
   const date = set(d, {
     hours,
@@ -62,20 +64,14 @@ export function normalize(input: string) {
   return input.trim().toLowerCase();
 }
 
-export type RoomServiceStatus =
-  | "PENDING"
-  | "ACCEPTED"
-  | "CANCELED"
-  | "FINISHED";
-
-export const ROOM_SERVICE_STATUSES: RoomServiceStatus[] = [
+export const ROOM_SERVICE_STATUSES: RoomServiceDTOStatus[] = [
   "PENDING",
   "ACCEPTED",
   "CANCELED",
   "FINISHED",
 ];
 
-export function toStatusLabel(status: RoomServiceStatus) {
+export function toStatusLabel(status: RoomServiceDTOStatus) {
   switch (status) {
     case "PENDING":
       return "Pending";
@@ -89,7 +85,8 @@ export function toStatusLabel(status: RoomServiceStatus) {
       return status;
   }
 }
-export function statusVariant(status: RoomServiceStatus) {
+
+export function statusVariant(status: RoomServiceDTOStatus) {
   switch (status) {
     case "PENDING":
       return "warning";

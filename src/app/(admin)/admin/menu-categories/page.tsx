@@ -1,14 +1,20 @@
 import { getMenuCategories } from "@/actions/menu-category";
 import { AdminLayout } from "@/components/admin/admin-layout";
 import MenuCategoriesPage from "@/components/admin/menu-category/menu-categories";
+import { QueryClient } from "@tanstack/react-query";
 
 export default async function AdminMenuCategoriesPage() {
-  const result = await getMenuCategories();
-  if (result.error) return <div>{result.error}</div>;
-  if (!result.data) return <div>No Data</div>;
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: ["menu-category"],
+    initialPageParam: 0,
+    queryFn: ({ pageParam }) =>
+      getMenuCategories({ limit: 6, offset: Number(pageParam) }),
+  });
   return (
     <AdminLayout>
-      <MenuCategoriesPage menuCategories={result.data!} />
+      <MenuCategoriesPage />
     </AdminLayout>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { updateRoomServiceStatus } from "@/actions/room-service";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -9,13 +8,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { useAcceptRsMutation } from "@/hooks/mutations/room-service/use-accept-rs";
+import { useFinishRsMutation } from "@/hooks/mutations/room-service/use-finish-rs";
 import { useCancelRs } from "@/hooks/use-cancel-rs";
 import { useDeleteRs } from "@/hooks/use-delete-rs";
 import { useViewRsNotes } from "@/hooks/use-view-rs";
 import { allowedUserRole } from "@/lib";
 import { authClient } from "@/lib/auth-client";
-import { RoomServiceStatus } from "@/utils";
-import { RoomServiceOrder } from "generated/prisma/client";
+import { RoomServiceDTO, RoomServiceDTOStatus } from "@/types/room-service";
 
 import {
   CheckCircle2,
@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
-type RoomServiceWithRoom = RoomServiceOrder & {
+type RoomServiceWithRoom = RoomServiceDTO & {
   room: {
     name: string;
   };
@@ -41,25 +41,23 @@ const Actions = ({ t }: Props) => {
   const { onOpenCancel } = useCancelRs();
   const { onOpenDelete } = useDeleteRs();
   const { onOpenViewNote } = useViewRsNotes();
+  const acceptMutation = useAcceptRsMutation();
+  const finishMutation = useFinishRsMutation();
   const session = authClient.useSession();
 
-  const handleAccept = async (id: string, status: RoomServiceStatus) => {
+  const handleAccept = async (id: string, status: RoomServiceDTOStatus) => {
     if (session.data?.user.role !== allowedUserRole.ADMIN)
       return toast.error("You don't have permission!");
-    const result = await updateRoomServiceStatus(id, status);
-    if (result.error) return toast.error(result.error);
-    toast.success(`Marked as ${status}`);
+    acceptMutation.mutate({ id, status });
   };
 
-  const handleFinish = async (id: string, status: RoomServiceStatus) => {
+  const handleFinish = async (id: string, status: RoomServiceDTOStatus) => {
     if (session.data?.user.role !== allowedUserRole.ADMIN)
       return toast.error("You don't have permission!");
-    const result = await updateRoomServiceStatus(id, status);
-    if (result.error) return toast.error(result.error);
-    toast.success(`Marked as ${status}`);
+    finishMutation.mutate({ id, status });
   };
 
-  const handleCancel = async (id: string, status: RoomServiceStatus) => {
+  const handleCancel = async (id: string, status: RoomServiceDTOStatus) => {
     if (session.data?.user.role !== allowedUserRole.ADMIN)
       return toast.error("You don't have permission!");
     onOpenCancel(id, status);
@@ -99,7 +97,11 @@ const Actions = ({ t }: Props) => {
           Finished
         </DropdownMenuItem>
         <DropdownMenuItem
-          disabled={t.status === "ACCEPTED" || t.status === "FINISHED"}
+          disabled={
+            t.status === "ACCEPTED" ||
+            t.status === "FINISHED" ||
+            t.status === "CANCELED"
+          }
           className="hover:text-red-300"
           onClick={() => handleCancel(t.id, "CANCELED")}
         >

@@ -5,6 +5,9 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
+  getPaginationRowModel,
+  PaginationState,
+  OnChangeFn,
 } from "@tanstack/react-table";
 import {
   Table,
@@ -17,8 +20,6 @@ import {
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
@@ -28,7 +29,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, SlidersHorizontal } from "lucide-react";
-import { FilterOptionType } from "@/types";
+import { FilterOptionType } from "./room-utils";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -40,6 +41,10 @@ interface DataTableProps<TData, TValue> {
   updateFilter: (name: string, value: string) => void;
   setQuery: (v: string) => void;
   query: string;
+  pagination: PaginationState;
+  setPagination: OnChangeFn<PaginationState>;
+  rowsCount?: number;
+  pageCount?: number;
 }
 
 export function DataTable<TData, TValue>({
@@ -52,11 +57,23 @@ export function DataTable<TData, TValue>({
   filterValues,
   updateFilter,
   query,
+  rowsCount,
+  pageCount,
+  pagination,
+  setPagination,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    rowCount: rowsCount,
+    pageCount,
+    manualPagination: true,
+    state: {
+      pagination,
+    },
+    onPaginationChange: setPagination,
   });
 
   const hasActiveFilter = Object.values(filterValues).some((v) => v !== "all");
@@ -177,6 +194,31 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
+      <div className="flex items-center justify-between space-x-2 py-4">
+        <div className="ml-3 text-muted-foreground text-xs">
+          <span>
+            Page {pagination.pageIndex + 1} of {pageCount}
+          </span>
+        </div>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

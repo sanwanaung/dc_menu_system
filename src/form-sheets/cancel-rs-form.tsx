@@ -1,9 +1,5 @@
 "use client";
 
-import {
-  cancelRoomService,
-  updateRoomServiceStatus,
-} from "@/actions/room-service";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,6 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
+import { useCancelRsMutation } from "@/hooks/mutations/room-service/use-cancel-rs";
 import { useCancelRs } from "@/hooks/use-cancel-rs";
 import { Loader2 } from "lucide-react";
 import { useCallback, useState } from "react";
@@ -20,24 +17,22 @@ import { toast } from "sonner";
 
 export const CancellRsForm = () => {
   const { isOpen, onClose, id, status } = useCancelRs();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [option, setOption] = useState<string>("");
+  const mutation = useCancelRsMutation();
 
   const handleDialogOpenChange = useCallback(
     (open: boolean) => {
-      if (!open && !isSubmitting) onClose();
+      if (!open && !mutation.isPending) onClose();
     },
-    [onClose, isSubmitting],
+    [onClose, mutation.isPending],
   );
 
   const handleCancelRs = async () => {
-    setIsSubmitting(true);
     if (!id || !status) return toast.error("Try again!");
-    const result = await cancelRoomService(id, status, option);
-    if (result.error) return toast.error(result.error);
-    toast.success(`Marked as ${status}`);
-    setIsSubmitting(false);
-    onClose();
+    mutation.mutate({ id, status, option });
+    if (!mutation.isPending || mutation.isError) {
+      onClose();
+    }
   };
 
   return (
@@ -47,10 +42,10 @@ export const CancellRsForm = () => {
           className="sm:max-w-lg p-8"
           showCloseButton={false}
           onEscapeKeyDown={(e) => {
-            if (isSubmitting) e.preventDefault();
+            if (mutation.isPending) e.preventDefault();
           }}
           onPointerDownOutside={(e) => {
-            if (isSubmitting) e.preventDefault();
+            if (mutation.isPending) e.preventDefault();
           }}
         >
           <DialogHeader>
@@ -64,7 +59,7 @@ export const CancellRsForm = () => {
               className="min-h-50"
               placeholder="eg. Outside service hours or Staff unavailable"
               onChange={(e) => setOption(e.target.value)}
-              disabled={isSubmitting}
+              disabled={mutation.isPending}
             />
           </div>
           <div className="flex gap-x-2">
@@ -72,7 +67,7 @@ export const CancellRsForm = () => {
               size="lg"
               className="w-26"
               onClick={() => onClose()}
-              disabled={isSubmitting}
+              disabled={mutation.isPending}
             >
               Cancel
             </Button>
@@ -80,10 +75,10 @@ export const CancellRsForm = () => {
               size="lg"
               variant="destructive"
               className="w-26 bg-red-500 text-white hover:bg-red-400"
-              disabled={isSubmitting}
+              disabled={mutation.isPending}
               onClick={handleCancelRs}
             >
-              {isSubmitting ? (
+              {mutation.isPending ? (
                 <Loader2 className="size-4 animate-spin" />
               ) : (
                 "Confirm"

@@ -31,10 +31,6 @@ export default function Home() {
   if (isPending) return <div>Loading....</div>;
 
   const handleBlaBla = async () => {
-    console.log(name);
-    console.log(date);
-    console.log(startTime);
-    console.log(endTime);
     if (!name || !date || !startTime || !endTime)
       return console.log("uncomplete");
     const rs = await createRoomService(name, date, startTime, endTime, option);

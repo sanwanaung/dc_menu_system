@@ -1,3 +1,4 @@
+import { Addon } from "@/types/addon";
 import crypto from "crypto";
 import QRCode from "qrcode";
 
@@ -36,3 +37,10 @@ export const generateRandomString = (length: number) => {
     .toString("hex")
     .slice(0, length);
 };
+
+export function toDTO(data: Addon) {
+  return {
+    ...data,
+    price: Number(data.price),
+  };
+}

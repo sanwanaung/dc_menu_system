@@ -161,7 +161,7 @@ model MenuItem {
   ratingCount   Int   @default(0)
 
   menuItemImages         MenuItemImage[]
-  menuItemAddons         MenuItemAddon[]
+  menuItemAddonCategories MenuItemAddonCategory[]
   MenuItemVariantOptions MenuItemVariantOption[]
   menuItemRatings        MenuItemRating[]
 
@@ -191,18 +191,37 @@ model VariantOption {
   id        String   @id @default(cuid())
   name      String
   price     Decimal  @db.Decimal(10, 2) @default(0)
+  variantGroupId String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  variantGroup VariantGroup? @relation(fields: [variantGroupId], references: [id], onDelete: Cascade)
   MenuItemVariantOptions MenuItemVariantOption[]
 
+  @@index([variantGroupId])
   @@map("variant_option")
+}
+
+model VariantGroup {
+  id           String   @id @default(cuid())
+  name         String
+  displayOrder Int      @default(0)
+  minSelect    Int      @default(0)
+  maxSelect    Int      @default(1)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  options VariantOption[]
+
+  @@unique([name])
+  @@map("variant_group")
 }
 
 model MenuItemVariantOption {
   id              String   @id @default(cuid())
   menuItemId      String
   variantOptionId String
+  priceDelta      Decimal  @db.Decimal(10, 2) @default(0)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
@@ -228,18 +247,53 @@ model MenuItemImage {
   @@map("menu_item_image")
 }
 
-model MenuItemAddon {
-  id         String   @id @default(cuid())
-  menuItemId String
-  name       String
-  price      Decimal  @db.Decimal(10, 2) @default(0)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  menuItem MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
-
-  @@index([menuItemId])
-  @@map("menu_item_addon")
+enum AddonStatus {
+  FREE
+  PAID
 }
 
+model Addon {
+  id              String   @id @default(cuid())
+  name            String
+  status          AddonStatus @default(FREE)
+  price           Decimal  @db.Decimal(10, 2) @default(0)
+  addonCategoryId String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
+  addonCategory AddonCategory? @relation(fields: [addonCategoryId], references: [id], onDelete: SetNull)
+
+  @@index([addonCategoryId])
+  @@map("addon")
+}
+
+model AddonCategory {
+  id           String   @id @default(cuid())
+  name         String
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  isAvailable  Boolean  @default(true)
+  updatedAt    DateTime @updatedAt
+
+  addons Addon[]
+  menuItemAddonCategories MenuItemAddonCategory[]
+
+  @@unique([name])
+  @@map("addon_category")
+}
+
+model MenuItemAddonCategory {
+  id              String   @id @default(cuid())
+  menuItemId      String
+  addonCategoryId String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  menuItem      MenuItem      @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  addonCategory AddonCategory @relation(fields: [addonCategoryId], references: [id], onDelete: Cascade)
+
+  @@unique([menuItemId, addonCategoryId])
+  @@index([menuItemId])
+  @@index([addonCategoryId])
+  @@map("menu_item_addon_category")
+}

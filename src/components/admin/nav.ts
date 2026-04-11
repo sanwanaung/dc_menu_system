@@ -7,6 +7,7 @@ import {
   Layers,
   SlidersHorizontal,
   Star,
+  Tags,
   Users,
   UtensilsCrossed,
 } from "lucide-react";
@@ -33,6 +34,22 @@ export const adminNav: AdminNavItem[] = [
     href: "/admin/variants-addons",
     icon: SlidersHorizontal,
   },
+  {
+    label: "Variant Groups",
+    href: "/admin/variant-groups",
+    icon: SlidersHorizontal,
+  },
+  {
+    label: "Variant Options",
+    href: "/admin/variant-options",
+    icon: SlidersHorizontal,
+  },
+  {
+    label: "Addon Categories",
+    href: "/admin/addon-categories",
+    icon: Tags,
+  },
+  { label: "Addons", href: "/admin/addons", icon: Tags },
   { label: "Ratings & Reviews", href: "/admin/ratings", icon: Star },
   { label: "Analytics", href: "/admin/analytics", icon: BarChart3 },
 ];

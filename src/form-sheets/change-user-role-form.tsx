@@ -1,6 +1,6 @@
 "use client";
 
-import { getUser, updateUserRole } from "@/actions/user";
+import { getUser } from "@/actions/user";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useUpdateUserRole } from "@/hooks/mutations/user/use-update-user-role";
 import { useChangeUserRole } from "@/hooks/user-change-user-role";
 import { USER_ROLE_VALUES, UserRoles } from "@/utils";
 import { User } from "generated/prisma/client";
@@ -30,7 +31,7 @@ const getFirstName = (name: string) => {
 export const ChageUserRoleForm = () => {
   const { isOpen, onClose, id } = useChangeUserRole();
   const [isLoading, setIsLoading] = useState(false);
-  const [isSubmit, setIsSubmitting] = useState<boolean>(false);
+  const mutation = useUpdateUserRole();
   const [userRole, setUserRole] = useState<string | undefined>("");
   const [user, setUser] = useState<Pick<
     User,
@@ -65,15 +66,11 @@ export const ChageUserRoleForm = () => {
 
   const handleUpdateUserRole = async () => {
     if (!userRole || !id) return null;
-    setIsSubmitting(true);
-    const result = await updateUserRole(id, userRole);
-    setIsSubmitting(false);
-    if (result.error) return toast.error(result.error);
-    toast.success(result.message);
+    mutation.mutate({ id, role: userRole });
+    if (!mutation.isPending) return onClose();
   };
 
   if (!user) return null;
-  console.log("hello");
   return (
     <>
       <Dialog open={isOpen} onOpenChange={handleDialogOpenChange}>
@@ -119,7 +116,7 @@ export const ChageUserRoleForm = () => {
             </Button>
             <Button
               type="button"
-              disabled={isLoading || isSubmit}
+              disabled={isLoading || mutation.isPending}
               onClick={() => {
                 handleUpdateUserRole();
               }}

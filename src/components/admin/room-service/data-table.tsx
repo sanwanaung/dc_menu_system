@@ -12,28 +12,25 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { RoomServiceOrder } from "generated/prisma/client";
-import {
-  ROOM_SERVICE_STATUSES,
-  RoomServiceStatus,
-  toStatusLabel,
-} from "@/utils";
+import { ROOM_SERVICE_STATUSES, toStatusLabel } from "@/utils";
 import RoomServiceDataTable from "@/components/admin/room-service/rs-table";
 import { Tag } from "../shared/tag";
-
-type RoomServiceWithRoom = RoomServiceOrder & {
-  room: {
-    name: string;
-  };
-};
+import {
+  RoomServiceDTOStatus,
+  RoomServiceWithRoomDTO,
+} from "@/types/room-service/room-service.dto";
+import { OnChangeFn, PaginationState } from "@tanstack/react-table";
 
 type Props = {
-  rs: RoomServiceWithRoom[];
+  rs: RoomServiceWithRoomDTO[];
   status: string;
-  setStatus: (v: RoomServiceStatus | "all") => void;
+  setStatus: (v: RoomServiceDTOStatus | "all") => void;
   query: string;
   setQuery: (v: string) => void;
-  summary: Record<RoomServiceStatus, number>;
+  summary: Record<RoomServiceDTOStatus, number>;
+  pageCount: number;
+  pagination: PaginationState;
+  setPagination: OnChangeFn<PaginationState>;
 };
 
 export function DataTable(rs: Props) {
@@ -64,7 +61,7 @@ export function DataTable(rs: Props) {
                 <DropdownMenuRadioGroup
                   value={rs.status}
                   onValueChange={(v) =>
-                    rs.setStatus(v as RoomServiceStatus | "all")
+                    rs.setStatus(v as RoomServiceDTOStatus | "all")
                   }
                 >
                   <DropdownMenuRadioItem value="all">
@@ -100,6 +97,44 @@ export function DataTable(rs: Props) {
           </div>
           <RoomServiceDataTable rs={rs} />
         </CardContent>
+        <div className="p-4 flex items-center justify-between">
+          <div className="text-muted-foreground text-xs">
+            <span>
+              Page {rs.pagination.pageIndex + 1} of {rs.pageCount}
+            </span>
+          </div>
+          <div className="flex items-center text-xs gap-x-2">
+            <Button
+              variant="outline"
+              className=" text-xs"
+              onClick={() => {
+                if (rs.pagination.pageIndex !== 0) {
+                  rs.setPagination((old) => {
+                    return { ...old, pageIndex: old.pageIndex - 1 };
+                  });
+                }
+              }}
+              disabled={rs.pagination.pageIndex === 0}
+            >
+              Previous
+            </Button>
+            <Button
+              variant="outline"
+              className="text-xs"
+              onClick={() => {
+                if (!rs.pageCount) return;
+                if (rs.pagination.pageIndex < rs?.pageCount) {
+                  rs.setPagination((old) => {
+                    return { ...old, pageIndex: old.pageIndex + 1 };
+                  });
+                }
+              }}
+              disabled={rs.pagination.pageIndex >= rs.pageCount - 1}
+            >
+              Next
+            </Button>
+          </div>
+        </div>
       </Card>
     </div>
   );

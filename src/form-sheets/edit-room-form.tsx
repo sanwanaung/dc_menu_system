@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import * as z from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -33,10 +32,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { editRoomSchema } from "@/schemas/rooms";
 import { useEditRoom } from "@/hooks/use-edit-room";
-import { getRoom, updateRoom } from "@/actions/room";
-import { useEffect, useState } from "react";
+import { getRoom } from "@/actions/room";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { floors } from "@/utils";
+import { authClient } from "@/lib/auth-client";
+import { allowedUserRole } from "@/lib";
+import { useUpdateRoomMutation } from "@/hooks/mutations/room/use-update-room";
 
 type EditRoomValues = z.infer<typeof editRoomSchema>;
 
@@ -50,9 +52,10 @@ function suggestRoomQr(name: string) {
 }
 
 export const EditRoomForm = () => {
+  const session = authClient.useSession();
   const { isOpen, onClose, id } = useEditRoom();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const mutation = useUpdateRoomMutation();
 
   const defaultValues: EditRoomValues = {
     name: "",
@@ -82,27 +85,25 @@ export const EditRoomForm = () => {
     })();
   }, [isOpen, id, form]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isOpen) form.reset(defaultValues);
   }, [isOpen, form]);
 
-  const handleDialogOpenChange = React.useCallback(
+  const handleDialogOpenChange = useCallback(
     (open: boolean) => {
-      if (!open && !isSubmitting) onClose();
+      if (!open && !mutation.isPending) onClose();
     },
-    [onClose, isSubmitting],
+    [onClose, mutation.isPending],
   );
 
   const onSubmit = async (values: EditRoomValues) => {
-    if (!form.formState.isDirty)
-      return toast.error("Same values are not allowed!");
+    if (session.data?.user.role !== allowedUserRole.ADMIN)
+      return toast.error("You don't have permission.");
     if (!id) return;
-    setIsSubmitting(true);
-    const room = await updateRoom(values, id);
-    if (room.error) return toast.error(room.error);
-    toast.success(room.message);
-    setIsSubmitting(false);
-    onClose();
+    mutation.mutate({ form: values, id });
+    if (!mutation.isPending) {
+      onClose();
+    }
   };
 
   return (
@@ -112,10 +113,10 @@ export const EditRoomForm = () => {
           className="sm:max-w-lg"
           showCloseButton={false}
           onEscapeKeyDown={(e) => {
-            if (isSubmitting) e.preventDefault();
+            if (mutation.isPending) e.preventDefault();
           }}
           onPointerDownOutside={(e) => {
-            if (isSubmitting) e.preventDefault();
+            if (mutation.isPending) e.preventDefault();
           }}
         >
           <DialogHeader>
@@ -137,7 +138,7 @@ export const EditRoomForm = () => {
                       placeholder="Room 101"
                       autoComplete="off"
                       aria-invalid={fieldState.invalid}
-                      disabled={isSubmitting || isLoading}
+                      disabled={mutation.isPending || isLoading}
                       autoFocus
                     />
                     {fieldState.invalid && (
@@ -158,7 +159,7 @@ export const EditRoomForm = () => {
                         name={field.name}
                         value={field.value}
                         onValueChange={field.onChange}
-                        disabled={isSubmitting || isLoading}
+                        disabled={mutation.isPending || isLoading}
                       >
                         <SelectTrigger
                           id="form-rhf-select-language"
@@ -193,7 +194,7 @@ export const EditRoomForm = () => {
                         name={field.name}
                         value={field.value}
                         onValueChange={field.onChange}
-                        disabled={isSubmitting || isLoading}
+                        disabled={mutation.isPending || isLoading}
                       >
                         <SelectTrigger
                           id="form-rhf-select-language"
@@ -226,7 +227,7 @@ export const EditRoomForm = () => {
                         type="button"
                         size="sm"
                         variant="outline"
-                        disabled={isSubmitting || isLoading}
+                        disabled={mutation.isPending || isLoading}
                         onClick={() => {
                           if (field.value.trim()) return;
                           form.setValue("roomQR", "");
@@ -247,7 +248,7 @@ export const EditRoomForm = () => {
                       id="room-qr"
                       placeholder="QR-RN-101"
                       aria-invalid={fieldState.invalid}
-                      disabled={isSubmitting || isLoading}
+                      disabled={mutation.isPending || isLoading}
                       autoComplete="off"
                     />
                     <FieldDescription>
@@ -266,13 +267,13 @@ export const EditRoomForm = () => {
               <Button
                 type="button"
                 variant="outline"
-                disabled={isSubmitting || isLoading}
+                disabled={mutation.isPending || isLoading}
                 onClick={() => onClose()}
               >
                 Cancel
               </Button>
-              <Button type="submit" disabled={isSubmitting || isLoading}>
-                {isSubmitting ? (
+              <Button type="submit" disabled={mutation.isPending || isLoading}>
+                {mutation.isPending ? (
                   <Loader2 className="size-4 animate-spin" />
                 ) : (
                   "Save changes"

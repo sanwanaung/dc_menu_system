@@ -18,9 +18,18 @@ type Props = {
   setFilter: (v: AvailabilityFilter) => void;
   sort: SortKey;
   setSort: (v: SortKey) => void;
+  query: string;
+  setQuery: (v: string) => void;
 };
 
-const MenuCategoryActions = ({ setFilter, filter, sort, setSort }: Props) => {
+const MenuCategoryActions = ({
+  setFilter,
+  filter,
+  sort,
+  setSort,
+  query,
+  setQuery,
+}: Props) => {
   const { onOpenNewMenuCategory } = useNewMenuCategory();
 
   return (
@@ -29,8 +38,8 @@ const MenuCategoryActions = ({ setFilter, filter, sort, setSort }: Props) => {
         <div className="relative w-full sm:max-w-sm">
           <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
-            // value={query}
-            // onChange={(e) => setQuery(e.target.value)}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
             placeholder="Search categories..."
             className="pl-9"
           />

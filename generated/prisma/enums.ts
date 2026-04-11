@@ -26,3 +26,11 @@ export const RoomServiceStatus = {
 } as const
 
 export type RoomServiceStatus = (typeof RoomServiceStatus)[keyof typeof RoomServiceStatus]
+
+
+export const AddonStatus = {
+  FREE: 'FREE',
+  PAID: 'PAID'
+} as const
+
+export type AddonStatus = (typeof AddonStatus)[keyof typeof AddonStatus]

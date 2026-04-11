@@ -259,6 +259,23 @@ export type FloatWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
 }
 
+export type EnumAddonStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.AddonStatus | Prisma.EnumAddonStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AddonStatus[] | Prisma.ListEnumAddonStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AddonStatus[] | Prisma.ListEnumAddonStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAddonStatusFilter<$PrismaModel> | $Enums.AddonStatus
+}
+
+export type EnumAddonStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AddonStatus | Prisma.EnumAddonStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AddonStatus[] | Prisma.ListEnumAddonStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AddonStatus[] | Prisma.ListEnumAddonStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAddonStatusWithAggregatesFilter<$PrismaModel> | $Enums.AddonStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAddonStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAddonStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -504,6 +521,23 @@ export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedFloatFilter<$PrismaModel>
   _min?: Prisma.NestedFloatFilter<$PrismaModel>
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
+}
+
+export type NestedEnumAddonStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.AddonStatus | Prisma.EnumAddonStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AddonStatus[] | Prisma.ListEnumAddonStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AddonStatus[] | Prisma.ListEnumAddonStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAddonStatusFilter<$PrismaModel> | $Enums.AddonStatus
+}
+
+export type NestedEnumAddonStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AddonStatus | Prisma.EnumAddonStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AddonStatus[] | Prisma.ListEnumAddonStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AddonStatus[] | Prisma.ListEnumAddonStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAddonStatusWithAggregatesFilter<$PrismaModel> | $Enums.AddonStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAddonStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAddonStatusFilter<$PrismaModel>
 }
 
 

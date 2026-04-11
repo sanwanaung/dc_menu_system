@@ -4,6 +4,9 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  getPaginationRowModel,
+  OnChangeFn,
+  PaginationState,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -17,12 +20,17 @@ import {
 } from "@/components/ui/table";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   query: string;
   setQuery: (v: string) => void;
+  pagination: PaginationState;
+  setPagination: OnChangeFn<PaginationState>;
+  rowsCount?: number;
+  pageCount?: number;
 }
 
 export function DataTable<TData, TValue>({
@@ -30,16 +38,28 @@ export function DataTable<TData, TValue>({
   data,
   query,
   setQuery,
+  pagination,
+  setPagination,
+  pageCount,
+  rowsCount,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    rowCount: rowsCount,
+    pageCount,
+    manualPagination: true,
+    state: {
+      pagination,
+    },
+    onPaginationChange: setPagination,
   });
 
   return (
     <div className="overflow-hidden rounded-md">
-      <div className="relative md:flex-1">
+      <div className="relative md:flex-1 mb-2">
         <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           value={query}
@@ -90,6 +110,31 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
+      <div className="flex items-center justify-between space-x-2 py-4">
+        <div className="ml-3 text-muted-foreground text-xs">
+          <span>
+            Page {pagination.pageIndex + 1} of {pageCount}
+          </span>
+        </div>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

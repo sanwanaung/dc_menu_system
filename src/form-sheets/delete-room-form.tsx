@@ -9,30 +9,28 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useDeleteRoomMutation } from "@/hooks/mutations/room/use-delete-room";
 import { useDeleteRoom } from "@/hooks/use-delete-room";
 import { AlertCircleIcon, Loader2 } from "lucide-react";
-import { useCallback, useState } from "react";
-import { toast } from "sonner";
+import { useCallback } from "react";
 
 export const DeleteRoomForm = () => {
+  const mutation = useDeleteRoomMutation();
   const { isOpen, onClose, id } = useDeleteRoom();
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleDialogOpenChange = useCallback(
     (open: boolean) => {
-      if (!open && !isSubmitting) onClose();
+      if (!open && !mutation.isPending) onClose();
     },
-    [onClose, isSubmitting],
+    [onClose, mutation.isPending],
   );
 
   const handleDelete = async () => {
     if (!id) return;
-    setIsSubmitting(true);
-    const room = await deleteRoom(id);
-    if (room.error) toast.error(room.error);
-    toast.success(room.message);
-    setIsSubmitting(false);
-    onClose();
+    mutation.mutate({ id });
+    if (!mutation.isPending) {
+      onClose();
+    }
   };
 
   return (
@@ -42,10 +40,10 @@ export const DeleteRoomForm = () => {
           className="sm:max-w-lg"
           showCloseButton={false}
           onEscapeKeyDown={(e) => {
-            if (isSubmitting) e.preventDefault();
+            if (mutation.isPending) e.preventDefault();
           }}
           onPointerDownOutside={(e) => {
-            if (isSubmitting) e.preventDefault();
+            if (mutation.isPending) e.preventDefault();
           }}
         >
           <DialogHeader className="text-center my-2">
@@ -67,7 +65,7 @@ export const DeleteRoomForm = () => {
               className="w-26 bg-red-500 text-white hover:bg-red-400"
               onClick={handleDelete}
             >
-              {isSubmitting ? (
+              {mutation.isPending ? (
                 <Loader2 className="size-4 animate-spin" />
               ) : (
                 "Confirm"

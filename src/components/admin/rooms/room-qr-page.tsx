@@ -8,9 +8,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { RoomDTO } from "@/types/room";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import type { Room } from "generated/prisma/client";
 
 export default async function RoomQrPage({
   roomId,
@@ -41,7 +41,7 @@ export default async function RoomQrPage({
     );
   }
 
-  const room = result.data as Room | null | undefined;
+  const room = result.data as RoomDTO | null | undefined;
   if (!room) notFound();
 
   return (
