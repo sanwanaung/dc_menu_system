@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useDeleteRoom } from "@/hooks/use-delete-room";
 import { useEditRoom } from "@/hooks/use-edit-room";
+import { allowedUserRole } from "@/lib";
 import { authClient } from "@/lib/auth-client";
 import { EyeIcon, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -28,7 +29,7 @@ const Actions = ({ id }: ActionProps) => {
 
   if (session.error) return;
   const handlePreviewQR = async (id: string) => {
-    if (session.data?.user.role !== "admin")
+    if (session.data?.user.role !== allowedUserRole.ADMIN)
       return toast.error("You don't have permission!");
     if (!id) return;
     const room = await getRoom({ id });

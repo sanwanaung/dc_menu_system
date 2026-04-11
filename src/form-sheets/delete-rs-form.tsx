@@ -1,6 +1,5 @@
 "use client";
 
-import { deleteRoomService } from "@/actions/room-service";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,30 +8,26 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useDeleteRsMutation } from "@/hooks/mutations/room-service/use-delete-rs";
 import { useDeleteRs } from "@/hooks/use-delete-rs";
 import { AlertCircleIcon, Loader2 } from "lucide-react";
-import { useCallback, useState } from "react";
-import { toast } from "sonner";
+import { useCallback } from "react";
 
 export const DeleteRsForm = () => {
+  const mutation = useDeleteRsMutation();
   const { isOpen, onClose, id } = useDeleteRs();
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleDialogOpenChange = useCallback(
     (open: boolean) => {
-      if (!open && !isSubmitting) onClose();
+      if (!open && !mutation.isPending) onClose();
     },
-    [onClose, isSubmitting],
+    [onClose, mutation.isPending],
   );
 
   const handleDelete = async () => {
     if (!id) return;
-    setIsSubmitting(true);
-    const room = await deleteRoomService(id);
-    if (room.error) toast.error(room.error);
-    toast.success(room.message);
-    setIsSubmitting(false);
-    onClose();
+    mutation.mutate({ id });
+    if (!mutation.isPending) return onClose();
   };
 
   return (
@@ -42,10 +37,10 @@ export const DeleteRsForm = () => {
           className="sm:max-w-lg"
           showCloseButton={false}
           onEscapeKeyDown={(e) => {
-            if (isSubmitting) e.preventDefault();
+            if (mutation.isPending) e.preventDefault();
           }}
           onPointerDownOutside={(e) => {
-            if (isSubmitting) e.preventDefault();
+            if (mutation.isPending) e.preventDefault();
           }}
         >
           <DialogHeader className="text-center my-2">
@@ -67,7 +62,7 @@ export const DeleteRsForm = () => {
               className="w-26 bg-red-500 text-white hover:bg-red-400"
               onClick={handleDelete}
             >
-              {isSubmitting ? (
+              {mutation.isPending ? (
                 <Loader2 className="size-4 animate-spin" />
               ) : (
                 "Confirm"

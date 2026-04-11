@@ -7,30 +7,87 @@ import prisma from "@/lib/prisma";
 import { headers } from "next/headers";
 import { menuCategoryFormSchema } from "@/schemas/menu-category";
 import { revalidatePath } from "next/cache";
+import {
+  CreateMenuCategoryResponse,
+  DeleteMenuCategoryResponse,
+  GetMenuCategoriesResponse,
+  UpdateAvailabilityResponse,
+  UpdateMenuCategoryResponse,
+} from "@/types/menu-category";
 
 type FormInput = z.input<typeof menuCategoryFormSchema>;
 
-export const getMenuCategories = async () => {
+export const getMenuCategories = async ({
+  limit,
+  offset,
+}: {
+  limit: number;
+  offset: number;
+}): Promise<GetMenuCategoriesResponse> => {
   try {
+    const limitNum = Number(limit);
+    const offsetNum = Number(offset);
     const session = await auth.api.getSession({
       headers: await headers(),
     });
-    if (!session) return { error: "No Authorization!" };
+    if (!session)
+      return { error: "No Authorization!", message: null, data: null };
     const isAllowed =
       session.user.role === allowedUserRole.ADMIN ||
       session.user.role === allowedUserRole.SUBADMIN;
-    if (!isAllowed) return { error: "You don't have permission!" };
-    const menuCategories = await prisma.menuCategory.findMany();
+    if (!isAllowed)
+      return { error: "You don't have permission!", data: null, message: null };
+    const rowsCount = await prisma.menuCategory.count();
+    const menuCategories = await prisma.menuCategory.findMany({
+      take: limitNum,
+      skip: offsetNum * limitNum,
+      orderBy: {
+        displayOrder: "asc",
+      },
+    });
+
+    const serializeMenuCategories = menuCategories.map((item) => {
+      return {
+        ...item,
+        createdAt: item.createdAt.toISOString(),
+        updatedAt: item.updatedAt.toISOString(),
+      };
+    });
+
     const available = await prisma.menuCategory.count({
       where: { isAvailable: true },
     });
     const unavailable = await prisma.menuCategory.count({
       where: { isAvailable: false },
     });
-    const datas = { menuCategories, available, unavailable };
-    return { data: datas, message: "" };
+
+    const pageCount = Math.ceil(rowsCount / limitNum);
+    const nextPage = offsetNum < pageCount ? offsetNum + 1 : null;
+    const previousPage = offsetNum !== 0 ? offsetNum - 1 : null;
+
+    return {
+      data: {
+        items: serializeMenuCategories,
+        meta: {
+          total: rowsCount,
+          nextPage,
+          previousPage,
+          pageCount,
+        },
+        summary: {
+          available,
+          unavailable,
+        },
+      },
+      message: "Fetched Successfully!",
+      error: null,
+    };
   } catch {
-    return { error: "Failed to fetch menuCategories!" };
+    return {
+      error: "Failed to fetch menuCategories!",
+      data: null,
+      message: null,
+    };
   }
 };
 
@@ -53,7 +110,9 @@ export const getMenuCategory = async (id: string) => {
   }
 };
 
-export const createNewMenuCategory = async (data: FormInput) => {
+export const createNewMenuCategory = async (
+  data: FormInput,
+): Promise<CreateMenuCategoryResponse> => {
   try {
     if (
       !data.name ||
@@ -61,14 +120,15 @@ export const createNewMenuCategory = async (data: FormInput) => {
       data.displayOrder < 0 ||
       typeof data.isAvailable !== "boolean"
     ) {
-      return { error: "Bad Request" };
+      return { error: "Bad Request", data: null, message: null };
     }
     const session = await auth.api.getSession({
       headers: await headers(),
     });
-    if (!session) return { error: "No Authorization!" };
+    if (!session)
+      return { error: "No Authorization!", data: null, message: null };
     if (session.user.role !== allowedUserRole.ADMIN)
-      return { error: "You don't have permission!" };
+      return { error: "You don't have permission!", data: null, message: null };
     const newMenuCategory = await prisma.menuCategory.create({
       data: {
         name: data.name,
@@ -76,25 +136,36 @@ export const createNewMenuCategory = async (data: FormInput) => {
         isAvailable: data.isAvailable,
       },
     });
-    revalidatePath("/admin/menu-categories", "page");
-    return { data: newMenuCategory, message: "New MenuCategory is added!" };
+    return {
+      data: newMenuCategory,
+      message: "New MenuCategory is added!",
+      error: null,
+    };
   } catch (error) {
     console.log("error in create room: ", error);
-    return { error: "Failed to create menucategory" };
+    return {
+      error: "Failed to create menucategory",
+      data: null,
+      message: null,
+    };
   }
 };
 
-export const updateAvailable = async (id: string) => {
+export const updateAvailablility = async (
+  id: string,
+): Promise<UpdateAvailabilityResponse> => {
   try {
-    if (!id) return { error: "Bad Request" };
+    if (!id) return { error: "Bad Request", data: null, message: null };
     const session = await auth.api.getSession({
       headers: await headers(),
     });
-    if (!session) return { error: "No Authorization!" };
+    if (!session)
+      return { error: "No Authorization!", data: null, message: null };
     if (session.user.role !== allowedUserRole.ADMIN)
-      return { error: "You don't have permission!" };
+      return { error: "You don't have permission!", data: null, message: null };
     const isFound = await prisma.menuCategory.findFirst({ where: { id } });
-    if (!isFound) return { error: "No data is Found!" };
+    if (!isFound)
+      return { error: "No data is Found!", data: null, message: null };
     const updatedMenuCategory = await prisma.menuCategory.update({
       data: {
         isAvailable: !isFound.isAvailable,
@@ -103,28 +174,38 @@ export const updateAvailable = async (id: string) => {
         id,
       },
     });
-    revalidatePath("/admin/menu-categories", "page");
     return {
       data: updatedMenuCategory,
       message: "Availablity is successfully changed!",
+      error: null,
     };
   } catch (error) {
     console.log("error in create room: ", error);
-    return { error: "Failed to update menucategory" };
+    return {
+      error: "Failed to update menucategory",
+      data: null,
+      message: null,
+    };
   }
 };
 
-export const updateMenuCategory = async (id: string, data: FormInput) => {
+export const updateMenuCategory = async (
+  id: string,
+  data: FormInput,
+): Promise<UpdateMenuCategoryResponse> => {
   try {
-    if (!id && !data) return { error: "Bad Request" };
+    if (!id && !data)
+      return { error: "Bad Request", data: null, message: null };
     const session = await auth.api.getSession({
       headers: await headers(),
     });
-    if (!session) return { error: "No Authorization!" };
+    if (!session)
+      return { error: "No Authorization!", data: null, message: null };
     if (session.user.role !== allowedUserRole.ADMIN)
-      return { error: "You don't have permission!" };
+      return { error: "You don't have permission!", data: null, message: null };
     const isFound = await prisma.menuCategory.findFirst({ where: { id } });
-    if (!isFound) return { error: "No data is Found!" };
+    if (!isFound)
+      return { error: "No data is Found!", data: null, message: null };
     const updatedMenuCategory = await prisma.menuCategory.update({
       data: {
         isAvailable: data.isAvailable,
@@ -139,36 +220,49 @@ export const updateMenuCategory = async (id: string, data: FormInput) => {
     return {
       data: updatedMenuCategory,
       message: "Updated Successfully!",
+      error: null,
     };
   } catch (error) {
     console.log("error in create room: ", error);
-    return { error: "Failed to update menucategory" };
+    return {
+      error: "Failed to update menucategory",
+      data: null,
+      message: null,
+    };
   }
 };
 
-export const deleteMenuCategory = async (id: string) => {
+export const deleteMenuCategory = async (
+  id: string,
+): Promise<DeleteMenuCategoryResponse> => {
   try {
-    if (!id) return { error: "Bad Request" };
+    if (!id) return { error: "Bad Request", data: null, message: null };
     const session = await auth.api.getSession({
       headers: await headers(),
     });
-    if (!session) return { error: "No Authorization!" };
+    if (!session)
+      return { error: "No Authorization!", data: null, message: null };
     if (session.user.role !== allowedUserRole.ADMIN)
-      return { error: "You don't have permission!" };
+      return { error: "You don't have permission!", data: null, message: null };
     const isFound = await prisma.menuCategory.findFirst({ where: { id } });
-    if (!isFound) return { error: "No data is Found!" };
+    if (!isFound)
+      return { error: "No data is Found!", data: null, message: null };
     await prisma.menuCategory.delete({
       where: {
         id,
       },
     });
-    revalidatePath("/admin/menu-categories", "page");
     return {
       data: null,
       message: "Deleted Successfully!",
+      error: null,
     };
   } catch (error) {
     console.log("error in create room: ", error);
-    return { error: "Failed to delete menucategory" };
+    return {
+      error: "Failed to delete menucategory",
+      data: null,
+      message: null,
+    };
   }
 };

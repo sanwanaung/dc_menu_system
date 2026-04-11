@@ -11,6 +11,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
@@ -23,6 +25,7 @@ export function AdminTopbar({
   const pathname = usePathname();
   const title = getAdminTitle(pathname);
   const router = useRouter();
+  const session = authClient.useSession();
 
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center justify-between gap-3 border-b bg-background/80 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/70">
@@ -49,7 +52,7 @@ export function AdminTopbar({
             placeholder="Search…"
             className="pl-9"
             onChange={() => {
-              // Intentionally not wired yet (dashboard-only scope).
+              //
             }}
           />
         </div>
@@ -68,6 +71,11 @@ export function AdminTopbar({
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="p-2 rounded-md">
+              <DropdownMenuLabel>
+                Signed in as <br />
+                <span className="font-medium">{session.data?.user.role}</span>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="hover:rounded-sm cursor-pointer"
                 onClick={async () => {

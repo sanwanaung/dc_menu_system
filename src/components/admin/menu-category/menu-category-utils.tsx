@@ -1,15 +1,18 @@
-import { MenuCategory } from "generated/prisma/client";
+import { MenuCategoryDTO } from "@/types/menu-category";
 
 export type AvailabilityFilter = "all" | "available" | "unavailable";
 export type SortKey = "displayOrderAsc" | "nameAsc" | "updatedDesc";
 
-export function sortCategories(categories: MenuCategory[], sort: SortKey) {
+export function sortCategories(categories: MenuCategoryDTO[], sort: SortKey) {
   const copy = [...categories];
   switch (sort) {
     case "nameAsc":
       return copy.sort((a, b) => a.name.localeCompare(b.name));
     case "updatedDesc":
-      return copy.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
+      return copy.sort(
+        (a, b) =>
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+      );
     case "displayOrderAsc":
     default:
       return copy.sort(

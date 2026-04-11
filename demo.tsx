@@ -208,3 +208,91 @@ export const demoRoomServiceOrders: DemoRoomServiceOrder[] = [
     updatedAt: new Date(now - 4.8 * 60 * 60 * 1000).toISOString(),
   },
 ];
+
+export type DemoAddonCategory = {
+  id: string;
+  name: string;
+  displayOrder: number;
+  isAvailable: boolean;
+  createdAt: string; // ISO
+  updatedAt: string; // ISO
+};
+
+export type DemoAddon = {
+  id: string;
+  name: string;
+  price: number;
+  addonCategoryId?: string | null;
+  createdAt: string; // ISO
+  updatedAt: string; // ISO
+};
+
+export const demoAddonCategories: DemoAddonCategory[] = [
+  {
+    id: "ac_01",
+    name: "Extras",
+    displayOrder: 1,
+    isAvailable: true,
+    createdAt: new Date(now - 9 * 24 * 60 * 60 * 1000).toISOString(),
+    updatedAt: new Date(now - 2 * 24 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: "ac_02",
+    name: "Spice",
+    displayOrder: 2,
+    isAvailable: true,
+    createdAt: new Date(now - 9 * 24 * 60 * 60 * 1000).toISOString(),
+    updatedAt: new Date(now - 3 * 24 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: "ac_03",
+    name: "Toppings",
+    displayOrder: 3,
+    isAvailable: true,
+    createdAt: new Date(now - 7 * 24 * 60 * 60 * 1000).toISOString(),
+    updatedAt: new Date(now - 20 * 60 * 60 * 1000).toISOString(),
+  },
+];
+
+export const demoAddons: DemoAddon[] = [
+  {
+    id: "ad_01",
+    name: "Extra noodles",
+    price: 1.0,
+    addonCategoryId: "ac_01",
+    createdAt: new Date(now - 6 * 24 * 60 * 60 * 1000).toISOString(),
+    updatedAt: new Date(now - 2 * 24 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: "ad_02",
+    name: "Extra egg",
+    price: 0.8,
+    addonCategoryId: "ac_01",
+    createdAt: new Date(now - 6 * 24 * 60 * 60 * 1000).toISOString(),
+    updatedAt: new Date(now - 3 * 24 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: "ad_03",
+    name: "More spicy",
+    price: 0,
+    addonCategoryId: "ac_02",
+    createdAt: new Date(now - 5 * 24 * 60 * 60 * 1000).toISOString(),
+    updatedAt: new Date(now - 8 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: "ad_04",
+    name: "Less spicy",
+    price: 0,
+    addonCategoryId: "ac_02",
+    createdAt: new Date(now - 5 * 24 * 60 * 60 * 1000).toISOString(),
+    updatedAt: new Date(now - 12 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: "ad_05",
+    name: "Crispy onions",
+    price: 0.5,
+    addonCategoryId: "ac_03",
+    createdAt: new Date(now - 3 * 24 * 60 * 60 * 1000).toISOString(),
+    updatedAt: new Date(now - 18 * 60 * 60 * 1000).toISOString(),
+  },
+];

@@ -1,6 +1,5 @@
 "use client";
 
-import { deleteMenuCategory } from "@/actions/menu-category";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,30 +8,26 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useDeleteMenuCategoryMutation } from "@/hooks/mutations/menu-category/use-delete-menucategory";
 import { useDeleteMenuCategory } from "@/hooks/use-delete-menucategory";
 import { AlertCircleIcon, Loader2 } from "lucide-react";
-import { useCallback, useState } from "react";
-import { toast } from "sonner";
+import { useCallback } from "react";
 
 export const DeleteMenuCategoryForm = () => {
   const { isOpen, onClose, id } = useDeleteMenuCategory();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const mutation = useDeleteMenuCategoryMutation();
 
   const handleDialogOpenChange = useCallback(
     (open: boolean) => {
-      if (!open && !isSubmitting) onClose();
+      if (!open && !mutation.isPending) onClose();
     },
-    [onClose, isSubmitting],
+    [onClose, mutation.isPending],
   );
 
   const handleDelete = async () => {
     if (!id) return;
-    setIsSubmitting(true);
-    const menucategory = await deleteMenuCategory(id);
-    setIsSubmitting(false);
+    mutation.mutate({ id });
     onClose();
-    if (menucategory.error) toast.error(menucategory.error);
-    toast.success(menucategory.message);
   };
 
   return (
@@ -42,10 +37,10 @@ export const DeleteMenuCategoryForm = () => {
           className="sm:max-w-lg"
           showCloseButton={false}
           onEscapeKeyDown={(e) => {
-            if (isSubmitting) e.preventDefault();
+            if (mutation.isPending) e.preventDefault();
           }}
           onPointerDownOutside={(e) => {
-            if (isSubmitting) e.preventDefault();
+            if (mutation.isPending) e.preventDefault();
           }}
         >
           <DialogHeader className="text-center my-2">
@@ -67,7 +62,7 @@ export const DeleteMenuCategoryForm = () => {
               className="w-26 bg-red-500 text-white hover:bg-red-400"
               onClick={handleDelete}
             >
-              {isSubmitting ? (
+              {mutation.isPending ? (
                 <Loader2 className="size-4 animate-spin" />
               ) : (
                 "Confirm"

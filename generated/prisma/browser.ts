@@ -68,6 +68,11 @@ export type MenuItemRating = Prisma.MenuItemRatingModel
  */
 export type VariantOption = Prisma.VariantOptionModel
 /**
+ * Model VariantGroup
+ * 
+ */
+export type VariantGroup = Prisma.VariantGroupModel
+/**
  * Model MenuItemVariantOption
  * 
  */
@@ -78,7 +83,17 @@ export type MenuItemVariantOption = Prisma.MenuItemVariantOptionModel
  */
 export type MenuItemImage = Prisma.MenuItemImageModel
 /**
- * Model MenuItemAddon
+ * Model Addon
  * 
  */
-export type MenuItemAddon = Prisma.MenuItemAddonModel
+export type Addon = Prisma.AddonModel
+/**
+ * Model AddonCategory
+ * 
+ */
+export type AddonCategory = Prisma.AddonCategoryModel
+/**
+ * Model MenuItemAddonCategory
+ * 
+ */
+export type MenuItemAddonCategory = Prisma.MenuItemAddonCategoryModel

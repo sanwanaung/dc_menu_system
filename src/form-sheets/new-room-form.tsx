@@ -33,10 +33,11 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useNewRoom } from "@/hooks/use-new-room";
 import { createRoomSchema } from "@/schemas/rooms";
-import { createNewRoom } from "@/actions/room";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { floors } from "@/utils";
+import { useNewRoomMutation } from "@/hooks/mutations/room/use-new-room";
+import { authClient } from "@/lib/auth-client";
+import { allowedUserRole } from "@/lib";
 
 type CreateRoomValues = z.infer<typeof createRoomSchema>;
 
@@ -58,8 +59,8 @@ function suggestRoomQr(name: string) {
 
 export const NewRoomForm = () => {
   const { isOpen, onClose } = useNewRoom();
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const router = useRouter();
+  const mutation = useNewRoomMutation();
+  const session = authClient.useSession();
 
   const form = useForm<CreateRoomValues>({
     resolver: zodResolver(createRoomSchema),
@@ -72,19 +73,16 @@ export const NewRoomForm = () => {
 
   const handleDialogOpenChange = React.useCallback(
     (open: boolean) => {
-      if (!open && !isSubmitting) onClose();
+      if (!open && !mutation.isPending) onClose();
     },
-    [onClose, isSubmitting],
+    [onClose, mutation.isPending],
   );
 
   const onSubmit = async (values: CreateRoomValues) => {
-    setIsSubmitting(true);
-    const newRoom = await createNewRoom(values);
-    setIsSubmitting(false);
+    if (session.data?.user.role !== allowedUserRole.ADMIN)
+      return toast.error("You don't have permission!");
+    mutation.mutate({ form: values });
     form.reset();
-    if (newRoom.error) return toast.error(newRoom.error);
-    toast.success(newRoom.message);
-    router.refresh();
   };
 
   return (
@@ -93,10 +91,10 @@ export const NewRoomForm = () => {
         className="sm:max-w-lg"
         showCloseButton={false}
         onEscapeKeyDown={(e) => {
-          if (isSubmitting) e.preventDefault();
+          if (mutation.isPending) e.preventDefault();
         }}
         onPointerDownOutside={(e) => {
-          if (isSubmitting) e.preventDefault();
+          if (mutation.isPending) e.preventDefault();
         }}
       >
         <DialogHeader>
@@ -118,7 +116,7 @@ export const NewRoomForm = () => {
                     placeholder="Room 101"
                     autoComplete="off"
                     aria-invalid={fieldState.invalid}
-                    disabled={isSubmitting}
+                    disabled={mutation.isPending}
                     autoFocus
                   />
                   {fieldState.invalid && (
@@ -139,7 +137,7 @@ export const NewRoomForm = () => {
                       name={field.name}
                       value={field.value}
                       onValueChange={field.onChange}
-                      disabled={isSubmitting}
+                      disabled={mutation.isPending}
                     >
                       <SelectTrigger
                         id="form-rhf-select-language"
@@ -174,7 +172,7 @@ export const NewRoomForm = () => {
                       name={field.name}
                       value={field.value}
                       onValueChange={field.onChange}
-                      disabled={isSubmitting}
+                      disabled={mutation.isPending}
                     >
                       <SelectTrigger
                         id="form-rhf-select-language"
@@ -207,7 +205,7 @@ export const NewRoomForm = () => {
                       type="button"
                       size="sm"
                       variant="outline"
-                      disabled={isSubmitting}
+                      disabled={mutation.isPending}
                       onClick={() => {
                         if (field.value.trim()) return;
                         const next = suggestRoomQr(form.getValues("name"));
@@ -227,7 +225,7 @@ export const NewRoomForm = () => {
                     id="room-qr"
                     placeholder="QR-RN-101"
                     aria-invalid={fieldState.invalid}
-                    disabled={isSubmitting}
+                    disabled={mutation.isPending}
                     autoComplete="off"
                     readOnly={true}
                   />
@@ -246,13 +244,13 @@ export const NewRoomForm = () => {
             <Button
               type="button"
               variant="outline"
-              disabled={isSubmitting}
+              disabled={mutation.isPending}
               onClick={() => onClose()}
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? (
+            <Button type="submit" disabled={mutation.isPending}>
+              {mutation.isPending ? (
                 <Loader2 className="size-4 animate-spin" />
               ) : (
                 "Create room"

@@ -2,356 +2,292 @@
 
 import * as React from "react";
 import { toast } from "sonner";
-import { Plus, LayoutGrid, Search } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import type {
+  Addon,
+  AddonCategory,
+  CategoryFilter,
+  PriceFilter,
+  SortKey,
+} from "./types";
+import { AddonActions } from "./addon-actions";
+import { AddonCard } from "./addon-card";
+import { AddonFormDialog } from "./addon-form-dialog";
+import { filterByPrice, sortAddons } from "./addon-utils";
 import { normalize } from "@/utils";
-
-import { menuCategoriesDemo } from "./demo";
-import type { MenuCategory } from "./types";
-import { MenuCategoryCard } from "./menu-category-card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
-  MenuCategoryFormDialog,
-  type MenuCategoryFormResult,
-} from "./menu-category-form-dialog";
-import { MenuCategoryDeleteDialog } from "./menu-category-delete-dialog";
-import type { MenuCategoryFormValues } from "./menu-category-schema";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
-type AvailabilityFilter = "all" | "available" | "unavailable";
-type SortKey = "displayOrderAsc" | "nameAsc" | "updatedDesc";
-
-function createId() {
-  const cryptoObj = globalThis.crypto as Crypto | undefined;
-  if (cryptoObj?.randomUUID) return cryptoObj.randomUUID();
-  return `cat_${Math.random().toString(16).slice(2)}_${Date.now()}`;
+function createId(prefix: string) {
+  const random =
+    typeof crypto !== "undefined" && "randomUUID" in crypto
+      ? crypto.randomUUID()
+      : Math.random().toString(16).slice(2);
+  return `${prefix}_${random}`;
 }
 
-function sortCategories(categories: MenuCategory[], sort: SortKey) {
-  const copy = [...categories];
-  switch (sort) {
-    case "nameAsc":
-      return copy.sort((a, b) => a.name.localeCompare(b.name));
-    case "updatedDesc":
-      return copy.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
-    case "displayOrderAsc":
-    default:
-      return copy.sort(
-        (a, b) =>
-          a.displayOrder - b.displayOrder || a.name.localeCompare(b.name),
-      );
-  }
-}
-
-export default function MenuCategoriesPage() {
-  const [categories, setCategories] = React.useState<MenuCategory[]>(
-    () => menuCategoriesDemo,
+export function AddonsPage({
+  initialAddons,
+  addonCategories,
+}: {
+  initialAddons: Addon[];
+  addonCategories: AddonCategory[];
+}) {
+  const [addons, setAddons] = React.useState<Addon[]>(
+    () => initialAddons ?? [],
   );
-
   const [query, setQuery] = React.useState("");
-  const [filter, setFilter] = React.useState<AvailabilityFilter>("all");
-  const [sort, setSort] = React.useState<SortKey>("displayOrderAsc");
+  const [categoryFilter, setCategoryFilter] =
+    React.useState<CategoryFilter>("all");
+  const [priceFilter, setPriceFilter] = React.useState<PriceFilter>("all");
+  const [sort, setSort] = React.useState<SortKey>("updatedDesc");
 
-  const [createOpen, setCreateOpen] = React.useState(false);
-  const [editing, setEditing] = React.useState<MenuCategory | null>(null);
-  const [deleting, setDeleting] = React.useState<MenuCategory | null>(null);
+  const [formOpen, setFormOpen] = React.useState(false);
+  const [formMode, setFormMode] = React.useState<"create" | "edit">("create");
+  const [editingAddon, setEditingAddon] = React.useState<Addon | null>(null);
+
+  const [deleteOpen, setDeleteOpen] = React.useState(false);
+  const [deletingAddon, setDeletingAddon] = React.useState<Addon | null>(null);
 
   const stats = React.useMemo(() => {
-    const available = categories.filter((c) => c.isAvailable).length;
-    return {
-      total: categories.length,
-      available,
-      unavailable: categories.length - available,
-    };
-  }, [categories]);
+    const total = addons.length;
+    const free = addons.filter((a) => a.price === 0).length;
+    const paid = total - free;
+    const categoriesInUse = new Set(
+      addons.map((a) => a.addonCategoryId).filter(Boolean) as string[],
+    ).size;
+    return { total, free, paid, categoriesInUse };
+  }, [addons]);
 
-  const visibleCategories = React.useMemo(() => {
+  const visibleAddons = React.useMemo(() => {
     const q = normalize(query);
-    const filtered = categories.filter((category) => {
-      if (filter === "available" && !category.isAvailable) return false;
-      if (filter === "unavailable" && category.isAvailable) return false;
-      if (!q) return true;
-      return normalize(category.name).includes(q);
-    });
+    let filtered = addons;
 
-    return sortCategories(filtered, sort);
-  }, [categories, query, filter, sort]);
+    if (categoryFilter !== "all") {
+      filtered = filtered.filter((a) => a.addonCategoryId === categoryFilter);
+    }
+    filtered = filterByPrice(filtered, priceFilter);
 
-  const createDefaults = React.useMemo(
-    () => ({
-      name: "",
-      displayOrder: categories.length
-        ? Math.max(...categories.map((c) => c.displayOrder)) + 1
-        : 0,
-      isAvailable: true,
-    }),
-    [categories],
-  );
+    if (q) {
+      filtered = filtered.filter((a) => normalize(a.name).includes(q));
+    }
 
-  const upsert = React.useCallback((updated: MenuCategory) => {
-    setCategories((prev) => {
-      const exists = prev.some((c) => c.id === updated.id);
-      if (!exists) return [updated, ...prev];
-      return prev.map((c) => (c.id === updated.id ? updated : c));
-    });
-  }, []);
+    return sortAddons(filtered, sort);
+  }, [addons, query, categoryFilter, priceFilter, sort]);
 
-  const remove = React.useCallback((id: string) => {
-    setCategories((prev) => prev.filter((c) => c.id !== id));
-  }, []);
+  const openCreate = () => {
+    setFormMode("create");
+    setEditingAddon(null);
+    setFormOpen(true);
+  };
 
-  const submitCreate = React.useCallback(
-    async (values: MenuCategoryFormValues): Promise<MenuCategoryFormResult> => {
-      const nextName = values.name.trim();
-      const conflict = categories.some(
-        (c) => normalize(c.name) === normalize(nextName),
-      );
-      if (conflict) {
-        return {
-          ok: false,
-          fieldErrors: { name: "A category with this name already exists." },
-        };
-      }
+  const openEdit = (addon: Addon) => {
+    setFormMode("edit");
+    setEditingAddon(addon);
+    setFormOpen(true);
+  };
 
-      const now = new Date();
-      upsert({
-        id: createId(),
-        name: nextName,
-        displayOrder: values.displayOrder,
-        isAvailable: values.isAvailable,
-        createdAt: now,
-        updatedAt: now,
-      });
+  const openDelete = (addon: Addon) => {
+    setDeletingAddon(addon);
+    setDeleteOpen(true);
+  };
 
-      toast.success("Category created.");
-      return { ok: true };
-    },
-    [categories, upsert],
-  );
+  const handleSubmitAddon = async (values: {
+    name: string;
+    price: number;
+    addonCategoryId: string | null;
+  }) => {
+    const nowIso = new Date().toISOString();
 
-  const submitEdit = React.useCallback(
-    async (values: MenuCategoryFormValues): Promise<MenuCategoryFormResult> => {
-      if (!editing) return { ok: false, error: "No category selected." };
+    if (formMode === "create") {
+      const next: Addon = {
+        id: createId("ad"),
+        name: values.name,
+        price: values.price,
+        addonCategoryId: values.addonCategoryId,
+        createdAt: nowIso,
+        updatedAt: nowIso,
+      };
+      setAddons((prev) => [next, ...prev]);
+      toast.success("Addon created (demo).");
+      return;
+    }
 
-      const nextName = values.name.trim();
-      const conflict = categories.some(
-        (c) => c.id !== editing.id && normalize(c.name) === normalize(nextName),
-      );
-      if (conflict) {
-        return {
-          ok: false,
-          fieldErrors: { name: "A category with this name already exists." },
-        };
-      }
+    if (!editingAddon) return;
+    setAddons((prev) =>
+      prev.map((a) =>
+        a.id === editingAddon.id
+          ? {
+              ...a,
+              name: values.name,
+              price: values.price,
+              addonCategoryId: values.addonCategoryId,
+              updatedAt: nowIso,
+            }
+          : a,
+      ),
+    );
+    toast.success("Addon updated (demo).");
+  };
 
-      upsert({
-        ...editing,
-        name: nextName,
-        displayOrder: values.displayOrder,
-        isAvailable: values.isAvailable,
-        updatedAt: new Date(),
-      });
-
-      toast.success("Category updated.");
-      setEditing(null);
-      return { ok: true };
-    },
-    [editing, categories, upsert],
-  );
+  const handleConfirmDelete = () => {
+    if (!deletingAddon) return;
+    setAddons((prev) => prev.filter((a) => a.id !== deletingAddon.id));
+    setDeleteOpen(false);
+    setDeletingAddon(null);
+    toast.success("Addon deleted (demo).");
+  };
 
   return (
-    <>
-      <div className="space-y-4">
-        <div className="grid gap-3 sm:grid-cols-3">
-          <Card size="sm">
-            <CardHeader className="pb-0">
-              <CardTitle className="text-sm text-muted-foreground">
-                Total
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-semibold">{stats.total}</div>
-            </CardContent>
-          </Card>
-          <Card size="sm">
-            <CardHeader className="pb-0">
-              <CardTitle className="text-sm text-muted-foreground">
-                Available
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-semibold">{stats.available}</div>
-            </CardContent>
-          </Card>
-          <Card size="sm">
-            <CardHeader className="pb-0">
-              <CardTitle className="text-sm text-muted-foreground">
-                Hidden
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-semibold">{stats.unavailable}</div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
-            <div className="relative w-full sm:max-w-sm">
-              <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search categories..."
-                className="pl-9"
-              />
-            </div>
-
-            <Select
-              value={filter}
-              onValueChange={(v) => setFilter(v as AvailabilityFilter)}
-            >
-              <SelectTrigger size="sm">
-                <SelectValue placeholder="Filter" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All</SelectItem>
-                <SelectItem value="available">Available</SelectItem>
-                <SelectItem value="unavailable">Hidden</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select value={sort} onValueChange={(v) => setSort(v as SortKey)}>
-              <SelectTrigger size="sm">
-                <LayoutGrid className="size-4 text-muted-foreground" />
-                <SelectValue placeholder="Sort" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="displayOrderAsc">Order (asc)</SelectItem>
-                <SelectItem value="nameAsc">Name (A–Z)</SelectItem>
-                <SelectItem value="updatedDesc">Recently updated</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <Button type="button" onClick={() => setCreateOpen(true)}>
-            <Plus className="mr-1.5 size-4" />
-            Create category
-          </Button>
-        </div>
-
-        {categories.length === 0 ? (
-          <Card>
-            <CardContent className="py-10">
-              <div className="mx-auto max-w-md text-center">
-                <div className="text-base font-medium">No categories yet</div>
-                <div className="mt-1 text-sm text-muted-foreground">
-                  Create a category to start organizing your menu.
-                </div>
-                <div className="mt-4">
-                  <Button type="button" onClick={() => setCreateOpen(true)}>
-                    <Plus className="mr-1.5 size-4" />
-                    Create category
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ) : visibleCategories.length === 0 ? (
-          <Card>
-            <CardContent className="py-10">
-              <div className="mx-auto max-w-md text-center">
-                <div className="text-base font-medium">No results</div>
-                <div className="mt-1 text-sm text-muted-foreground">
-                  Try a different search query or adjust the filters.
-                </div>
-                <div className="mt-4">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => {
-                      setQuery("");
-                      setFilter("all");
-                      setSort("displayOrderAsc");
-                    }}
-                  >
-                    Reset filters
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ) : (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {visibleCategories.map((category) => (
-              <MenuCategoryCard
-                key={category.id}
-                category={category}
-                onEdit={(c) => setEditing(c)}
-                onDelete={(c) => setDeleting(c)}
-                onToggleAvailability={(c) => {
-                  upsert({
-                    ...c,
-                    isAvailable: !c.isAvailable,
-                    updatedAt: new Date(),
-                  });
-                  toast.success(
-                    c.isAvailable ? "Category hidden." : "Category available.",
-                  );
-                }}
-              />
-            ))}
-          </div>
-        )}
+    <div className="space-y-4">
+      <div className="grid gap-3 sm:grid-cols-4">
+        <Card>
+          <CardHeader className="border-b py-3">
+            <CardTitle className="text-sm">Total</CardTitle>
+          </CardHeader>
+          <CardContent className="py-4 text-2xl font-semibold">
+            {stats.total}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="border-b py-3">
+            <CardTitle className="text-sm">Free</CardTitle>
+          </CardHeader>
+          <CardContent className="py-4 text-2xl font-semibold">
+            {stats.free}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="border-b py-3">
+            <CardTitle className="text-sm">Paid</CardTitle>
+          </CardHeader>
+          <CardContent className="py-4 text-2xl font-semibold">
+            {stats.paid}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="border-b py-3">
+            <CardTitle className="text-sm">Categories in use</CardTitle>
+          </CardHeader>
+          <CardContent className="py-4 text-2xl font-semibold">
+            {stats.categoriesInUse}
+          </CardContent>
+        </Card>
       </div>
 
-      <MenuCategoryFormDialog
-        open={createOpen}
-        onOpenChange={setCreateOpen}
-        mode="create"
-        initialValues={createDefaults}
-        onSubmit={submitCreate}
+      <AddonActions
+        categories={addonCategories}
+        query={query}
+        setQuery={setQuery}
+        categoryFilter={categoryFilter}
+        setCategoryFilter={setCategoryFilter}
+        priceFilter={priceFilter}
+        setPriceFilter={setPriceFilter}
+        sort={sort}
+        setSort={setSort}
+        onCreate={openCreate}
       />
 
-      <MenuCategoryFormDialog
-        open={!!editing}
-        onOpenChange={(open) => {
-          if (!open) setEditing(null);
-        }}
-        mode="edit"
-        initialValues={
-          editing
-            ? {
-                name: editing.name,
-                displayOrder: editing.displayOrder,
-                isAvailable: editing.isAvailable,
-              }
-            : undefined
-        }
-        onSubmit={submitEdit}
+      {addons.length === 0 ? (
+        <Card>
+          <CardContent className="py-10">
+            <div className="mx-auto max-w-md text-center">
+              <div className="text-base font-medium">No addons yet</div>
+              <div className="mt-1 text-sm text-muted-foreground">
+                Create addons to attach them to menu items later.
+              </div>
+              <div className="mt-4">
+                <Button type="button" onClick={openCreate}>
+                  Create addon
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      ) : visibleAddons.length === 0 ? (
+        <Card>
+          <CardContent className="py-10">
+            <div className="mx-auto max-w-md text-center">
+              <div className="text-base font-medium">No results</div>
+              <div className="mt-1 text-sm text-muted-foreground">
+                Try a different search query or adjust the filters.
+              </div>
+              <div className="mt-4">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setQuery("");
+                    setCategoryFilter("all");
+                    setPriceFilter("all");
+                    setSort("updatedDesc");
+                  }}
+                >
+                  Reset filters
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {visibleAddons.map((addon) => (
+            <AddonCard
+              key={addon.id}
+              addon={addon}
+              categories={addonCategories}
+              onEdit={openEdit}
+              onDelete={openDelete}
+            />
+          ))}
+        </div>
+      )}
+
+      <AddonFormDialog
+        open={formOpen}
+        mode={formMode}
+        addon={editingAddon}
+        categories={addonCategories}
+        onOpenChange={setFormOpen}
+        onSubmit={handleSubmitAddon}
       />
 
-      <MenuCategoryDeleteDialog
-        open={!!deleting}
-        onOpenChange={(open) => {
-          if (!open) setDeleting(null);
-        }}
-        categoryName={deleting?.name ?? null}
-        onConfirm={() => {
-          if (!deleting) return;
-          remove(deleting.id);
-          toast.success("Category deleted.");
-          setDeleting(null);
-        }}
-      />
-    </>
+      <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Delete addon</DialogTitle>
+            <DialogDescription>
+              This removes{" "}
+              <span className="font-medium">{deletingAddon?.name}</span> from
+              demo data. Backend integration comes later.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setDeleteOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              variant="destructive"
+              onClick={handleConfirmDelete}
+            >
+              Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }

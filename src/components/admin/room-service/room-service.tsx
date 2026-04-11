@@ -1,35 +1,39 @@
 "use client";
 
+import { getRoomServices } from "@/actions/room-service";
 import { DataTable } from "@/components/admin/room-service/data-table";
-import { RoomServiceOrder } from "generated/prisma/client";
-import { normalize, RoomServiceStatus } from "@/utils";
-import { useEffect, useMemo, useState } from "react";
+import { RoomServiceDTOStatus } from "@/types/room-service";
+import { normalize } from "@/utils";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { PaginationState } from "@tanstack/react-table";
+import { Loader2 } from "lucide-react";
+import { useMemo, useState } from "react";
 
-type RoomServiceWithRoom = RoomServiceOrder & {
-  room: {
-    name: string;
-  };
-};
-
-type Props = {
-  rs: RoomServiceWithRoom[];
-};
-
-const RoomServicePage = ({ rs }: Props) => {
-  const [roomServices, setRoomServices] = useState<RoomServiceWithRoom[]>(
-    () => rs ?? [],
-  );
-  const [status, setStatus] = useState<RoomServiceStatus | "all">("all");
+const RoomServicePage = () => {
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 2,
+  });
+  const [status, setStatus] = useState<RoomServiceDTOStatus | "all">("all");
   const [query, setQuery] = useState<string>("");
 
-  useEffect(() => {
-    setRoomServices(rs);
-  }, [rs]);
+  const datas = useQuery({
+    queryKey: ["room-service", pagination.pageIndex],
+    queryFn: () =>
+      getRoomServices({
+        limit: pagination.pageSize,
+        offset: Number(pagination.pageIndex),
+      }),
+    placeholderData: keepPreviousData,
+  });
+
+  const allRoomService = useMemo(() => {
+    return datas.data?.data?.items ?? [];
+  }, [datas.data?.data]);
 
   const filterRoomServices = useMemo(() => {
     const q = normalize(query);
-
-    return roomServices
+    return allRoomService
       .filter((o) => (status === "all" ? true : o.status === status))
       .filter((o) => {
         if (!q) return true;
@@ -46,29 +50,38 @@ const RoomServicePage = ({ rs }: Props) => {
         const tb = new Date(b.createdAt).getTime();
         return tb - ta;
       });
-  }, [query, status, roomServices]);
+  }, [query, status, allRoomService]);
 
   const summary = useMemo(() => {
-    const counts: Record<RoomServiceStatus, number> = {
+    const counts: Record<RoomServiceDTOStatus, number> = {
       PENDING: 0,
       ACCEPTED: 0,
       FINISHED: 0,
       CANCELED: 0,
     };
-    for (const order of rs) counts[order.status] += 1;
+    for (const order of allRoomService) counts[order.status] += 1;
     return counts;
-  }, [rs]);
+  }, [allRoomService]);
 
   return (
     <>
-      <DataTable
-        rs={filterRoomServices}
-        status={status}
-        setStatus={setStatus}
-        query={query}
-        setQuery={setQuery}
-        summary={summary}
-      />
+      {datas.isPending || datas.isLoading ? (
+        <div className=" flex items-center justify-center w-full min-h-100">
+          <Loader2 className="animate-spin size-6" />
+        </div>
+      ) : (
+        <DataTable
+          rs={filterRoomServices}
+          status={status}
+          setStatus={setStatus}
+          query={query}
+          setQuery={setQuery}
+          summary={summary}
+          pageCount={datas.data?.data?.meta.pageCount ?? 0}
+          pagination={pagination}
+          setPagination={setPagination}
+        />
+      )}
     </>
   );
 };
