@@ -4,13 +4,14 @@ export type CategoryFilter = "all" | string;
 export type PriceFilter = "all" | "free" | "paid";
 export type SortKey = "updatedDesc" | "nameAsc" | "priceAsc" | "priceDesc";
 
-export function formatMoney(amount: number, currency = "USD") {
+export function formatMoney(amount: number) {
   const safe = Number.isFinite(amount) ? amount : 0;
-  return new Intl.NumberFormat(undefined, {
+  const formated = new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency,
-    maximumFractionDigits: 2,
+    currency: "MMK",
   }).format(safe);
+
+  return formated;
 }
 
 // export function getAddonCategoryName(

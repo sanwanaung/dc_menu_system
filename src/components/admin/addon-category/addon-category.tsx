@@ -95,7 +95,6 @@ const AddonCategoryPage = () => {
       return toast.error("You don't have permission!");
     mutation.mutate(m.id);
   };
-  console.log("testing infinite scroll");
 
   if (datas.isPending || datas.isLoading) {
     return (

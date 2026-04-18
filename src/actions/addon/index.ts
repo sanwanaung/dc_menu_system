@@ -4,8 +4,13 @@ import { allowedUserRole } from "@/lib";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { FormInput } from "@/schemas/addon";
-import { CreateAddonResponse, GetAddonsResponse } from "@/types/addon";
-import { revalidatePath } from "next/cache";
+import {
+  CreateAddonResponse,
+  DeleteAddonResponse,
+  GetAddonResponse,
+  GetAddonsResponse,
+  UpdateAddonResponse,
+} from "@/types/addon";
 import { headers } from "next/headers";
 
 export const createNewAddon = async (
@@ -30,7 +35,6 @@ export const createNewAddon = async (
         status: data.price === 0 ? "FREE" : "PAID",
       },
     });
-    revalidatePath("/admin/addons", "page");
     return {
       data: {
         ...newAddon,
@@ -120,5 +124,131 @@ export const getAddons = async ({
     };
   } catch {
     return { error: "Failed to fetch addons!", data: null, message: null };
+  }
+};
+
+export const getAddon = async (id: string): Promise<GetAddonResponse> => {
+  try {
+    if (!id) return { error: "Bad Request!", data: null, message: null };
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+    if (!session)
+      return { error: "No Authorization!", data: null, message: null };
+
+    const isAllowed =
+      session.user.role === allowedUserRole.ADMIN ||
+      session.user.role === allowedUserRole.SUBADMIN;
+
+    if (!isAllowed)
+      return { error: "You don't have permission!", data: null, message: null };
+
+    const addon = await prisma.addon.findFirst({ where: { id } });
+    if (!addon) return { error: "No data found.", data: null, message: null };
+
+    const serializeAddon = [addon].map((item) => {
+      return {
+        ...item,
+        createdAt: item.createdAt.toISOString(),
+        updatedAt: item.updatedAt.toISOString(),
+        price: item.price.toNumber(),
+      };
+    });
+
+    return {
+      data: serializeAddon[0],
+      message: "Addons fetched successfully!",
+      error: null,
+    };
+  } catch {
+    return { error: "Failed to fetch addons!", data: null, message: null };
+  }
+};
+
+export const updateAddon = async ({
+  form,
+  id,
+}: {
+  form: FormInput;
+  id: string;
+}): Promise<UpdateAddonResponse> => {
+  try {
+    if (!id || !form.addonCategoryId || !form.name)
+      return { error: "Bad Request!", data: null, message: null };
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+    if (!session)
+      return { error: "No Authorization!", data: null, message: null };
+    const isAllowed = session.user.role === allowedUserRole.ADMIN;
+    if (!isAllowed)
+      return { error: "You don't have permission!", data: null, message: null };
+    const hasAddon = await prisma.addon.findFirst({ where: { id } });
+    if (!hasAddon)
+      return { error: "No data found!", data: null, message: null };
+
+    const nameChanged = form.name.trim() !== hasAddon.name;
+    const categoryChanged = form.addonCategoryId !== hasAddon.addonCategoryId;
+    const priceChanged = form.price !== Number(hasAddon.price);
+
+    if (!nameChanged && !categoryChanged && !priceChanged) {
+      return { error: "No changes detected.", data: null, message: null };
+    }
+
+    const updatedAddon = await prisma.addon.update({
+      where: {
+        id,
+      },
+      data: {
+        name: form.name,
+        addonCategoryId: form.addonCategoryId,
+        price: Number(form.price),
+        status: Number(form.price) === 0 ? "FREE" : "PAID",
+      },
+    });
+
+    return {
+      data: {
+        ...updatedAddon,
+        createdAt: updatedAddon.createdAt.toISOString(),
+        updatedAt: updatedAddon.updatedAt.toISOString(),
+        price: Number(updatedAddon.price),
+      },
+      message: "New Addon is added successfully!",
+      error: null,
+    };
+  } catch {
+    return { error: "Failed to create addons!", data: null, message: null };
+  }
+};
+
+export const deleteAddon = async ({
+  id,
+}: {
+  id: string;
+}): Promise<DeleteAddonResponse> => {
+  try {
+    if (!id) return { error: "Bad Request!", data: null, message: null };
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+    if (!session)
+      return { error: "No Authorization!", data: null, message: null };
+    const isAllowed = session.user.role === allowedUserRole.ADMIN;
+    if (!isAllowed)
+      return { error: "You don't have permission!", data: null, message: null };
+    const hasAddon = await prisma.addon.findFirst({ where: { id } });
+    if (!hasAddon)
+      return { error: "No data found!", data: null, message: null };
+
+    await prisma.addon.delete({ where: { id } });
+
+    return {
+      data: null,
+      message: "Deleted successfully!",
+      error: null,
+    };
+  } catch {
+    return { error: "Failed to create addons!", data: null, message: null };
   }
 };

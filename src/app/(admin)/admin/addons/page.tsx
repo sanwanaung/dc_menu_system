@@ -10,10 +10,10 @@ import {
 export default async function AdminAddonsPage() {
   const queryClient = new QueryClient();
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ["addons"],
+    queryKey: ["addon"],
     initialPageParam: 0,
     queryFn: ({ pageParam }) =>
-      getAddons({ limit: 2, offset: Number(pageParam) }),
+      getAddons({ limit: 10, offset: Number(pageParam) }),
   });
 
   return (

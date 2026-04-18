@@ -38,6 +38,7 @@ import { floors } from "@/utils";
 import { useNewRoomMutation } from "@/hooks/mutations/room/use-new-room";
 import { authClient } from "@/lib/auth-client";
 import { allowedUserRole } from "@/lib";
+import { useCallback, useEffect } from "react";
 
 type CreateRoomValues = z.infer<typeof createRoomSchema>;
 
@@ -67,11 +68,11 @@ export const NewRoomForm = () => {
     defaultValues,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isOpen) form.reset(defaultValues);
   }, [isOpen, form]);
 
-  const handleDialogOpenChange = React.useCallback(
+  const handleDialogOpenChange = useCallback(
     (open: boolean) => {
       if (!open && !mutation.isPending) onClose();
     },

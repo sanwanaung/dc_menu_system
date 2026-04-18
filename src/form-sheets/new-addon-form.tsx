@@ -1,6 +1,5 @@
 "use client";
 
-import * as z from "zod";
 import {
   getAvailableAddonCategories,
   getAvailableAddonCategoriesById,
@@ -27,20 +26,25 @@ import { Input } from "@/components/ui/input";
 import { useNewAddon } from "@/hooks/use-new-addon";
 import { addonFormSchema, FormInput } from "@/schemas/addon";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AddonCategory } from "generated/prisma/client";
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
-import { createNewAddon } from "@/actions/addon";
+import { useNewAddonMutation } from "@/hooks/mutations/addon/use-new-addon";
+import { AddonCategory } from "@/types/addon-category";
+import { getAddon } from "@/actions/addon";
+import { AddonDTO } from "@/types/addon";
+import { useUpdateAddonMutation } from "@/hooks/mutations/addon/use-update-addon";
 
 const NewAddonForm = () => {
   const { isOpen, onClose, mode, id } = useNewAddon();
+  const newAddonMutation = useNewAddonMutation();
+  const updateAddonMutation = useUpdateAddonMutation();
   const session = authClient.useSession();
   const [isLoading, setIsLoading] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
   const [addonCategories, setAddonCategories] = useState<AddonCategory[]>([]);
+  const [addon, setAddon] = useState<AddonDTO | null>(null);
   const form = useForm<FormInput>({
     resolver: zodResolver(addonFormSchema),
     defaultValues: {
@@ -51,17 +55,20 @@ const NewAddonForm = () => {
   });
 
   useEffect(() => {
-    if (!isOpen)
+    if (!isOpen) {
       form.reset({
         name: "",
         price: 0,
         addonCategoryId: null,
       });
+      setAddon(null);
+    }
   }, [isOpen, form]);
 
   useEffect(() => {
     (async () => {
       if (!isOpen) return;
+      if (mode === "edit" && !id) return;
       setIsLoading(true);
       const res =
         mode === "create"
@@ -73,32 +80,62 @@ const NewAddonForm = () => {
     })();
   }, [isOpen, mode, id]);
 
+  useEffect(() => {
+    (async () => {
+      if (!isOpen || mode !== "edit" || !id) return;
+      setIsLoading(true);
+      const res = mode === "edit" ? await getAddon(id) : "";
+      setIsLoading(false);
+      if (typeof res !== "string" && (res.error || !res.data)) {
+        toast.error(res.error);
+      }
+      if (typeof res === "object" && res.data) {
+        setAddon(res.data);
+      }
+    })();
+  }, [isOpen, mode, id]);
+
+  useEffect(() => {
+    if (!isOpen || mode !== "edit" || !addon) return;
+    form.reset({
+      name: addon.name ?? "",
+      price: addon.price ?? 0,
+      addonCategoryId: "",
+    });
+  }, [addon, form, isOpen, mode]);
+
   const isFree = form.watch("price") === 0;
 
-  const handleCreateNewAddon = async (data: FormInput) => {
+  const handleSumitAddon = async (data: FormInput) => {
     if (!data.addonCategoryId)
       return toast.error("Addon category is required!");
     if (session.data?.user.role !== "admin")
       return toast.error("You don't have permission!");
-    setSubmitting(true);
-    const res = await createNewAddon(data);
-    setSubmitting(false);
-    if (res.error || !res.data) return toast.error(res.error);
-    toast.success(res.message ?? "Addon created successfully!");
-    onClose();
-    console.log("data: ", res.data);
+    if (mode === "edit") {
+      if (!id) return;
+      updateAddonMutation.mutate({ id, form: data });
+      if (!updateAddonMutation.isPending) onClose();
+      return;
+    }
+    newAddonMutation.mutate({ form: data });
+    if (!newAddonMutation.isPending) {
+      onClose();
+    }
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={(next) => !submitting && onClose()}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(next) => !newAddonMutation.isPending && onClose()}
+    >
       <DialogContent
         className="sm:max-w-lg"
-        showCloseButton={!submitting}
+        showCloseButton={!newAddonMutation.isPending}
         onEscapeKeyDown={(e) => {
-          if (submitting) e.preventDefault();
+          if (newAddonMutation.isPending) e.preventDefault();
         }}
         onPointerDownOutside={(e) => {
-          if (submitting) e.preventDefault();
+          if (newAddonMutation.isPending) e.preventDefault();
         }}
       >
         <DialogHeader>
@@ -114,7 +151,7 @@ const NewAddonForm = () => {
 
         <form
           className="space-y-4"
-          onSubmit={form.handleSubmit(handleCreateNewAddon)}
+          onSubmit={form.handleSubmit(handleSumitAddon)}
         >
           <FieldGroup>
             <Controller
@@ -128,7 +165,7 @@ const NewAddonForm = () => {
                     id="addon-name"
                     placeholder="Extra noodles"
                     autoComplete="off"
-                    disabled={submitting || isLoading}
+                    disabled={newAddonMutation.isPending || isLoading}
                     aria-invalid={fieldState.invalid}
                     autoFocus
                   />
@@ -149,7 +186,7 @@ const NewAddonForm = () => {
                     categories={addonCategories}
                     value={field.value ?? null}
                     onValueChange={field.onChange}
-                    disabled={submitting || isLoading}
+                    disabled={newAddonMutation.isPending || isLoading}
                   />
                 </Field>
               )}
@@ -171,8 +208,10 @@ const NewAddonForm = () => {
                       type="number"
                       inputMode="decimal"
                       min={0}
-                      step={1}
-                      disabled={submitting || isFree || isLoading}
+                      step={100}
+                      disabled={
+                        newAddonMutation.isPending || isFree || isLoading
+                      }
                       value={(field.value as number) ?? 0}
                       onChange={(e) => field.onChange(Number(e.target.value))}
                       aria-invalid={fieldState.invalid}
@@ -195,7 +234,7 @@ const NewAddonForm = () => {
                     const nextFree = !!checked;
                     form.setValue("price", nextFree ? 0 : 1);
                   }}
-                  disabled={submitting || isLoading}
+                  disabled={newAddonMutation.isPending || isLoading}
                 />
                 <div className="grid gap-0.5 leading-snug">
                   <FieldLabel htmlFor="addon-free">Free</FieldLabel>
@@ -210,12 +249,15 @@ const NewAddonForm = () => {
               type="button"
               variant="outline"
               onClick={() => onClose()}
-              disabled={submitting || isLoading}
+              disabled={newAddonMutation.isPending || isLoading}
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={submitting || isLoading}>
-              {submitting ? (
+            <Button
+              type="submit"
+              disabled={newAddonMutation.isPending || isLoading}
+            >
+              {newAddonMutation.isPending ? (
                 <Loader2 className="size-4 animate-spin" />
               ) : mode === "create" ? (
                 "Create"

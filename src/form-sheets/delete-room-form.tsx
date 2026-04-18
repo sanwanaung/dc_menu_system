@@ -1,6 +1,5 @@
 "use client";
 
-import { deleteRoom } from "@/actions/room";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

@@ -61,7 +61,6 @@ export const ModelName = {
   MenuItem: 'MenuItem',
   MenuItemRating: 'MenuItemRating',
   VariantOption: 'VariantOption',
-  VariantGroup: 'VariantGroup',
   MenuItemVariantOption: 'MenuItemVariantOption',
   MenuItemImage: 'MenuItemImage',
   Addon: 'Addon',
@@ -208,13 +207,13 @@ export type MenuItemScalarFieldEnum = (typeof MenuItemScalarFieldEnum)[keyof typ
 
 export const MenuItemRatingScalarFieldEnum = {
   id: 'id',
-  comment: 'comment',
   menuItemId: 'menuItemId',
+  comment: 'comment',
   userId: 'userId',
-  roomId: 'roomId',
   rating: 'rating',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  roomId: 'roomId'
 } as const
 
 export type MenuItemRatingScalarFieldEnum = (typeof MenuItemRatingScalarFieldEnum)[keyof typeof MenuItemRatingScalarFieldEnum]
@@ -224,7 +223,8 @@ export const VariantOptionScalarFieldEnum = {
   id: 'id',
   name: 'name',
   price: 'price',
-  variantGroupId: 'variantGroupId',
+  isAvailable: 'isAvailable',
+  displayOrder: 'displayOrder',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -232,24 +232,10 @@ export const VariantOptionScalarFieldEnum = {
 export type VariantOptionScalarFieldEnum = (typeof VariantOptionScalarFieldEnum)[keyof typeof VariantOptionScalarFieldEnum]
 
 
-export const VariantGroupScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  displayOrder: 'displayOrder',
-  minSelect: 'minSelect',
-  maxSelect: 'maxSelect',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type VariantGroupScalarFieldEnum = (typeof VariantGroupScalarFieldEnum)[keyof typeof VariantGroupScalarFieldEnum]
-
-
 export const MenuItemVariantOptionScalarFieldEnum = {
   id: 'id',
   menuItemId: 'menuItemId',
   variantOptionId: 'variantOptionId',
-  priceDelta: 'priceDelta',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -271,11 +257,11 @@ export type MenuItemImageScalarFieldEnum = (typeof MenuItemImageScalarFieldEnum)
 export const AddonScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  status: 'status',
   price: 'price',
   addonCategoryId: 'addonCategoryId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  status: 'status'
 } as const
 
 export type AddonScalarFieldEnum = (typeof AddonScalarFieldEnum)[keyof typeof AddonScalarFieldEnum]
@@ -286,8 +272,8 @@ export const AddonCategoryScalarFieldEnum = {
   name: 'name',
   displayOrder: 'displayOrder',
   createdAt: 'createdAt',
-  isAvailable: 'isAvailable',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isAvailable: 'isAvailable'
 } as const
 
 export type AddonCategoryScalarFieldEnum = (typeof AddonCategoryScalarFieldEnum)[keyof typeof AddonCategoryScalarFieldEnum]
