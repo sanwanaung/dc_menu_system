@@ -39,8 +39,8 @@ export type AddonCategoryMinAggregateOutputType = {
   name: string | null
   displayOrder: number | null
   createdAt: Date | null
-  isAvailable: boolean | null
   updatedAt: Date | null
+  isAvailable: boolean | null
 }
 
 export type AddonCategoryMaxAggregateOutputType = {
@@ -48,8 +48,8 @@ export type AddonCategoryMaxAggregateOutputType = {
   name: string | null
   displayOrder: number | null
   createdAt: Date | null
-  isAvailable: boolean | null
   updatedAt: Date | null
+  isAvailable: boolean | null
 }
 
 export type AddonCategoryCountAggregateOutputType = {
@@ -57,8 +57,8 @@ export type AddonCategoryCountAggregateOutputType = {
   name: number
   displayOrder: number
   createdAt: number
-  isAvailable: number
   updatedAt: number
+  isAvailable: number
   _all: number
 }
 
@@ -76,8 +76,8 @@ export type AddonCategoryMinAggregateInputType = {
   name?: true
   displayOrder?: true
   createdAt?: true
-  isAvailable?: true
   updatedAt?: true
+  isAvailable?: true
 }
 
 export type AddonCategoryMaxAggregateInputType = {
@@ -85,8 +85,8 @@ export type AddonCategoryMaxAggregateInputType = {
   name?: true
   displayOrder?: true
   createdAt?: true
-  isAvailable?: true
   updatedAt?: true
+  isAvailable?: true
 }
 
 export type AddonCategoryCountAggregateInputType = {
@@ -94,8 +94,8 @@ export type AddonCategoryCountAggregateInputType = {
   name?: true
   displayOrder?: true
   createdAt?: true
-  isAvailable?: true
   updatedAt?: true
+  isAvailable?: true
   _all?: true
 }
 
@@ -190,8 +190,8 @@ export type AddonCategoryGroupByOutputType = {
   name: string
   displayOrder: number
   createdAt: Date
-  isAvailable: boolean
   updatedAt: Date
+  isAvailable: boolean
   _count: AddonCategoryCountAggregateOutputType | null
   _avg: AddonCategoryAvgAggregateOutputType | null
   _sum: AddonCategorySumAggregateOutputType | null
@@ -222,8 +222,8 @@ export type AddonCategoryWhereInput = {
   name?: Prisma.StringFilter<"AddonCategory"> | string
   displayOrder?: Prisma.IntFilter<"AddonCategory"> | number
   createdAt?: Prisma.DateTimeFilter<"AddonCategory"> | Date | string
-  isAvailable?: Prisma.BoolFilter<"AddonCategory"> | boolean
   updatedAt?: Prisma.DateTimeFilter<"AddonCategory"> | Date | string
+  isAvailable?: Prisma.BoolFilter<"AddonCategory"> | boolean
   addons?: Prisma.AddonListRelationFilter
   menuItemAddonCategories?: Prisma.MenuItemAddonCategoryListRelationFilter
 }
@@ -233,8 +233,8 @@ export type AddonCategoryOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  isAvailable?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isAvailable?: Prisma.SortOrder
   addons?: Prisma.AddonOrderByRelationAggregateInput
   menuItemAddonCategories?: Prisma.MenuItemAddonCategoryOrderByRelationAggregateInput
 }
@@ -247,8 +247,8 @@ export type AddonCategoryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.AddonCategoryWhereInput | Prisma.AddonCategoryWhereInput[]
   displayOrder?: Prisma.IntFilter<"AddonCategory"> | number
   createdAt?: Prisma.DateTimeFilter<"AddonCategory"> | Date | string
-  isAvailable?: Prisma.BoolFilter<"AddonCategory"> | boolean
   updatedAt?: Prisma.DateTimeFilter<"AddonCategory"> | Date | string
+  isAvailable?: Prisma.BoolFilter<"AddonCategory"> | boolean
   addons?: Prisma.AddonListRelationFilter
   menuItemAddonCategories?: Prisma.MenuItemAddonCategoryListRelationFilter
 }, "id" | "name">
@@ -258,8 +258,8 @@ export type AddonCategoryOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  isAvailable?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isAvailable?: Prisma.SortOrder
   _count?: Prisma.AddonCategoryCountOrderByAggregateInput
   _avg?: Prisma.AddonCategoryAvgOrderByAggregateInput
   _max?: Prisma.AddonCategoryMaxOrderByAggregateInput
@@ -275,8 +275,8 @@ export type AddonCategoryScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"AddonCategory"> | string
   displayOrder?: Prisma.IntWithAggregatesFilter<"AddonCategory"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"AddonCategory"> | Date | string
-  isAvailable?: Prisma.BoolWithAggregatesFilter<"AddonCategory"> | boolean
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"AddonCategory"> | Date | string
+  isAvailable?: Prisma.BoolWithAggregatesFilter<"AddonCategory"> | boolean
 }
 
 export type AddonCategoryCreateInput = {
@@ -284,8 +284,8 @@ export type AddonCategoryCreateInput = {
   name: string
   displayOrder?: number
   createdAt?: Date | string
-  isAvailable?: boolean
   updatedAt?: Date | string
+  isAvailable?: boolean
   addons?: Prisma.AddonCreateNestedManyWithoutAddonCategoryInput
   menuItemAddonCategories?: Prisma.MenuItemAddonCategoryCreateNestedManyWithoutAddonCategoryInput
 }
@@ -295,8 +295,8 @@ export type AddonCategoryUncheckedCreateInput = {
   name: string
   displayOrder?: number
   createdAt?: Date | string
-  isAvailable?: boolean
   updatedAt?: Date | string
+  isAvailable?: boolean
   addons?: Prisma.AddonUncheckedCreateNestedManyWithoutAddonCategoryInput
   menuItemAddonCategories?: Prisma.MenuItemAddonCategoryUncheckedCreateNestedManyWithoutAddonCategoryInput
 }
@@ -306,8 +306,8 @@ export type AddonCategoryUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addons?: Prisma.AddonUpdateManyWithoutAddonCategoryNestedInput
   menuItemAddonCategories?: Prisma.MenuItemAddonCategoryUpdateManyWithoutAddonCategoryNestedInput
 }
@@ -317,8 +317,8 @@ export type AddonCategoryUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addons?: Prisma.AddonUncheckedUpdateManyWithoutAddonCategoryNestedInput
   menuItemAddonCategories?: Prisma.MenuItemAddonCategoryUncheckedUpdateManyWithoutAddonCategoryNestedInput
 }
@@ -328,8 +328,8 @@ export type AddonCategoryCreateManyInput = {
   name: string
   displayOrder?: number
   createdAt?: Date | string
-  isAvailable?: boolean
   updatedAt?: Date | string
+  isAvailable?: boolean
 }
 
 export type AddonCategoryUpdateManyMutationInput = {
@@ -337,8 +337,8 @@ export type AddonCategoryUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type AddonCategoryUncheckedUpdateManyInput = {
@@ -346,8 +346,8 @@ export type AddonCategoryUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type AddonCategoryNullableScalarRelationFilter = {
@@ -360,8 +360,8 @@ export type AddonCategoryCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  isAvailable?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isAvailable?: Prisma.SortOrder
 }
 
 export type AddonCategoryAvgOrderByAggregateInput = {
@@ -373,8 +373,8 @@ export type AddonCategoryMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  isAvailable?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isAvailable?: Prisma.SortOrder
 }
 
 export type AddonCategoryMinOrderByAggregateInput = {
@@ -382,8 +382,8 @@ export type AddonCategoryMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   displayOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  isAvailable?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isAvailable?: Prisma.SortOrder
 }
 
 export type AddonCategorySumOrderByAggregateInput = {
@@ -430,8 +430,8 @@ export type AddonCategoryCreateWithoutAddonsInput = {
   name: string
   displayOrder?: number
   createdAt?: Date | string
-  isAvailable?: boolean
   updatedAt?: Date | string
+  isAvailable?: boolean
   menuItemAddonCategories?: Prisma.MenuItemAddonCategoryCreateNestedManyWithoutAddonCategoryInput
 }
 
@@ -440,8 +440,8 @@ export type AddonCategoryUncheckedCreateWithoutAddonsInput = {
   name: string
   displayOrder?: number
   createdAt?: Date | string
-  isAvailable?: boolean
   updatedAt?: Date | string
+  isAvailable?: boolean
   menuItemAddonCategories?: Prisma.MenuItemAddonCategoryUncheckedCreateNestedManyWithoutAddonCategoryInput
 }
 
@@ -466,8 +466,8 @@ export type AddonCategoryUpdateWithoutAddonsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   menuItemAddonCategories?: Prisma.MenuItemAddonCategoryUpdateManyWithoutAddonCategoryNestedInput
 }
 
@@ -476,8 +476,8 @@ export type AddonCategoryUncheckedUpdateWithoutAddonsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   menuItemAddonCategories?: Prisma.MenuItemAddonCategoryUncheckedUpdateManyWithoutAddonCategoryNestedInput
 }
 
@@ -486,8 +486,8 @@ export type AddonCategoryCreateWithoutMenuItemAddonCategoriesInput = {
   name: string
   displayOrder?: number
   createdAt?: Date | string
-  isAvailable?: boolean
   updatedAt?: Date | string
+  isAvailable?: boolean
   addons?: Prisma.AddonCreateNestedManyWithoutAddonCategoryInput
 }
 
@@ -496,8 +496,8 @@ export type AddonCategoryUncheckedCreateWithoutMenuItemAddonCategoriesInput = {
   name: string
   displayOrder?: number
   createdAt?: Date | string
-  isAvailable?: boolean
   updatedAt?: Date | string
+  isAvailable?: boolean
   addons?: Prisma.AddonUncheckedCreateNestedManyWithoutAddonCategoryInput
 }
 
@@ -522,8 +522,8 @@ export type AddonCategoryUpdateWithoutMenuItemAddonCategoriesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addons?: Prisma.AddonUpdateManyWithoutAddonCategoryNestedInput
 }
 
@@ -532,8 +532,8 @@ export type AddonCategoryUncheckedUpdateWithoutMenuItemAddonCategoriesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addons?: Prisma.AddonUncheckedUpdateManyWithoutAddonCategoryNestedInput
 }
 
@@ -582,8 +582,8 @@ export type AddonCategorySelect<ExtArgs extends runtime.Types.Extensions.Interna
   name?: boolean
   displayOrder?: boolean
   createdAt?: boolean
-  isAvailable?: boolean
   updatedAt?: boolean
+  isAvailable?: boolean
   addons?: boolean | Prisma.AddonCategory$addonsArgs<ExtArgs>
   menuItemAddonCategories?: boolean | Prisma.AddonCategory$menuItemAddonCategoriesArgs<ExtArgs>
   _count?: boolean | Prisma.AddonCategoryCountOutputTypeDefaultArgs<ExtArgs>
@@ -594,8 +594,8 @@ export type AddonCategorySelectCreateManyAndReturn<ExtArgs extends runtime.Types
   name?: boolean
   displayOrder?: boolean
   createdAt?: boolean
-  isAvailable?: boolean
   updatedAt?: boolean
+  isAvailable?: boolean
 }, ExtArgs["result"]["addonCategory"]>
 
 export type AddonCategorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -603,8 +603,8 @@ export type AddonCategorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   name?: boolean
   displayOrder?: boolean
   createdAt?: boolean
-  isAvailable?: boolean
   updatedAt?: boolean
+  isAvailable?: boolean
 }, ExtArgs["result"]["addonCategory"]>
 
 export type AddonCategorySelectScalar = {
@@ -612,11 +612,11 @@ export type AddonCategorySelectScalar = {
   name?: boolean
   displayOrder?: boolean
   createdAt?: boolean
-  isAvailable?: boolean
   updatedAt?: boolean
+  isAvailable?: boolean
 }
 
-export type AddonCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "displayOrder" | "createdAt" | "isAvailable" | "updatedAt", ExtArgs["result"]["addonCategory"]>
+export type AddonCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "displayOrder" | "createdAt" | "updatedAt" | "isAvailable", ExtArgs["result"]["addonCategory"]>
 export type AddonCategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   addons?: boolean | Prisma.AddonCategory$addonsArgs<ExtArgs>
   menuItemAddonCategories?: boolean | Prisma.AddonCategory$menuItemAddonCategoriesArgs<ExtArgs>
@@ -636,8 +636,8 @@ export type $AddonCategoryPayload<ExtArgs extends runtime.Types.Extensions.Inter
     name: string
     displayOrder: number
     createdAt: Date
-    isAvailable: boolean
     updatedAt: Date
+    isAvailable: boolean
   }, ExtArgs["result"]["addonCategory"]>
   composites: {}
 }
@@ -1067,8 +1067,8 @@ export interface AddonCategoryFieldRefs {
   readonly name: Prisma.FieldRef<"AddonCategory", 'String'>
   readonly displayOrder: Prisma.FieldRef<"AddonCategory", 'Int'>
   readonly createdAt: Prisma.FieldRef<"AddonCategory", 'DateTime'>
-  readonly isAvailable: Prisma.FieldRef<"AddonCategory", 'Boolean'>
   readonly updatedAt: Prisma.FieldRef<"AddonCategory", 'DateTime'>
+  readonly isAvailable: Prisma.FieldRef<"AddonCategory", 'Boolean'>
 }
     
 

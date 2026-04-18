@@ -30,16 +30,6 @@ export const adminNav: AdminNavItem[] = [
   { label: "Menu Categories", href: "/admin/menu-categories", icon: Layers },
   { label: "Menu Items", href: "/admin/menu-items", icon: UtensilsCrossed },
   {
-    label: "Variants & Addons",
-    href: "/admin/variants-addons",
-    icon: SlidersHorizontal,
-  },
-  {
-    label: "Variant Groups",
-    href: "/admin/variant-groups",
-    icon: SlidersHorizontal,
-  },
-  {
     label: "Variant Options",
     href: "/admin/variant-options",
     icon: SlidersHorizontal,

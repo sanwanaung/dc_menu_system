@@ -20,25 +20,14 @@ export type MenuItemVariantOptionModel = runtime.Types.Result.DefaultSelection<P
 
 export type AggregateMenuItemVariantOption = {
   _count: MenuItemVariantOptionCountAggregateOutputType | null
-  _avg: MenuItemVariantOptionAvgAggregateOutputType | null
-  _sum: MenuItemVariantOptionSumAggregateOutputType | null
   _min: MenuItemVariantOptionMinAggregateOutputType | null
   _max: MenuItemVariantOptionMaxAggregateOutputType | null
-}
-
-export type MenuItemVariantOptionAvgAggregateOutputType = {
-  priceDelta: runtime.Decimal | null
-}
-
-export type MenuItemVariantOptionSumAggregateOutputType = {
-  priceDelta: runtime.Decimal | null
 }
 
 export type MenuItemVariantOptionMinAggregateOutputType = {
   id: string | null
   menuItemId: string | null
   variantOptionId: string | null
-  priceDelta: runtime.Decimal | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -47,7 +36,6 @@ export type MenuItemVariantOptionMaxAggregateOutputType = {
   id: string | null
   menuItemId: string | null
   variantOptionId: string | null
-  priceDelta: runtime.Decimal | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -56,26 +44,16 @@ export type MenuItemVariantOptionCountAggregateOutputType = {
   id: number
   menuItemId: number
   variantOptionId: number
-  priceDelta: number
   createdAt: number
   updatedAt: number
   _all: number
 }
 
 
-export type MenuItemVariantOptionAvgAggregateInputType = {
-  priceDelta?: true
-}
-
-export type MenuItemVariantOptionSumAggregateInputType = {
-  priceDelta?: true
-}
-
 export type MenuItemVariantOptionMinAggregateInputType = {
   id?: true
   menuItemId?: true
   variantOptionId?: true
-  priceDelta?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -84,7 +62,6 @@ export type MenuItemVariantOptionMaxAggregateInputType = {
   id?: true
   menuItemId?: true
   variantOptionId?: true
-  priceDelta?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -93,7 +70,6 @@ export type MenuItemVariantOptionCountAggregateInputType = {
   id?: true
   menuItemId?: true
   variantOptionId?: true
-  priceDelta?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -137,18 +113,6 @@ export type MenuItemVariantOptionAggregateArgs<ExtArgs extends runtime.Types.Ext
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: MenuItemVariantOptionAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: MenuItemVariantOptionSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: MenuItemVariantOptionMinAggregateInputType
@@ -179,8 +143,6 @@ export type MenuItemVariantOptionGroupByArgs<ExtArgs extends runtime.Types.Exten
   take?: number
   skip?: number
   _count?: MenuItemVariantOptionCountAggregateInputType | true
-  _avg?: MenuItemVariantOptionAvgAggregateInputType
-  _sum?: MenuItemVariantOptionSumAggregateInputType
   _min?: MenuItemVariantOptionMinAggregateInputType
   _max?: MenuItemVariantOptionMaxAggregateInputType
 }
@@ -189,12 +151,9 @@ export type MenuItemVariantOptionGroupByOutputType = {
   id: string
   menuItemId: string
   variantOptionId: string
-  priceDelta: runtime.Decimal
   createdAt: Date
   updatedAt: Date
   _count: MenuItemVariantOptionCountAggregateOutputType | null
-  _avg: MenuItemVariantOptionAvgAggregateOutputType | null
-  _sum: MenuItemVariantOptionSumAggregateOutputType | null
   _min: MenuItemVariantOptionMinAggregateOutputType | null
   _max: MenuItemVariantOptionMaxAggregateOutputType | null
 }
@@ -221,7 +180,6 @@ export type MenuItemVariantOptionWhereInput = {
   id?: Prisma.StringFilter<"MenuItemVariantOption"> | string
   menuItemId?: Prisma.StringFilter<"MenuItemVariantOption"> | string
   variantOptionId?: Prisma.StringFilter<"MenuItemVariantOption"> | string
-  priceDelta?: Prisma.DecimalFilter<"MenuItemVariantOption"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"MenuItemVariantOption"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MenuItemVariantOption"> | Date | string
   menuItem?: Prisma.XOR<Prisma.MenuItemScalarRelationFilter, Prisma.MenuItemWhereInput>
@@ -232,7 +190,6 @@ export type MenuItemVariantOptionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   menuItemId?: Prisma.SortOrder
   variantOptionId?: Prisma.SortOrder
-  priceDelta?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   menuItem?: Prisma.MenuItemOrderByWithRelationInput
@@ -247,7 +204,6 @@ export type MenuItemVariantOptionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.MenuItemVariantOptionWhereInput | Prisma.MenuItemVariantOptionWhereInput[]
   menuItemId?: Prisma.StringFilter<"MenuItemVariantOption"> | string
   variantOptionId?: Prisma.StringFilter<"MenuItemVariantOption"> | string
-  priceDelta?: Prisma.DecimalFilter<"MenuItemVariantOption"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"MenuItemVariantOption"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MenuItemVariantOption"> | Date | string
   menuItem?: Prisma.XOR<Prisma.MenuItemScalarRelationFilter, Prisma.MenuItemWhereInput>
@@ -258,14 +214,11 @@ export type MenuItemVariantOptionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   menuItemId?: Prisma.SortOrder
   variantOptionId?: Prisma.SortOrder
-  priceDelta?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.MenuItemVariantOptionCountOrderByAggregateInput
-  _avg?: Prisma.MenuItemVariantOptionAvgOrderByAggregateInput
   _max?: Prisma.MenuItemVariantOptionMaxOrderByAggregateInput
   _min?: Prisma.MenuItemVariantOptionMinOrderByAggregateInput
-  _sum?: Prisma.MenuItemVariantOptionSumOrderByAggregateInput
 }
 
 export type MenuItemVariantOptionScalarWhereWithAggregatesInput = {
@@ -275,14 +228,12 @@ export type MenuItemVariantOptionScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"MenuItemVariantOption"> | string
   menuItemId?: Prisma.StringWithAggregatesFilter<"MenuItemVariantOption"> | string
   variantOptionId?: Prisma.StringWithAggregatesFilter<"MenuItemVariantOption"> | string
-  priceDelta?: Prisma.DecimalWithAggregatesFilter<"MenuItemVariantOption"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"MenuItemVariantOption"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"MenuItemVariantOption"> | Date | string
 }
 
 export type MenuItemVariantOptionCreateInput = {
   id?: string
-  priceDelta?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
   menuItem: Prisma.MenuItemCreateNestedOneWithoutMenuItemVariantOptionsInput
@@ -293,14 +244,12 @@ export type MenuItemVariantOptionUncheckedCreateInput = {
   id?: string
   menuItemId: string
   variantOptionId: string
-  priceDelta?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type MenuItemVariantOptionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  priceDelta?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   menuItem?: Prisma.MenuItemUpdateOneRequiredWithoutMenuItemVariantOptionsNestedInput
@@ -311,7 +260,6 @@ export type MenuItemVariantOptionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   menuItemId?: Prisma.StringFieldUpdateOperationsInput | string
   variantOptionId?: Prisma.StringFieldUpdateOperationsInput | string
-  priceDelta?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -320,14 +268,12 @@ export type MenuItemVariantOptionCreateManyInput = {
   id?: string
   menuItemId: string
   variantOptionId: string
-  priceDelta?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type MenuItemVariantOptionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  priceDelta?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -336,7 +282,6 @@ export type MenuItemVariantOptionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   menuItemId?: Prisma.StringFieldUpdateOperationsInput | string
   variantOptionId?: Prisma.StringFieldUpdateOperationsInput | string
-  priceDelta?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -360,20 +305,14 @@ export type MenuItemVariantOptionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   menuItemId?: Prisma.SortOrder
   variantOptionId?: Prisma.SortOrder
-  priceDelta?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type MenuItemVariantOptionAvgOrderByAggregateInput = {
-  priceDelta?: Prisma.SortOrder
 }
 
 export type MenuItemVariantOptionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   menuItemId?: Prisma.SortOrder
   variantOptionId?: Prisma.SortOrder
-  priceDelta?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -382,13 +321,8 @@ export type MenuItemVariantOptionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   menuItemId?: Prisma.SortOrder
   variantOptionId?: Prisma.SortOrder
-  priceDelta?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type MenuItemVariantOptionSumOrderByAggregateInput = {
-  priceDelta?: Prisma.SortOrder
 }
 
 export type MenuItemVariantOptionCreateNestedManyWithoutMenuItemInput = {
@@ -477,7 +411,6 @@ export type MenuItemVariantOptionUncheckedUpdateManyWithoutVariantOptionNestedIn
 
 export type MenuItemVariantOptionCreateWithoutMenuItemInput = {
   id?: string
-  priceDelta?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
   variantOption: Prisma.VariantOptionCreateNestedOneWithoutMenuItemVariantOptionsInput
@@ -486,7 +419,6 @@ export type MenuItemVariantOptionCreateWithoutMenuItemInput = {
 export type MenuItemVariantOptionUncheckedCreateWithoutMenuItemInput = {
   id?: string
   variantOptionId: string
-  priceDelta?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -524,14 +456,12 @@ export type MenuItemVariantOptionScalarWhereInput = {
   id?: Prisma.StringFilter<"MenuItemVariantOption"> | string
   menuItemId?: Prisma.StringFilter<"MenuItemVariantOption"> | string
   variantOptionId?: Prisma.StringFilter<"MenuItemVariantOption"> | string
-  priceDelta?: Prisma.DecimalFilter<"MenuItemVariantOption"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"MenuItemVariantOption"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MenuItemVariantOption"> | Date | string
 }
 
 export type MenuItemVariantOptionCreateWithoutVariantOptionInput = {
   id?: string
-  priceDelta?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
   menuItem: Prisma.MenuItemCreateNestedOneWithoutMenuItemVariantOptionsInput
@@ -540,7 +470,6 @@ export type MenuItemVariantOptionCreateWithoutVariantOptionInput = {
 export type MenuItemVariantOptionUncheckedCreateWithoutVariantOptionInput = {
   id?: string
   menuItemId: string
-  priceDelta?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -574,14 +503,12 @@ export type MenuItemVariantOptionUpdateManyWithWhereWithoutVariantOptionInput = 
 export type MenuItemVariantOptionCreateManyMenuItemInput = {
   id?: string
   variantOptionId: string
-  priceDelta?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type MenuItemVariantOptionUpdateWithoutMenuItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  priceDelta?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   variantOption?: Prisma.VariantOptionUpdateOneRequiredWithoutMenuItemVariantOptionsNestedInput
@@ -590,7 +517,6 @@ export type MenuItemVariantOptionUpdateWithoutMenuItemInput = {
 export type MenuItemVariantOptionUncheckedUpdateWithoutMenuItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   variantOptionId?: Prisma.StringFieldUpdateOperationsInput | string
-  priceDelta?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -598,7 +524,6 @@ export type MenuItemVariantOptionUncheckedUpdateWithoutMenuItemInput = {
 export type MenuItemVariantOptionUncheckedUpdateManyWithoutMenuItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   variantOptionId?: Prisma.StringFieldUpdateOperationsInput | string
-  priceDelta?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -606,14 +531,12 @@ export type MenuItemVariantOptionUncheckedUpdateManyWithoutMenuItemInput = {
 export type MenuItemVariantOptionCreateManyVariantOptionInput = {
   id?: string
   menuItemId: string
-  priceDelta?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type MenuItemVariantOptionUpdateWithoutVariantOptionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  priceDelta?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   menuItem?: Prisma.MenuItemUpdateOneRequiredWithoutMenuItemVariantOptionsNestedInput
@@ -622,7 +545,6 @@ export type MenuItemVariantOptionUpdateWithoutVariantOptionInput = {
 export type MenuItemVariantOptionUncheckedUpdateWithoutVariantOptionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   menuItemId?: Prisma.StringFieldUpdateOperationsInput | string
-  priceDelta?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -630,7 +552,6 @@ export type MenuItemVariantOptionUncheckedUpdateWithoutVariantOptionInput = {
 export type MenuItemVariantOptionUncheckedUpdateManyWithoutVariantOptionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   menuItemId?: Prisma.StringFieldUpdateOperationsInput | string
-  priceDelta?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -641,7 +562,6 @@ export type MenuItemVariantOptionSelect<ExtArgs extends runtime.Types.Extensions
   id?: boolean
   menuItemId?: boolean
   variantOptionId?: boolean
-  priceDelta?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>
@@ -652,7 +572,6 @@ export type MenuItemVariantOptionSelectCreateManyAndReturn<ExtArgs extends runti
   id?: boolean
   menuItemId?: boolean
   variantOptionId?: boolean
-  priceDelta?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>
@@ -663,7 +582,6 @@ export type MenuItemVariantOptionSelectUpdateManyAndReturn<ExtArgs extends runti
   id?: boolean
   menuItemId?: boolean
   variantOptionId?: boolean
-  priceDelta?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>
@@ -674,12 +592,11 @@ export type MenuItemVariantOptionSelectScalar = {
   id?: boolean
   menuItemId?: boolean
   variantOptionId?: boolean
-  priceDelta?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type MenuItemVariantOptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "menuItemId" | "variantOptionId" | "priceDelta" | "createdAt" | "updatedAt", ExtArgs["result"]["menuItemVariantOption"]>
+export type MenuItemVariantOptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "menuItemId" | "variantOptionId" | "createdAt" | "updatedAt", ExtArgs["result"]["menuItemVariantOption"]>
 export type MenuItemVariantOptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>
   variantOption?: boolean | Prisma.VariantOptionDefaultArgs<ExtArgs>
@@ -703,7 +620,6 @@ export type $MenuItemVariantOptionPayload<ExtArgs extends runtime.Types.Extensio
     id: string
     menuItemId: string
     variantOptionId: string
-    priceDelta: runtime.Decimal
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["menuItemVariantOption"]>
@@ -1134,7 +1050,6 @@ export interface MenuItemVariantOptionFieldRefs {
   readonly id: Prisma.FieldRef<"MenuItemVariantOption", 'String'>
   readonly menuItemId: Prisma.FieldRef<"MenuItemVariantOption", 'String'>
   readonly variantOptionId: Prisma.FieldRef<"MenuItemVariantOption", 'String'>
-  readonly priceDelta: Prisma.FieldRef<"MenuItemVariantOption", 'Decimal'>
   readonly createdAt: Prisma.FieldRef<"MenuItemVariantOption", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"MenuItemVariantOption", 'DateTime'>
 }

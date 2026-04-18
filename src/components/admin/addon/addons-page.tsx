@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import AddonTotalCard from "./addon-total-card";
 import { AddonActions } from "./addon-actions";
 import {
@@ -15,7 +15,6 @@ import { Button } from "@/components/ui/button";
 import { useNewAddon } from "@/hooks/use-new-addon";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getAddons } from "@/actions/addon";
-import Loading from "../loading";
 import { AddonCard } from "./addon-card";
 import { Loader2 } from "lucide-react";
 
@@ -25,14 +24,51 @@ const AddonPage = () => {
   const [priceFilter, setPriceFilter] = useState<PriceFilter>("all");
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("all");
   const [sort, setSort] = useState<SortKey>("updatedDesc");
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const [hasScrolled, setHasScrolled] = useState<boolean>(false);
 
   const datas = useInfiniteQuery({
-    queryKey: ["addons"],
+    queryKey: ["addon"],
     initialPageParam: 0,
     queryFn: ({ pageParam }) =>
-      getAddons({ limit: 2, offset: Number(pageParam) }),
+      getAddons({ limit: 10, offset: Number(pageParam) }),
     getNextPageParam: (lastPage, pages) => lastPage.data?.meta.nextPage,
   });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setHasScrolled(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!loadMoreRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (
+          (entries[0].isIntersecting &&
+            datas.hasNextPage &&
+            !datas.isFetchingNextPage) ||
+          hasScrolled
+        ) {
+          datas.fetchNextPage();
+        }
+      },
+      {
+        rootMargin: "100px",
+      },
+    );
+
+    observer.observe(loadMoreRef.current);
+
+    return () => observer.disconnect();
+  }, [datas.fetchNextPage, datas.hasNextPage, datas.isFetchingNextPage]);
 
   const allAddons = useMemo(() => {
     return datas.data?.pages.flatMap((p) => p.data?.items ?? []);
@@ -61,7 +97,7 @@ const AddonPage = () => {
     return categoryNames?.length;
   }, [datas]);
 
-  if (datas.isPending || datas.isFetching || datas.isLoading)
+  if (datas.isPending || datas.isLoading)
     return (
       <div className=" flex items-center justify-center w-full min-h-100">
         <Loader2 className="animate-spin size-6" />
@@ -138,11 +174,19 @@ const AddonPage = () => {
           </CardContent>
         </Card>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {visibleAddons?.map((addon) => (
-            <AddonCard key={addon.id} addon={addon} />
-          ))}
-        </div>
+        <>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {visibleAddons?.map((addon) => (
+              <AddonCard key={addon.id} addon={addon} />
+            ))}
+          </div>
+          <div ref={loadMoreRef} className="h-1" />
+          {datas.isFetchingNextPage && (
+            <div className="flex justify-center py-2">
+              <Loader2 className="animate-spin size-6" />
+            </div>
+          )}
+        </>
       )}
     </div>
   );

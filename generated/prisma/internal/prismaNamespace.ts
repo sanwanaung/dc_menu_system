@@ -394,7 +394,6 @@ export const ModelName = {
   MenuItem: 'MenuItem',
   MenuItemRating: 'MenuItemRating',
   VariantOption: 'VariantOption',
-  VariantGroup: 'VariantGroup',
   MenuItemVariantOption: 'MenuItemVariantOption',
   MenuItemImage: 'MenuItemImage',
   Addon: 'Addon',
@@ -415,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "room" | "roomServiceOrder" | "menuCategory" | "menuItem" | "menuItemRating" | "variantOption" | "variantGroup" | "menuItemVariantOption" | "menuItemImage" | "addon" | "addonCategory" | "menuItemAddonCategory"
+    modelProps: "user" | "session" | "account" | "verification" | "room" | "roomServiceOrder" | "menuCategory" | "menuItem" | "menuItemRating" | "variantOption" | "menuItemVariantOption" | "menuItemImage" | "addon" | "addonCategory" | "menuItemAddonCategory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1159,80 +1158,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    VariantGroup: {
-      payload: Prisma.$VariantGroupPayload<ExtArgs>
-      fields: Prisma.VariantGroupFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.VariantGroupFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$VariantGroupPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.VariantGroupFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$VariantGroupPayload>
-        }
-        findFirst: {
-          args: Prisma.VariantGroupFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$VariantGroupPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.VariantGroupFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$VariantGroupPayload>
-        }
-        findMany: {
-          args: Prisma.VariantGroupFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$VariantGroupPayload>[]
-        }
-        create: {
-          args: Prisma.VariantGroupCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$VariantGroupPayload>
-        }
-        createMany: {
-          args: Prisma.VariantGroupCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.VariantGroupCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$VariantGroupPayload>[]
-        }
-        delete: {
-          args: Prisma.VariantGroupDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$VariantGroupPayload>
-        }
-        update: {
-          args: Prisma.VariantGroupUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$VariantGroupPayload>
-        }
-        deleteMany: {
-          args: Prisma.VariantGroupDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.VariantGroupUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.VariantGroupUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$VariantGroupPayload>[]
-        }
-        upsert: {
-          args: Prisma.VariantGroupUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$VariantGroupPayload>
-        }
-        aggregate: {
-          args: Prisma.VariantGroupAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateVariantGroup>
-        }
-        groupBy: {
-          args: Prisma.VariantGroupGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.VariantGroupGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.VariantGroupCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.VariantGroupCountAggregateOutputType> | number
-        }
-      }
-    }
     MenuItemVariantOption: {
       payload: Prisma.$MenuItemVariantOptionPayload<ExtArgs>
       fields: Prisma.MenuItemVariantOptionFieldRefs
@@ -1765,13 +1690,13 @@ export type MenuItemScalarFieldEnum = (typeof MenuItemScalarFieldEnum)[keyof typ
 
 export const MenuItemRatingScalarFieldEnum = {
   id: 'id',
-  comment: 'comment',
   menuItemId: 'menuItemId',
+  comment: 'comment',
   userId: 'userId',
-  roomId: 'roomId',
   rating: 'rating',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  roomId: 'roomId'
 } as const
 
 export type MenuItemRatingScalarFieldEnum = (typeof MenuItemRatingScalarFieldEnum)[keyof typeof MenuItemRatingScalarFieldEnum]
@@ -1781,7 +1706,8 @@ export const VariantOptionScalarFieldEnum = {
   id: 'id',
   name: 'name',
   price: 'price',
-  variantGroupId: 'variantGroupId',
+  isAvailable: 'isAvailable',
+  displayOrder: 'displayOrder',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1789,24 +1715,10 @@ export const VariantOptionScalarFieldEnum = {
 export type VariantOptionScalarFieldEnum = (typeof VariantOptionScalarFieldEnum)[keyof typeof VariantOptionScalarFieldEnum]
 
 
-export const VariantGroupScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  displayOrder: 'displayOrder',
-  minSelect: 'minSelect',
-  maxSelect: 'maxSelect',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type VariantGroupScalarFieldEnum = (typeof VariantGroupScalarFieldEnum)[keyof typeof VariantGroupScalarFieldEnum]
-
-
 export const MenuItemVariantOptionScalarFieldEnum = {
   id: 'id',
   menuItemId: 'menuItemId',
   variantOptionId: 'variantOptionId',
-  priceDelta: 'priceDelta',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1828,11 +1740,11 @@ export type MenuItemImageScalarFieldEnum = (typeof MenuItemImageScalarFieldEnum)
 export const AddonScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  status: 'status',
   price: 'price',
   addonCategoryId: 'addonCategoryId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  status: 'status'
 } as const
 
 export type AddonScalarFieldEnum = (typeof AddonScalarFieldEnum)[keyof typeof AddonScalarFieldEnum]
@@ -1843,8 +1755,8 @@ export const AddonCategoryScalarFieldEnum = {
   name: 'name',
   displayOrder: 'displayOrder',
   createdAt: 'createdAt',
-  isAvailable: 'isAvailable',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isAvailable: 'isAvailable'
 } as const
 
 export type AddonCategoryScalarFieldEnum = (typeof AddonCategoryScalarFieldEnum)[keyof typeof AddonCategoryScalarFieldEnum]
@@ -2100,7 +2012,6 @@ export type GlobalOmitConfig = {
   menuItem?: Prisma.MenuItemOmit
   menuItemRating?: Prisma.MenuItemRatingOmit
   variantOption?: Prisma.VariantOptionOmit
-  variantGroup?: Prisma.VariantGroupOmit
   menuItemVariantOption?: Prisma.MenuItemVariantOptionOmit
   menuItemImage?: Prisma.MenuItemImageOmit
   addon?: Prisma.AddonOmit

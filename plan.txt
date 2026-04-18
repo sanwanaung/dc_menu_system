@@ -8,18 +8,13 @@ Follow professional frontend architecture.
 
 Use reusable components and clean separation of concerns.
 
-1. Based on my prisma db design, create addon page only. But don't touch , edit and modified any other files.
-    - I don't want table to display addons. Is there better UI for displaying addons?
-    - Should I use react-select package to display already connected addoncategory?
-    - admin can create , edit , and delete.
+1. Based on my prisma db design, create analytics pages only. But don't touch , edit and modified any other files.
 
 2. You can check and inspires my prisma db design but don't edit and modify.
 
-3. if you want to create necessary component files , use -> components/admin/addon folder(for better folder Structure) to create necessary component files.
+3. if you want to create necessary component files , use -> components/admin/analytics folder(for better folder Structure) to create necessary component files.
 
-4. Don't intergrate with backend and db. You can create demo datas in demo.ts file and use it.
-
-5. The other features will be implemeted later. I just want addon Features only Now.
+5. The other features will be implemeted later. I just want Analytics Feature only Now.
 
 6. Code should be production quality.
 

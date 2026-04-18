@@ -92,11 +92,6 @@ export type MenuItemRating = Prisma.MenuItemRatingModel
  */
 export type VariantOption = Prisma.VariantOptionModel
 /**
- * Model VariantGroup
- * 
- */
-export type VariantGroup = Prisma.VariantGroupModel
-/**
  * Model MenuItemVariantOption
  * 
  */

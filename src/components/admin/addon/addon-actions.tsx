@@ -61,7 +61,7 @@ export function AddonActions({
           <SelectContent>
             <SelectItem value="all">All categories</SelectItem>
             {addons?.map((a) => (
-              <SelectItem key={a.id} value={a.addonCategory?.name ?? ""}>
+              <SelectItem key={a.id} value={a.addonCategory?.name ?? "a"}>
                 {a.addonCategory?.name}
               </SelectItem>
             ))}

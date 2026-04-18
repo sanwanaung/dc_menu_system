@@ -37,31 +37,31 @@ export type AddonSumAggregateOutputType = {
 export type AddonMinAggregateOutputType = {
   id: string | null
   name: string | null
-  status: $Enums.AddonStatus | null
   price: runtime.Decimal | null
   addonCategoryId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.AddonStatus | null
 }
 
 export type AddonMaxAggregateOutputType = {
   id: string | null
   name: string | null
-  status: $Enums.AddonStatus | null
   price: runtime.Decimal | null
   addonCategoryId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.AddonStatus | null
 }
 
 export type AddonCountAggregateOutputType = {
   id: number
   name: number
-  status: number
   price: number
   addonCategoryId: number
   createdAt: number
   updatedAt: number
+  status: number
   _all: number
 }
 
@@ -77,31 +77,31 @@ export type AddonSumAggregateInputType = {
 export type AddonMinAggregateInputType = {
   id?: true
   name?: true
-  status?: true
   price?: true
   addonCategoryId?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type AddonMaxAggregateInputType = {
   id?: true
   name?: true
-  status?: true
   price?: true
   addonCategoryId?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type AddonCountAggregateInputType = {
   id?: true
   name?: true
-  status?: true
   price?: true
   addonCategoryId?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
   _all?: true
 }
 
@@ -194,11 +194,11 @@ export type AddonGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type AddonGroupByOutputType = {
   id: string
   name: string
-  status: $Enums.AddonStatus
   price: runtime.Decimal
   addonCategoryId: string | null
   createdAt: Date
   updatedAt: Date
+  status: $Enums.AddonStatus
   _count: AddonCountAggregateOutputType | null
   _avg: AddonAvgAggregateOutputType | null
   _sum: AddonSumAggregateOutputType | null
@@ -227,22 +227,22 @@ export type AddonWhereInput = {
   NOT?: Prisma.AddonWhereInput | Prisma.AddonWhereInput[]
   id?: Prisma.StringFilter<"Addon"> | string
   name?: Prisma.StringFilter<"Addon"> | string
-  status?: Prisma.EnumAddonStatusFilter<"Addon"> | $Enums.AddonStatus
   price?: Prisma.DecimalFilter<"Addon"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   addonCategoryId?: Prisma.StringNullableFilter<"Addon"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Addon"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Addon"> | Date | string
+  status?: Prisma.EnumAddonStatusFilter<"Addon"> | $Enums.AddonStatus
   addonCategory?: Prisma.XOR<Prisma.AddonCategoryNullableScalarRelationFilter, Prisma.AddonCategoryWhereInput> | null
 }
 
 export type AddonOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   addonCategoryId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   addonCategory?: Prisma.AddonCategoryOrderByWithRelationInput
 }
 
@@ -252,22 +252,22 @@ export type AddonWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.AddonWhereInput[]
   NOT?: Prisma.AddonWhereInput | Prisma.AddonWhereInput[]
   name?: Prisma.StringFilter<"Addon"> | string
-  status?: Prisma.EnumAddonStatusFilter<"Addon"> | $Enums.AddonStatus
   price?: Prisma.DecimalFilter<"Addon"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   addonCategoryId?: Prisma.StringNullableFilter<"Addon"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Addon"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Addon"> | Date | string
+  status?: Prisma.EnumAddonStatusFilter<"Addon"> | $Enums.AddonStatus
   addonCategory?: Prisma.XOR<Prisma.AddonCategoryNullableScalarRelationFilter, Prisma.AddonCategoryWhereInput> | null
 }, "id">
 
 export type AddonOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   addonCategoryId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.AddonCountOrderByAggregateInput
   _avg?: Prisma.AddonAvgOrderByAggregateInput
   _max?: Prisma.AddonMaxOrderByAggregateInput
@@ -281,90 +281,90 @@ export type AddonScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AddonScalarWhereWithAggregatesInput | Prisma.AddonScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Addon"> | string
   name?: Prisma.StringWithAggregatesFilter<"Addon"> | string
-  status?: Prisma.EnumAddonStatusWithAggregatesFilter<"Addon"> | $Enums.AddonStatus
   price?: Prisma.DecimalWithAggregatesFilter<"Addon"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   addonCategoryId?: Prisma.StringNullableWithAggregatesFilter<"Addon"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Addon"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Addon"> | Date | string
+  status?: Prisma.EnumAddonStatusWithAggregatesFilter<"Addon"> | $Enums.AddonStatus
 }
 
 export type AddonCreateInput = {
   id?: string
   name: string
-  status?: $Enums.AddonStatus
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.AddonStatus
   addonCategory?: Prisma.AddonCategoryCreateNestedOneWithoutAddonsInput
 }
 
 export type AddonUncheckedCreateInput = {
   id?: string
   name: string
-  status?: $Enums.AddonStatus
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
   addonCategoryId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.AddonStatus
 }
 
 export type AddonUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumAddonStatusFieldUpdateOperationsInput | $Enums.AddonStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumAddonStatusFieldUpdateOperationsInput | $Enums.AddonStatus
   addonCategory?: Prisma.AddonCategoryUpdateOneWithoutAddonsNestedInput
 }
 
 export type AddonUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumAddonStatusFieldUpdateOperationsInput | $Enums.AddonStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   addonCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumAddonStatusFieldUpdateOperationsInput | $Enums.AddonStatus
 }
 
 export type AddonCreateManyInput = {
   id?: string
   name: string
-  status?: $Enums.AddonStatus
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
   addonCategoryId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.AddonStatus
 }
 
 export type AddonUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumAddonStatusFieldUpdateOperationsInput | $Enums.AddonStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumAddonStatusFieldUpdateOperationsInput | $Enums.AddonStatus
 }
 
 export type AddonUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumAddonStatusFieldUpdateOperationsInput | $Enums.AddonStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   addonCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumAddonStatusFieldUpdateOperationsInput | $Enums.AddonStatus
 }
 
 export type AddonCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   addonCategoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type AddonAvgOrderByAggregateInput = {
@@ -374,21 +374,21 @@ export type AddonAvgOrderByAggregateInput = {
 export type AddonMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   addonCategoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type AddonMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   addonCategoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type AddonSumOrderByAggregateInput = {
@@ -454,19 +454,19 @@ export type AddonUncheckedUpdateManyWithoutAddonCategoryNestedInput = {
 export type AddonCreateWithoutAddonCategoryInput = {
   id?: string
   name: string
-  status?: $Enums.AddonStatus
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.AddonStatus
 }
 
 export type AddonUncheckedCreateWithoutAddonCategoryInput = {
   id?: string
   name: string
-  status?: $Enums.AddonStatus
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.AddonStatus
 }
 
 export type AddonCreateOrConnectWithoutAddonCategoryInput = {
@@ -501,47 +501,47 @@ export type AddonScalarWhereInput = {
   NOT?: Prisma.AddonScalarWhereInput | Prisma.AddonScalarWhereInput[]
   id?: Prisma.StringFilter<"Addon"> | string
   name?: Prisma.StringFilter<"Addon"> | string
-  status?: Prisma.EnumAddonStatusFilter<"Addon"> | $Enums.AddonStatus
   price?: Prisma.DecimalFilter<"Addon"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   addonCategoryId?: Prisma.StringNullableFilter<"Addon"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Addon"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Addon"> | Date | string
+  status?: Prisma.EnumAddonStatusFilter<"Addon"> | $Enums.AddonStatus
 }
 
 export type AddonCreateManyAddonCategoryInput = {
   id?: string
   name: string
-  status?: $Enums.AddonStatus
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.AddonStatus
 }
 
 export type AddonUpdateWithoutAddonCategoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumAddonStatusFieldUpdateOperationsInput | $Enums.AddonStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumAddonStatusFieldUpdateOperationsInput | $Enums.AddonStatus
 }
 
 export type AddonUncheckedUpdateWithoutAddonCategoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumAddonStatusFieldUpdateOperationsInput | $Enums.AddonStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumAddonStatusFieldUpdateOperationsInput | $Enums.AddonStatus
 }
 
 export type AddonUncheckedUpdateManyWithoutAddonCategoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumAddonStatusFieldUpdateOperationsInput | $Enums.AddonStatus
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumAddonStatusFieldUpdateOperationsInput | $Enums.AddonStatus
 }
 
 
@@ -549,47 +549,47 @@ export type AddonUncheckedUpdateManyWithoutAddonCategoryInput = {
 export type AddonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  status?: boolean
   price?: boolean
   addonCategoryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   addonCategory?: boolean | Prisma.Addon$addonCategoryArgs<ExtArgs>
 }, ExtArgs["result"]["addon"]>
 
 export type AddonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  status?: boolean
   price?: boolean
   addonCategoryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   addonCategory?: boolean | Prisma.Addon$addonCategoryArgs<ExtArgs>
 }, ExtArgs["result"]["addon"]>
 
 export type AddonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  status?: boolean
   price?: boolean
   addonCategoryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
   addonCategory?: boolean | Prisma.Addon$addonCategoryArgs<ExtArgs>
 }, ExtArgs["result"]["addon"]>
 
 export type AddonSelectScalar = {
   id?: boolean
   name?: boolean
-  status?: boolean
   price?: boolean
   addonCategoryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }
 
-export type AddonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "status" | "price" | "addonCategoryId" | "createdAt" | "updatedAt", ExtArgs["result"]["addon"]>
+export type AddonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "price" | "addonCategoryId" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["addon"]>
 export type AddonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   addonCategory?: boolean | Prisma.Addon$addonCategoryArgs<ExtArgs>
 }
@@ -608,11 +608,11 @@ export type $AddonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
-    status: $Enums.AddonStatus
     price: runtime.Decimal
     addonCategoryId: string | null
     createdAt: Date
     updatedAt: Date
+    status: $Enums.AddonStatus
   }, ExtArgs["result"]["addon"]>
   composites: {}
 }
@@ -1039,11 +1039,11 @@ export interface Prisma__AddonClient<T, Null = never, ExtArgs extends runtime.Ty
 export interface AddonFieldRefs {
   readonly id: Prisma.FieldRef<"Addon", 'String'>
   readonly name: Prisma.FieldRef<"Addon", 'String'>
-  readonly status: Prisma.FieldRef<"Addon", 'AddonStatus'>
   readonly price: Prisma.FieldRef<"Addon", 'Decimal'>
   readonly addonCategoryId: Prisma.FieldRef<"Addon", 'String'>
   readonly createdAt: Prisma.FieldRef<"Addon", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Addon", 'DateTime'>
+  readonly status: Prisma.FieldRef<"Addon", 'AddonStatus'>
 }
     
 

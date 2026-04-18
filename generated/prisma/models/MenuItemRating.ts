@@ -36,35 +36,35 @@ export type MenuItemRatingSumAggregateOutputType = {
 
 export type MenuItemRatingMinAggregateOutputType = {
   id: string | null
-  comment: string | null
   menuItemId: string | null
+  comment: string | null
   userId: string | null
-  roomId: string | null
   rating: number | null
   createdAt: Date | null
   updatedAt: Date | null
+  roomId: string | null
 }
 
 export type MenuItemRatingMaxAggregateOutputType = {
   id: string | null
-  comment: string | null
   menuItemId: string | null
+  comment: string | null
   userId: string | null
-  roomId: string | null
   rating: number | null
   createdAt: Date | null
   updatedAt: Date | null
+  roomId: string | null
 }
 
 export type MenuItemRatingCountAggregateOutputType = {
   id: number
-  comment: number
   menuItemId: number
+  comment: number
   userId: number
-  roomId: number
   rating: number
   createdAt: number
   updatedAt: number
+  roomId: number
   _all: number
 }
 
@@ -79,35 +79,35 @@ export type MenuItemRatingSumAggregateInputType = {
 
 export type MenuItemRatingMinAggregateInputType = {
   id?: true
-  comment?: true
   menuItemId?: true
+  comment?: true
   userId?: true
-  roomId?: true
   rating?: true
   createdAt?: true
   updatedAt?: true
+  roomId?: true
 }
 
 export type MenuItemRatingMaxAggregateInputType = {
   id?: true
-  comment?: true
   menuItemId?: true
+  comment?: true
   userId?: true
-  roomId?: true
   rating?: true
   createdAt?: true
   updatedAt?: true
+  roomId?: true
 }
 
 export type MenuItemRatingCountAggregateInputType = {
   id?: true
-  comment?: true
   menuItemId?: true
+  comment?: true
   userId?: true
-  roomId?: true
   rating?: true
   createdAt?: true
   updatedAt?: true
+  roomId?: true
   _all?: true
 }
 
@@ -199,13 +199,13 @@ export type MenuItemRatingGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 
 export type MenuItemRatingGroupByOutputType = {
   id: string
-  comment: string | null
   menuItemId: string
+  comment: string | null
   userId: string | null
-  roomId: string
   rating: number
   createdAt: Date
   updatedAt: Date
+  roomId: string
   _count: MenuItemRatingCountAggregateOutputType | null
   _avg: MenuItemRatingAvgAggregateOutputType | null
   _sum: MenuItemRatingSumAggregateOutputType | null
@@ -233,30 +233,30 @@ export type MenuItemRatingWhereInput = {
   OR?: Prisma.MenuItemRatingWhereInput[]
   NOT?: Prisma.MenuItemRatingWhereInput | Prisma.MenuItemRatingWhereInput[]
   id?: Prisma.StringFilter<"MenuItemRating"> | string
-  comment?: Prisma.StringNullableFilter<"MenuItemRating"> | string | null
   menuItemId?: Prisma.StringFilter<"MenuItemRating"> | string
+  comment?: Prisma.StringNullableFilter<"MenuItemRating"> | string | null
   userId?: Prisma.StringNullableFilter<"MenuItemRating"> | string | null
-  roomId?: Prisma.StringFilter<"MenuItemRating"> | string
   rating?: Prisma.IntFilter<"MenuItemRating"> | number
   createdAt?: Prisma.DateTimeFilter<"MenuItemRating"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MenuItemRating"> | Date | string
-  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  roomId?: Prisma.StringFilter<"MenuItemRating"> | string
   menuItem?: Prisma.XOR<Prisma.MenuItemScalarRelationFilter, Prisma.MenuItemWhereInput>
   room?: Prisma.XOR<Prisma.RoomScalarRelationFilter, Prisma.RoomWhereInput>
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type MenuItemRatingOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  comment?: Prisma.SortOrderInput | Prisma.SortOrder
   menuItemId?: Prisma.SortOrder
+  comment?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
-  roomId?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
+  roomId?: Prisma.SortOrder
   menuItem?: Prisma.MenuItemOrderByWithRelationInput
   room?: Prisma.RoomOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type MenuItemRatingWhereUniqueInput = Prisma.AtLeast<{
@@ -264,27 +264,27 @@ export type MenuItemRatingWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.MenuItemRatingWhereInput | Prisma.MenuItemRatingWhereInput[]
   OR?: Prisma.MenuItemRatingWhereInput[]
   NOT?: Prisma.MenuItemRatingWhereInput | Prisma.MenuItemRatingWhereInput[]
-  comment?: Prisma.StringNullableFilter<"MenuItemRating"> | string | null
   menuItemId?: Prisma.StringFilter<"MenuItemRating"> | string
+  comment?: Prisma.StringNullableFilter<"MenuItemRating"> | string | null
   userId?: Prisma.StringNullableFilter<"MenuItemRating"> | string | null
-  roomId?: Prisma.StringFilter<"MenuItemRating"> | string
   rating?: Prisma.IntFilter<"MenuItemRating"> | number
   createdAt?: Prisma.DateTimeFilter<"MenuItemRating"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MenuItemRating"> | Date | string
-  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  roomId?: Prisma.StringFilter<"MenuItemRating"> | string
   menuItem?: Prisma.XOR<Prisma.MenuItemScalarRelationFilter, Prisma.MenuItemWhereInput>
   room?: Prisma.XOR<Prisma.RoomScalarRelationFilter, Prisma.RoomWhereInput>
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type MenuItemRatingOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  comment?: Prisma.SortOrderInput | Prisma.SortOrder
   menuItemId?: Prisma.SortOrder
+  comment?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
-  roomId?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  roomId?: Prisma.SortOrder
   _count?: Prisma.MenuItemRatingCountOrderByAggregateInput
   _avg?: Prisma.MenuItemRatingAvgOrderByAggregateInput
   _max?: Prisma.MenuItemRatingMaxOrderByAggregateInput
@@ -297,13 +297,13 @@ export type MenuItemRatingScalarWhereWithAggregatesInput = {
   OR?: Prisma.MenuItemRatingScalarWhereWithAggregatesInput[]
   NOT?: Prisma.MenuItemRatingScalarWhereWithAggregatesInput | Prisma.MenuItemRatingScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"MenuItemRating"> | string
-  comment?: Prisma.StringNullableWithAggregatesFilter<"MenuItemRating"> | string | null
   menuItemId?: Prisma.StringWithAggregatesFilter<"MenuItemRating"> | string
+  comment?: Prisma.StringNullableWithAggregatesFilter<"MenuItemRating"> | string | null
   userId?: Prisma.StringNullableWithAggregatesFilter<"MenuItemRating"> | string | null
-  roomId?: Prisma.StringWithAggregatesFilter<"MenuItemRating"> | string
   rating?: Prisma.IntWithAggregatesFilter<"MenuItemRating"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"MenuItemRating"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"MenuItemRating"> | Date | string
+  roomId?: Prisma.StringWithAggregatesFilter<"MenuItemRating"> | string
 }
 
 export type MenuItemRatingCreateInput = {
@@ -312,20 +312,20 @@ export type MenuItemRatingCreateInput = {
   rating?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  user?: Prisma.UserCreateNestedOneWithoutUserRatingsInput
   menuItem: Prisma.MenuItemCreateNestedOneWithoutMenuItemRatingsInput
   room: Prisma.RoomCreateNestedOneWithoutMenuItemRatingInput
+  user?: Prisma.UserCreateNestedOneWithoutUserRatingsInput
 }
 
 export type MenuItemRatingUncheckedCreateInput = {
   id?: string
-  comment?: string | null
   menuItemId: string
+  comment?: string | null
   userId?: string | null
-  roomId: string
   rating?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  roomId: string
 }
 
 export type MenuItemRatingUpdateInput = {
@@ -334,31 +334,31 @@ export type MenuItemRatingUpdateInput = {
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneWithoutUserRatingsNestedInput
   menuItem?: Prisma.MenuItemUpdateOneRequiredWithoutMenuItemRatingsNestedInput
   room?: Prisma.RoomUpdateOneRequiredWithoutMenuItemRatingNestedInput
+  user?: Prisma.UserUpdateOneWithoutUserRatingsNestedInput
 }
 
 export type MenuItemRatingUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   menuItemId?: Prisma.StringFieldUpdateOperationsInput | string
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  roomId?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roomId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type MenuItemRatingCreateManyInput = {
   id?: string
-  comment?: string | null
   menuItemId: string
+  comment?: string | null
   userId?: string | null
-  roomId: string
   rating?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  roomId: string
 }
 
 export type MenuItemRatingUpdateManyMutationInput = {
@@ -371,13 +371,13 @@ export type MenuItemRatingUpdateManyMutationInput = {
 
 export type MenuItemRatingUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   menuItemId?: Prisma.StringFieldUpdateOperationsInput | string
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  roomId?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roomId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type MenuItemRatingListRelationFilter = {
@@ -392,13 +392,13 @@ export type MenuItemRatingOrderByRelationAggregateInput = {
 
 export type MenuItemRatingCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  comment?: Prisma.SortOrder
   menuItemId?: Prisma.SortOrder
+  comment?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  roomId?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  roomId?: Prisma.SortOrder
 }
 
 export type MenuItemRatingAvgOrderByAggregateInput = {
@@ -407,24 +407,24 @@ export type MenuItemRatingAvgOrderByAggregateInput = {
 
 export type MenuItemRatingMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  comment?: Prisma.SortOrder
   menuItemId?: Prisma.SortOrder
+  comment?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  roomId?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  roomId?: Prisma.SortOrder
 }
 
 export type MenuItemRatingMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  comment?: Prisma.SortOrder
   menuItemId?: Prisma.SortOrder
+  comment?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  roomId?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  roomId?: Prisma.SortOrder
 }
 
 export type MenuItemRatingSumOrderByAggregateInput = {
@@ -569,12 +569,12 @@ export type MenuItemRatingCreateWithoutUserInput = {
 
 export type MenuItemRatingUncheckedCreateWithoutUserInput = {
   id?: string
-  comment?: string | null
   menuItemId: string
-  roomId: string
+  comment?: string | null
   rating?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  roomId: string
 }
 
 export type MenuItemRatingCreateOrConnectWithoutUserInput = {
@@ -608,13 +608,13 @@ export type MenuItemRatingScalarWhereInput = {
   OR?: Prisma.MenuItemRatingScalarWhereInput[]
   NOT?: Prisma.MenuItemRatingScalarWhereInput | Prisma.MenuItemRatingScalarWhereInput[]
   id?: Prisma.StringFilter<"MenuItemRating"> | string
-  comment?: Prisma.StringNullableFilter<"MenuItemRating"> | string | null
   menuItemId?: Prisma.StringFilter<"MenuItemRating"> | string
+  comment?: Prisma.StringNullableFilter<"MenuItemRating"> | string | null
   userId?: Prisma.StringNullableFilter<"MenuItemRating"> | string | null
-  roomId?: Prisma.StringFilter<"MenuItemRating"> | string
   rating?: Prisma.IntFilter<"MenuItemRating"> | number
   createdAt?: Prisma.DateTimeFilter<"MenuItemRating"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MenuItemRating"> | Date | string
+  roomId?: Prisma.StringFilter<"MenuItemRating"> | string
 }
 
 export type MenuItemRatingCreateWithoutRoomInput = {
@@ -623,14 +623,14 @@ export type MenuItemRatingCreateWithoutRoomInput = {
   rating?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  user?: Prisma.UserCreateNestedOneWithoutUserRatingsInput
   menuItem: Prisma.MenuItemCreateNestedOneWithoutMenuItemRatingsInput
+  user?: Prisma.UserCreateNestedOneWithoutUserRatingsInput
 }
 
 export type MenuItemRatingUncheckedCreateWithoutRoomInput = {
   id?: string
-  comment?: string | null
   menuItemId: string
+  comment?: string | null
   userId?: string | null
   rating?: number
   createdAt?: Date | string
@@ -669,18 +669,18 @@ export type MenuItemRatingCreateWithoutMenuItemInput = {
   rating?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  user?: Prisma.UserCreateNestedOneWithoutUserRatingsInput
   room: Prisma.RoomCreateNestedOneWithoutMenuItemRatingInput
+  user?: Prisma.UserCreateNestedOneWithoutUserRatingsInput
 }
 
 export type MenuItemRatingUncheckedCreateWithoutMenuItemInput = {
   id?: string
   comment?: string | null
   userId?: string | null
-  roomId: string
   rating?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  roomId: string
 }
 
 export type MenuItemRatingCreateOrConnectWithoutMenuItemInput = {
@@ -711,12 +711,12 @@ export type MenuItemRatingUpdateManyWithWhereWithoutMenuItemInput = {
 
 export type MenuItemRatingCreateManyUserInput = {
   id?: string
-  comment?: string | null
   menuItemId: string
-  roomId: string
+  comment?: string | null
   rating?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  roomId: string
 }
 
 export type MenuItemRatingUpdateWithoutUserInput = {
@@ -731,28 +731,28 @@ export type MenuItemRatingUpdateWithoutUserInput = {
 
 export type MenuItemRatingUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   menuItemId?: Prisma.StringFieldUpdateOperationsInput | string
-  roomId?: Prisma.StringFieldUpdateOperationsInput | string
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roomId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type MenuItemRatingUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   menuItemId?: Prisma.StringFieldUpdateOperationsInput | string
-  roomId?: Prisma.StringFieldUpdateOperationsInput | string
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roomId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type MenuItemRatingCreateManyRoomInput = {
   id?: string
-  comment?: string | null
   menuItemId: string
+  comment?: string | null
   userId?: string | null
   rating?: number
   createdAt?: Date | string
@@ -765,14 +765,14 @@ export type MenuItemRatingUpdateWithoutRoomInput = {
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneWithoutUserRatingsNestedInput
   menuItem?: Prisma.MenuItemUpdateOneRequiredWithoutMenuItemRatingsNestedInput
+  user?: Prisma.UserUpdateOneWithoutUserRatingsNestedInput
 }
 
 export type MenuItemRatingUncheckedUpdateWithoutRoomInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   menuItemId?: Prisma.StringFieldUpdateOperationsInput | string
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -781,8 +781,8 @@ export type MenuItemRatingUncheckedUpdateWithoutRoomInput = {
 
 export type MenuItemRatingUncheckedUpdateManyWithoutRoomInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   menuItemId?: Prisma.StringFieldUpdateOperationsInput | string
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -793,10 +793,10 @@ export type MenuItemRatingCreateManyMenuItemInput = {
   id?: string
   comment?: string | null
   userId?: string | null
-  roomId: string
   rating?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  roomId: string
 }
 
 export type MenuItemRatingUpdateWithoutMenuItemInput = {
@@ -805,118 +805,118 @@ export type MenuItemRatingUpdateWithoutMenuItemInput = {
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneWithoutUserRatingsNestedInput
   room?: Prisma.RoomUpdateOneRequiredWithoutMenuItemRatingNestedInput
+  user?: Prisma.UserUpdateOneWithoutUserRatingsNestedInput
 }
 
 export type MenuItemRatingUncheckedUpdateWithoutMenuItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  roomId?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roomId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type MenuItemRatingUncheckedUpdateManyWithoutMenuItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  roomId?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roomId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
 
 export type MenuItemRatingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  comment?: boolean
   menuItemId?: boolean
+  comment?: boolean
   userId?: boolean
-  roomId?: boolean
   rating?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.MenuItemRating$userArgs<ExtArgs>
+  roomId?: boolean
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>
   room?: boolean | Prisma.RoomDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.MenuItemRating$userArgs<ExtArgs>
 }, ExtArgs["result"]["menuItemRating"]>
 
 export type MenuItemRatingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  comment?: boolean
   menuItemId?: boolean
+  comment?: boolean
   userId?: boolean
-  roomId?: boolean
   rating?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.MenuItemRating$userArgs<ExtArgs>
+  roomId?: boolean
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>
   room?: boolean | Prisma.RoomDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.MenuItemRating$userArgs<ExtArgs>
 }, ExtArgs["result"]["menuItemRating"]>
 
 export type MenuItemRatingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  comment?: boolean
   menuItemId?: boolean
+  comment?: boolean
   userId?: boolean
-  roomId?: boolean
   rating?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.MenuItemRating$userArgs<ExtArgs>
+  roomId?: boolean
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>
   room?: boolean | Prisma.RoomDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.MenuItemRating$userArgs<ExtArgs>
 }, ExtArgs["result"]["menuItemRating"]>
 
 export type MenuItemRatingSelectScalar = {
   id?: boolean
-  comment?: boolean
   menuItemId?: boolean
+  comment?: boolean
   userId?: boolean
-  roomId?: boolean
   rating?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  roomId?: boolean
 }
 
-export type MenuItemRatingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "comment" | "menuItemId" | "userId" | "roomId" | "rating" | "createdAt" | "updatedAt", ExtArgs["result"]["menuItemRating"]>
+export type MenuItemRatingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "menuItemId" | "comment" | "userId" | "rating" | "createdAt" | "updatedAt" | "roomId", ExtArgs["result"]["menuItemRating"]>
 export type MenuItemRatingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.MenuItemRating$userArgs<ExtArgs>
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>
   room?: boolean | Prisma.RoomDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.MenuItemRating$userArgs<ExtArgs>
 }
 export type MenuItemRatingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.MenuItemRating$userArgs<ExtArgs>
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>
   room?: boolean | Prisma.RoomDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.MenuItemRating$userArgs<ExtArgs>
 }
 export type MenuItemRatingIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.MenuItemRating$userArgs<ExtArgs>
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>
   room?: boolean | Prisma.RoomDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.MenuItemRating$userArgs<ExtArgs>
 }
 
 export type $MenuItemRatingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "MenuItemRating"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs> | null
     menuItem: Prisma.$MenuItemPayload<ExtArgs>
     room: Prisma.$RoomPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    comment: string | null
     menuItemId: string
+    comment: string | null
     userId: string | null
-    roomId: string
     rating: number
     createdAt: Date
     updatedAt: Date
+    roomId: string
   }, ExtArgs["result"]["menuItemRating"]>
   composites: {}
 }
@@ -1311,9 +1311,9 @@ readonly fields: MenuItemRatingFieldRefs;
  */
 export interface Prisma__MenuItemRatingClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.MenuItemRating$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MenuItemRating$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   menuItem<T extends Prisma.MenuItemDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MenuItemDefaultArgs<ExtArgs>>): Prisma.Prisma__MenuItemClient<runtime.Types.Result.GetResult<Prisma.$MenuItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   room<T extends Prisma.RoomDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RoomDefaultArgs<ExtArgs>>): Prisma.Prisma__RoomClient<runtime.Types.Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.MenuItemRating$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MenuItemRating$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1344,13 +1344,13 @@ export interface Prisma__MenuItemRatingClient<T, Null = never, ExtArgs extends r
  */
 export interface MenuItemRatingFieldRefs {
   readonly id: Prisma.FieldRef<"MenuItemRating", 'String'>
-  readonly comment: Prisma.FieldRef<"MenuItemRating", 'String'>
   readonly menuItemId: Prisma.FieldRef<"MenuItemRating", 'String'>
+  readonly comment: Prisma.FieldRef<"MenuItemRating", 'String'>
   readonly userId: Prisma.FieldRef<"MenuItemRating", 'String'>
-  readonly roomId: Prisma.FieldRef<"MenuItemRating", 'String'>
   readonly rating: Prisma.FieldRef<"MenuItemRating", 'Int'>
   readonly createdAt: Prisma.FieldRef<"MenuItemRating", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"MenuItemRating", 'DateTime'>
+  readonly roomId: Prisma.FieldRef<"MenuItemRating", 'String'>
 }
     
 

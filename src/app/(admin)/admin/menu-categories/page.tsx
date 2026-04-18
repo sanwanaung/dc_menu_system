@@ -12,6 +12,7 @@ export default async function AdminMenuCategoriesPage() {
     queryFn: ({ pageParam }) =>
       getMenuCategories({ limit: 6, offset: Number(pageParam) }),
   });
+
   return (
     <AdminLayout>
       <MenuCategoriesPage />

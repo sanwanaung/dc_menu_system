@@ -3,7 +3,6 @@
 import { format } from "date-fns";
 import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 
-import type { Addon, AddonCategory } from "./types";
 import { formatMoney } from "./addon-utils";
 import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,8 +17,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Tag } from "@/components/admin/shared/tag";
 import { AddonWithAddonCategoryDTO } from "@/types/addon";
+import { useNewAddon } from "@/hooks/use-new-addon";
+import { useDeleteAddon } from "@/hooks/use-delete-addon";
 
 export function AddonCard({ addon }: { addon: AddonWithAddonCategoryDTO }) {
+  const { onOpenEditAddon } = useNewAddon();
+  const { onDeleteAddon } = useDeleteAddon();
   const categoryName = addon.addonCategory?.name;
   const isFree = addon.price === 0;
   const updatedAt = new Date(addon.updatedAt);
@@ -36,7 +39,7 @@ export function AddonCard({ addon }: { addon: AddonWithAddonCategoryDTO }) {
               <Tag variant={isFree ? "success" : "info"}>
                 {isFree ? "Free" : formatMoney(addon.price)}
               </Tag>
-              <Tag className="max-w-[220px] truncate">{categoryName}</Tag>
+              <Tag className="max-w-55 truncate">{categoryName}</Tag>
             </div>
           </div>
 
@@ -50,16 +53,14 @@ export function AddonCard({ addon }: { addon: AddonWithAddonCategoryDTO }) {
             <DropdownMenuContent align="end" className="rounded-sm">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem
-              // onClick={() => onEdit(addon)}
-              >
+              <DropdownMenuItem onClick={() => onOpenEditAddon(addon.id)}>
                 <Pencil className="mr-2 size-4" />
                 Edit
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 variant="destructive"
-                // onClick={() => onDelete(addon)}
+                onClick={() => onDeleteAddon(addon.id)}
               >
                 <Trash2 className="mr-2 size-4" />
                 Delete

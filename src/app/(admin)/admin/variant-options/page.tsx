@@ -1,6 +1,21 @@
-import { ComingSoon } from "@/components/admin/coming-soon";
+import { getMenuCategories } from "@/actions/menu-category";
+import { AdminLayout } from "@/components/admin/admin-layout";
+import VariantOption from "@/components/admin/variant-option/variant-option";
+import { QueryClient } from "@tanstack/react-query";
 
-export default function AdminVariantOptionsPage() {
-  return <ComingSoon title="Variant Options" />;
+export default async function VariantOptionPage() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: ["variant-option"],
+    initialPageParam: 0,
+    queryFn: ({ pageParam }) =>
+      getMenuCategories({ limit: 9, offset: Number(pageParam) }),
+  });
+
+  return (
+    <AdminLayout>
+      <VariantOption />
+    </AdminLayout>
+  );
 }
-

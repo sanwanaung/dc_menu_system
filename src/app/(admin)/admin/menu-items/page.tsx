@@ -1,6 +1,10 @@
-import { ComingSoon } from "@/components/admin/coming-soon";
+import { AdminLayout } from "@/components/admin/admin-layout";
+import { MenuItemsPage } from "@/components/admin/menu/menu-items-page";
 
 export default function AdminMenuItemsPage() {
-  return <ComingSoon title="Menu Items" />;
+  return (
+    <AdminLayout>
+      <MenuItemsPage />
+    </AdminLayout>
+  );
 }
-
