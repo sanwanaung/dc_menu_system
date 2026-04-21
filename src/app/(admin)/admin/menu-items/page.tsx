@@ -1,10 +1,21 @@
+import { getMenuItems } from "@/actions/menu-item";
 import { AdminLayout } from "@/components/admin/admin-layout";
-import { MenuItemsPage } from "@/components/admin/menu/menu-items-page";
+import MenuItemPage from "@/components/admin/menu/menu-items";
+import { QueryClient } from "@tanstack/react-query";
 
-export default function AdminMenuItemsPage() {
+export default async function AdminMenuItemsPage() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: ["menu-category"],
+    initialPageParam: 0,
+    queryFn: ({ pageParam }) =>
+      getMenuItems({ limit: 6, offset: Number(pageParam) }),
+  });
+
   return (
     <AdminLayout>
-      <MenuItemsPage />
+      <MenuItemPage />
     </AdminLayout>
   );
 }

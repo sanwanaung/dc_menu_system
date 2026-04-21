@@ -1,21 +1,7 @@
 "use client";
 
-import { Plus, Search, SlidersHorizontal } from "lucide-react";
-
-import type { MenuCategory } from "./types";
-import type {
-  AvailabilityFilter,
-  CategoryFilter,
-  SortKey,
-} from "./menu-utils";
-
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@/components/ui/input-group";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -23,118 +9,99 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { LayoutGrid, Plus, Search } from "lucide-react";
+import { AvailabilityFilter, CategoryFilter, SortKey } from "./menu-utils";
+import { MenuItemDTO } from "@/types/menu-item";
+import { useMenuItem } from "@/hooks/use-menu-item";
 
-export function MenuItemsActions({
-  categories,
-  query,
-  onQueryChange,
-  categoryFilter,
-  onCategoryFilterChange,
-  availability,
-  onAvailabilityChange,
-  sort,
-  onSortChange,
-  onCreate,
-  onReset,
-}: {
-  categories: MenuCategory[];
+type Props = {
   query: string;
-  onQueryChange: (value: string) => void;
+  setQuery: (v: string) => void;
+  availabilityFilter: AvailabilityFilter;
+  setAvailabilityFilter: (v: AvailabilityFilter) => void;
   categoryFilter: CategoryFilter;
-  onCategoryFilterChange: (value: CategoryFilter) => void;
-  availability: AvailabilityFilter;
-  onAvailabilityChange: (value: AvailabilityFilter) => void;
+  setCategoryFilter: (v: CategoryFilter) => void;
   sort: SortKey;
-  onSortChange: (value: SortKey) => void;
-  onCreate: () => void;
-  onReset: () => void;
-}) {
-  const categoryOptions = categories
-    .slice()
-    .sort((a, b) => a.displayOrder - b.displayOrder)
-    .map((c) => ({ id: c.id, name: c.name }));
+  setSort: (v: SortKey) => void;
+  menuItems: MenuItemDTO[] | undefined;
+};
+
+export function MenuItemActions({
+  query,
+  setQuery,
+  availabilityFilter,
+  setAvailabilityFilter,
+  categoryFilter,
+  setCategoryFilter,
+  sort,
+  setSort,
+  menuItems,
+}: Props) {
+  const { onOpenNewMenuItem } = useMenuItem();
 
   return (
-    <Card>
-      <CardContent className="p-3">
-        <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
-          <div className="flex-1">
-            <InputGroup>
-              <InputGroupAddon className="pl-2">
-                <Search className="size-4" />
-              </InputGroupAddon>
-              <InputGroupInput
-                value={query}
-                onChange={(e) => onQueryChange(e.target.value)}
-                placeholder="Search menu items…"
-                aria-label="Search menu items"
-              />
-            </InputGroup>
-          </div>
-
-          <div className="grid gap-2 sm:grid-cols-2 lg:flex lg:items-center">
-            <Select
-              value={categoryFilter}
-              onValueChange={(v) => onCategoryFilterChange(v as CategoryFilter)}
-            >
-              <SelectTrigger className="w-full lg:w-[220px]">
-                <SelectValue placeholder="Category" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All categories</SelectItem>
-                {categoryOptions.map((c) => (
-                  <SelectItem key={c.id} value={c.id}>
-                    {c.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select
-              value={availability}
-              onValueChange={(v) =>
-                onAvailabilityChange(v as AvailabilityFilter)
-              }
-            >
-              <SelectTrigger className="w-full lg:w-[170px]">
-                <SelectValue placeholder="Availability" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All</SelectItem>
-                <SelectItem value="available">Available</SelectItem>
-                <SelectItem value="hidden">Hidden</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select
-              value={sort}
-              onValueChange={(v) => onSortChange(v as SortKey)}
-            >
-              <SelectTrigger className="w-full lg:w-[220px]">
-                <SlidersHorizontal className="mr-2 size-4 text-muted-foreground" />
-                <SelectValue placeholder="Sort" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="updatedDesc">Recently updated</SelectItem>
-                <SelectItem value="nameAsc">Name (A–Z)</SelectItem>
-                <SelectItem value="priceAsc">Price (low–high)</SelectItem>
-                <SelectItem value="priceDesc">Price (high–low)</SelectItem>
-                <SelectItem value="displayOrderAsc">Display order</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <div className="flex items-center gap-2">
-              <Button type="button" variant="outline" onClick={onReset}>
-                Reset
-              </Button>
-              <Button type="button" onClick={onCreate}>
-                <Plus className="mr-1.5 size-4" />
-                Create
-              </Button>
-            </div>
-          </div>
+    <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="relative w-full sm:max-w-sm">
+          <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search addons..."
+            className="pl-9"
+          />
         </div>
-      </CardContent>
-    </Card>
+
+        <Select
+          value={categoryFilter}
+          onValueChange={(v) => setCategoryFilter(v as CategoryFilter)}
+        >
+          <SelectTrigger size="sm">
+            <SelectValue placeholder="Category" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All categories</SelectItem>
+            {menuItems?.map((a) => (
+              <SelectItem key={a.id} value={a.category?.name ?? "a"}>
+                {a.category?.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select
+          value={availabilityFilter}
+          onValueChange={(v) => setAvailabilityFilter(v as AvailabilityFilter)}
+        >
+          <SelectTrigger size="sm">
+            <SelectValue placeholder="Price" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All</SelectItem>
+            <SelectItem value="available">Available</SelectItem>
+            <SelectItem value="unavailable">Unavailable</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <Select value={sort} onValueChange={(v) => setSort(v as SortKey)}>
+          <SelectTrigger size="sm">
+            <LayoutGrid className="size-4 text-muted-foreground" />
+            <SelectValue placeholder="Sort" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="updatedDesc">Recently updated</SelectItem>
+            <SelectItem value="nameAsc">Name (A–Z)</SelectItem>
+            <SelectItem value="priceAsc">Price (low → high)</SelectItem>
+            <SelectItem value="priceDesc">Price (high → low)</SelectItem>
+            <SelectItem value="displayOrderAsc">Order (asc)</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <Button type="button" onClick={() => onOpenNewMenuItem()}>
+        <Plus className="mr-1.5 size-4" />
+        Create Menu Item
+      </Button>
+    </div>
   );
 }

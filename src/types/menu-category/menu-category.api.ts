@@ -9,6 +9,8 @@ export type MenuCategoryListResponse = Omit<
   updatedAt: string;
 };
 
+export type MenuCategoriesForMenuItem = Pick<MenuCategory, "id" | "name">;
+
 export type GetMenuCategoriesResponse = ApiResponse<
   PaginatedData<MenuCategoryListResponse>
 >;
@@ -22,3 +24,7 @@ export type UpdateMenuCategoryResponse = ApiResponse<MenuCategory>;
 export type UpdateAvailabilityResponse = ApiResponse<MenuCategory>;
 
 export type DeleteMenuCategoryResponse = ApiResponse<null>;
+
+export type GetMenuCategoriesForMenuItemResponse = ApiResponse<
+  MenuCategoriesForMenuItem[]
+>;

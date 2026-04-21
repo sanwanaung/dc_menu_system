@@ -1,6 +1,7 @@
+import { MenuItemDTO } from "@/types/menu-item";
 import type { MenuCategory, MenuItem } from "./types";
 
-export type AvailabilityFilter = "all" | "available" | "hidden";
+export type AvailabilityFilter = "all" | "available" | "unavailable";
 export type CategoryFilter = "all" | string;
 export type SortKey =
   | "updatedDesc"
@@ -40,7 +41,8 @@ export function sortMenuItems(items: MenuItem[], sort: SortKey) {
       );
     case "displayOrderAsc":
       return copy.sort(
-        (a, b) => a.displayOrder - b.displayOrder || a.name.localeCompare(b.name),
+        (a, b) =>
+          a.displayOrder - b.displayOrder || a.name.localeCompare(b.name),
       );
     case "updatedDesc":
     default:
@@ -52,7 +54,6 @@ export function sortMenuItems(items: MenuItem[], sort: SortKey) {
   }
 }
 
-export function countCategoriesInUse(items: MenuItem[]) {
-  return new Set(items.map((i) => i.categoryId)).size;
+export function countCategoriesInUse(items: MenuItemDTO[]) {
+  return new Set(items.map((i) => i.category.name)).size;
 }
-

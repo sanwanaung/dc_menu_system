@@ -9,6 +9,8 @@ export type AddonCategoryListResponseSerializable = Omit<
   updatedAt: string;
 };
 
+export type AddonCategoriesForMenu = Pick<AddonCategory, "id" | "name">;
+
 export type GetAddonCategoriesResponse = ApiResponse<
   PaginatedData<AddonCategoryListResponseSerializable>
 >;
@@ -28,4 +30,8 @@ export type GetAvailableAddonCategoriesResponse = ApiResponse<AddonCategory[]>;
 
 export type GetAvailableAddonCategoriesByIdResponse = ApiResponse<
   AddonCategory[]
+>;
+
+export type GetAddonCategoriesForMenuResponse = ApiResponse<
+  AddonCategoriesForMenu[]
 >;

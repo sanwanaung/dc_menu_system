@@ -11,6 +11,7 @@ import DeleteVariantOptionForm from "@/form-sheets/delete-variant-option-form";
 import { EditRoomForm } from "@/form-sheets/edit-room-form";
 import { NewAddonCategoryForm } from "@/form-sheets/new-addon-category-form";
 import NewAddonForm from "@/form-sheets/new-addon-form";
+import NewMenuItemForm from "@/form-sheets/new-menu-item-form";
 import { NewMenuCategoryForm } from "@/form-sheets/new-menucategory-form";
 import { NewRoomForm } from "@/form-sheets/new-room-form";
 import VariantOptionForm from "@/form-sheets/variant-option-form";
@@ -36,6 +37,7 @@ const AdminProviders = () => {
       <DeleteAddonForm />
       <VariantOptionForm />
       <DeleteVariantOptionForm />
+      <NewMenuItemForm />
     </>
   );
 };

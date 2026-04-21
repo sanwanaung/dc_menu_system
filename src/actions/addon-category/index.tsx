@@ -10,6 +10,7 @@ import { addonCategoryFormSchema } from "@/schemas/addon-category";
 import {
   CreateNewAddonCategoryResponse,
   DeleteAddonCategoryResponse,
+  GetAddonCategoriesForMenuResponse,
   GetAddonCategoriesResponse,
   GetAddonCategoryResponse,
   GetAvailableAddonCategoriesByIdResponse,
@@ -352,3 +353,47 @@ export const deleteAddonCategory = async (
     };
   }
 };
+
+export const getAddonCategoriesForMenu =
+  async (): Promise<GetAddonCategoriesForMenuResponse> => {
+    try {
+      const session = await auth.api.getSession({
+        headers: await headers(),
+      });
+      if (!session)
+        return { error: "No Authorization!", data: null, message: null };
+      const isAllowed =
+        session.user.role === allowedUserRole.ADMIN ||
+        session.user.role === allowedUserRole.SUBADMIN;
+      if (!isAllowed)
+        return {
+          error: "You don't have permission!",
+          data: null,
+          message: null,
+        };
+      const addonCategories = await prisma.addonCategory.findMany({
+        where: {
+          isAvailable: true,
+        },
+        orderBy: {
+          displayOrder: "asc",
+        },
+        select: {
+          id: true,
+          name: true,
+        },
+      });
+
+      return {
+        data: addonCategories,
+        message: "Fetched successfully!",
+        error: null,
+      };
+    } catch {
+      return {
+        error: "Failed to fetch addoncategories!",
+        data: null,
+        message: null,
+      };
+    }
+  };
