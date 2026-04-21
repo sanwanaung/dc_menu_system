@@ -10,6 +10,7 @@ import { revalidatePath } from "next/cache";
 import {
   CreateMenuCategoryResponse,
   DeleteMenuCategoryResponse,
+  GetMenuCategoriesForMenuItemResponse,
   GetMenuCategoriesResponse,
   UpdateAvailabilityResponse,
   UpdateMenuCategoryResponse,
@@ -90,6 +91,48 @@ export const getMenuCategories = async ({
     };
   }
 };
+
+export const getMenuCategoriesForMenu =
+  async (): Promise<GetMenuCategoriesForMenuItemResponse> => {
+    try {
+      const session = await auth.api.getSession({
+        headers: await headers(),
+      });
+      if (!session)
+        return { error: "No Authorization!", message: null, data: null };
+      const isAllowed =
+        session.user.role === allowedUserRole.ADMIN ||
+        session.user.role === allowedUserRole.SUBADMIN;
+      if (!isAllowed)
+        return {
+          error: "You don't have permission!",
+          data: null,
+          message: null,
+        };
+      const menuCategories = await prisma.menuCategory.findMany({
+        where: { isAvailable: true },
+        orderBy: {
+          displayOrder: "asc",
+        },
+        select: {
+          id: true,
+          name: true,
+        },
+      });
+
+      return {
+        data: menuCategories,
+        message: "Fetched Successfully!",
+        error: null,
+      };
+    } catch {
+      return {
+        error: "Failed to fetch menuCategories!",
+        data: null,
+        message: null,
+      };
+    }
+  };
 
 export const getMenuCategory = async (id: string) => {
   try {

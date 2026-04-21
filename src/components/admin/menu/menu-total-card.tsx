@@ -4,20 +4,19 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export function MenuTotalCard({
   title,
-  value,
+  count,
 }: {
   title: string;
-  value?: number | string;
+  count: number | string;
 }) {
   return (
     <Card>
-      <CardContent className="p-4">
+      <CardContent className="px-4 py-1">
         <div className="text-sm text-muted-foreground">{title}</div>
         <div className="mt-1 text-2xl font-semibold tabular-nums">
-          {value ?? 0}
+          {count ?? 0}
         </div>
       </CardContent>
     </Card>
   );
 }
-

@@ -11,6 +11,7 @@ import {
   CreateVariantOptionResponse,
   DeleteVariantOptionResponse,
   GetVariantOptionResponse,
+  GetVariantOptionsForMenuResponse,
   GetVariantOptionsResponse,
   ToggleAvailabiltyResponse,
   UpdateVariantOptionResponse,
@@ -346,3 +347,46 @@ export const deleteVariantOption = async ({
     };
   }
 };
+
+export const getVariantOptionsForMenu =
+  async (): Promise<GetVariantOptionsForMenuResponse> => {
+    try {
+      const session = await auth.api.getSession({
+        headers: await headers(),
+      });
+      if (!session)
+        return { error: "No Authorization!", message: null, data: null };
+      const isAllowed =
+        session.user.role === allowedUserRole.ADMIN ||
+        session.user.role === allowedUserRole.SUBADMIN;
+      if (!isAllowed)
+        return {
+          error: "You don't have permission!",
+          data: null,
+          message: null,
+        };
+
+      const variantOptions = await prisma.variantOption.findMany({
+        where: { isAvailable: true },
+        orderBy: {
+          displayOrder: "asc",
+        },
+        select: {
+          id: true,
+          name: true,
+        },
+      });
+
+      return {
+        data: variantOptions,
+        message: "Fetched Successfully!",
+        error: null,
+      };
+    } catch {
+      return {
+        error: "Failed to fetch VariantOptions!",
+        data: null,
+        message: null,
+      };
+    }
+  };

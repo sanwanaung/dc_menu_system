@@ -96,7 +96,7 @@ export const getAddons = async ({
       status: addon.status as "FREE" | "PAID",
     }));
 
-    const [free, paid] = await Promise.all([
+    const [free, paid] = await prisma.$transaction([
       prisma.addon.count({ where: { status: "FREE" } }),
       prisma.addon.count({ where: { status: "PAID" } }),
     ]);
@@ -119,7 +119,7 @@ export const getAddons = async ({
           paid,
         },
       },
-      message: "Addons fetched successfully!",
+      message: "Fetched menuitems successfully!",
       error: null,
     };
   } catch {

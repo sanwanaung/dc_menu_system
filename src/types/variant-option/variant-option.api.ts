@@ -10,6 +10,8 @@ export type VariantOptionSerializable = Omit<
   price: number;
 };
 
+export type VariantOptionsForMenu = Pick<VariantOption, "id" | "name">;
+
 export type GetVariantOptionsResponse = ApiResponse<
   PaginatedData<VariantOptionSerializable>
 >;
@@ -25,3 +27,7 @@ export type UpdateVariantOptionResponse =
 export type DeleteVariantOptionResponse = ApiResponse<null>;
 
 export type ToggleAvailabiltyResponse = ApiResponse<VariantOptionSerializable>;
+
+export type GetVariantOptionsForMenuResponse = ApiResponse<
+  VariantOptionsForMenu[]
+>;
