@@ -53,15 +53,15 @@ export type RoomServiceOrder = Prisma.RoomServiceOrderModel
  */
 export type MenuCategory = Prisma.MenuCategoryModel
 /**
+ * Model MenuCategoryMenuItem
+ * 
+ */
+export type MenuCategoryMenuItem = Prisma.MenuCategoryMenuItemModel
+/**
  * Model MenuItem
  * 
  */
 export type MenuItem = Prisma.MenuItemModel
-/**
- * Model MenuItemRating
- * 
- */
-export type MenuItemRating = Prisma.MenuItemRatingModel
 /**
  * Model VariantOption
  * 
@@ -73,10 +73,15 @@ export type VariantOption = Prisma.VariantOptionModel
  */
 export type MenuItemVariantOption = Prisma.MenuItemVariantOptionModel
 /**
- * Model MenuItemImage
+ * Model VariantImage
  * 
  */
-export type MenuItemImage = Prisma.MenuItemImageModel
+export type VariantImage = Prisma.VariantImageModel
+/**
+ * Model MenuItemRating
+ * 
+ */
+export type MenuItemRating = Prisma.MenuItemRatingModel
 /**
  * Model Addon
  * 

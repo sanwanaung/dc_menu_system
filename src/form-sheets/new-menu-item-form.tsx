@@ -29,10 +29,20 @@ import { useCallback, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import Select from "react-select";
+import ReactSelect from "react-select";
 import makeAnimated from "react-select/animated";
 import { getAddonCategoriesForMenu } from "@/actions/addon-category";
 import { getVariantOptionsForMenu } from "@/actions/variant-option";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useNewMenuItemMutation } from "@/hooks/mutations/menu-item/use-new-menu-item";
+import { Loader2 } from "lucide-react";
 
 type OptionType = {
   label: string;
@@ -51,10 +61,23 @@ const defaultValues: FormInput = {
   variantOptions: [],
   description: "",
   imageFile: undefined,
+  imageType: "BASE_IMAGE",
 };
+
+const menuItemTypes = [
+  {
+    label: "BASE",
+    value: "BASE_IMAGE",
+  },
+  {
+    label: "VARIANT",
+    value: "VARIANT_IMAGE",
+  },
+] as const;
 
 const NewMenuItemForm = () => {
   const { isOpen, onClose } = useMenuItem();
+  const mutation = useNewMenuItemMutation();
   const [menuCategories, setMenuCategories] = useState<OptionType[] | []>([]);
   const [addonCategories, setAddonCategories] = useState<OptionType[] | []>([]);
   const [variantOptions, setVariantOptions] = useState<OptionType[] | []>([]);
@@ -122,19 +145,22 @@ const NewMenuItemForm = () => {
   }, [form]);
 
   const handleCreateMenuItem = (data: FormInput) => {
-    console.log("data: ", data);
+    mutation.mutate({ form: data });
+    if (!mutation.isPending) {
+      form.reset(defaultValues);
+      onClose();
+    }
   };
-  console.log("test");
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent
-        className="w-[95vw] sm:max-w-3xl md:max-w-6xl max-h-[90vh] overflow-y-auto p-4"
-        // showCloseButton={!create.isPending}
+        className="w-[95vw] sm:max-w-3xl md:max-w-6xl max-h-[90vh] md:max-h-fit overflow-y-auto p-4"
+        showCloseButton={!mutation.isPending}
         onEscapeKeyDown={(e) => {
-          //   if (create.isPending) e.preventDefault();
+          if (mutation.isPending) e.preventDefault();
         }}
         onPointerDownOutside={(e) => {
-          //   if (create.isPending) e.preventDefault();
+          if (mutation.isPending) e.preventDefault();
         }}
       >
         <div className="">
@@ -184,7 +210,6 @@ const NewMenuItemForm = () => {
                             type="number"
                             inputMode="numeric"
                             min={0}
-                            step={1500}
                             placeholder="Price"
                             aria-invalid={fieldState.invalid}
                             onChange={(e) =>
@@ -229,7 +254,7 @@ const NewMenuItemForm = () => {
                     render={({ field, fieldState }) => (
                       <Field aria-invalid={fieldState.invalid}>
                         <FieldLabel>MenuCategories *</FieldLabel>
-                        <Select
+                        <ReactSelect
                           placeholder="Select MenuCategory"
                           components={animatedComponents}
                           isMulti={true}
@@ -260,6 +285,33 @@ const NewMenuItemForm = () => {
                         {fieldState.invalid && (
                           <FieldError errors={[fieldState.error]} />
                         )}
+                      </Field>
+                    )}
+                  />
+                  <Controller
+                    control={form.control}
+                    name="imageType"
+                    render={({ field, fieldState }) => (
+                      <Field>
+                        <FieldLabel>Select Type</FieldLabel>
+                        <Select
+                          name={field.name}
+                          value={field.value}
+                          onValueChange={field.onChange}
+                        >
+                          <SelectTrigger aria-invalid={fieldState.invalid}>
+                            <SelectValue placeholder="Select..." />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="auto">Auto</SelectItem>
+                            <SelectSeparator />
+                            {menuItemTypes.map((type) => (
+                              <SelectItem key={type.value} value={type.value}>
+                                {type.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </Field>
                     )}
                   />
@@ -299,7 +351,7 @@ const NewMenuItemForm = () => {
                     render={({ field, fieldState }) => (
                       <Field aria-invalid={fieldState.invalid}>
                         <FieldLabel>AddonCategories *</FieldLabel>
-                        <Select
+                        <ReactSelect
                           placeholder="Select AddonCategory"
                           components={animatedComponents}
                           isMulti={true}
@@ -321,7 +373,7 @@ const NewMenuItemForm = () => {
                     render={({ field, fieldState }) => (
                       <Field aria-invalid={fieldState.invalid}>
                         <FieldLabel>Variant Options *</FieldLabel>
-                        <Select
+                        <ReactSelect
                           placeholder="Select VariantOption"
                           components={animatedComponents}
                           isMulti={true}
@@ -329,7 +381,10 @@ const NewMenuItemForm = () => {
                           options={variantOptions}
                           onChange={field.onChange}
                           className="select-border"
-                          isDisabled={isLoading}
+                          isDisabled={
+                            isLoading ||
+                            form.watch("imageType") === "BASE_IMAGE"
+                          }
                         />
                         {fieldState.invalid && (
                           <FieldError errors={[fieldState.error]} />
@@ -359,10 +414,17 @@ const NewMenuItemForm = () => {
                   type="button"
                   variant="outline"
                   onClick={handleOpenChange}
+                  disabled={mutation.isPending}
                 >
                   Cancel
                 </Button>
-                <Button type="submit">Create</Button>
+                <Button type="submit">
+                  {mutation.isPending ? (
+                    <Loader2 className="size-4 animate-spin" />
+                  ) : (
+                    "Create"
+                  )}
+                </Button>
               </DialogFooter>
             </FieldGroup>
           </form>

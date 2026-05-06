@@ -40,30 +40,30 @@ export type VariantOptionMinAggregateOutputType = {
   id: string | null
   name: string | null
   price: runtime.Decimal | null
-  isAvailable: boolean | null
-  displayOrder: number | null
   createdAt: Date | null
   updatedAt: Date | null
+  isAvailable: boolean | null
+  displayOrder: number | null
 }
 
 export type VariantOptionMaxAggregateOutputType = {
   id: string | null
   name: string | null
   price: runtime.Decimal | null
-  isAvailable: boolean | null
-  displayOrder: number | null
   createdAt: Date | null
   updatedAt: Date | null
+  isAvailable: boolean | null
+  displayOrder: number | null
 }
 
 export type VariantOptionCountAggregateOutputType = {
   id: number
   name: number
   price: number
-  isAvailable: number
-  displayOrder: number
   createdAt: number
   updatedAt: number
+  isAvailable: number
+  displayOrder: number
   _all: number
 }
 
@@ -82,30 +82,30 @@ export type VariantOptionMinAggregateInputType = {
   id?: true
   name?: true
   price?: true
-  isAvailable?: true
-  displayOrder?: true
   createdAt?: true
   updatedAt?: true
+  isAvailable?: true
+  displayOrder?: true
 }
 
 export type VariantOptionMaxAggregateInputType = {
   id?: true
   name?: true
   price?: true
-  isAvailable?: true
-  displayOrder?: true
   createdAt?: true
   updatedAt?: true
+  isAvailable?: true
+  displayOrder?: true
 }
 
 export type VariantOptionCountAggregateInputType = {
   id?: true
   name?: true
   price?: true
-  isAvailable?: true
-  displayOrder?: true
   createdAt?: true
   updatedAt?: true
+  isAvailable?: true
+  displayOrder?: true
   _all?: true
 }
 
@@ -199,10 +199,10 @@ export type VariantOptionGroupByOutputType = {
   id: string
   name: string
   price: runtime.Decimal
-  isAvailable: boolean
-  displayOrder: number
   createdAt: Date
   updatedAt: Date
+  isAvailable: boolean
+  displayOrder: number
   _count: VariantOptionCountAggregateOutputType | null
   _avg: VariantOptionAvgAggregateOutputType | null
   _sum: VariantOptionSumAggregateOutputType | null
@@ -232,10 +232,10 @@ export type VariantOptionWhereInput = {
   id?: Prisma.StringFilter<"VariantOption"> | string
   name?: Prisma.StringFilter<"VariantOption"> | string
   price?: Prisma.DecimalFilter<"VariantOption"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  isAvailable?: Prisma.BoolFilter<"VariantOption"> | boolean
-  displayOrder?: Prisma.IntFilter<"VariantOption"> | number
   createdAt?: Prisma.DateTimeFilter<"VariantOption"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"VariantOption"> | Date | string
+  isAvailable?: Prisma.BoolFilter<"VariantOption"> | boolean
+  displayOrder?: Prisma.IntFilter<"VariantOption"> | number
   MenuItemVariantOptions?: Prisma.MenuItemVariantOptionListRelationFilter
 }
 
@@ -243,10 +243,10 @@ export type VariantOptionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  isAvailable?: Prisma.SortOrder
-  displayOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isAvailable?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   MenuItemVariantOptions?: Prisma.MenuItemVariantOptionOrderByRelationAggregateInput
 }
 
@@ -257,10 +257,10 @@ export type VariantOptionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.VariantOptionWhereInput | Prisma.VariantOptionWhereInput[]
   name?: Prisma.StringFilter<"VariantOption"> | string
   price?: Prisma.DecimalFilter<"VariantOption"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  isAvailable?: Prisma.BoolFilter<"VariantOption"> | boolean
-  displayOrder?: Prisma.IntFilter<"VariantOption"> | number
   createdAt?: Prisma.DateTimeFilter<"VariantOption"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"VariantOption"> | Date | string
+  isAvailable?: Prisma.BoolFilter<"VariantOption"> | boolean
+  displayOrder?: Prisma.IntFilter<"VariantOption"> | number
   MenuItemVariantOptions?: Prisma.MenuItemVariantOptionListRelationFilter
 }, "id">
 
@@ -268,10 +268,10 @@ export type VariantOptionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  isAvailable?: Prisma.SortOrder
-  displayOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isAvailable?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   _count?: Prisma.VariantOptionCountOrderByAggregateInput
   _avg?: Prisma.VariantOptionAvgOrderByAggregateInput
   _max?: Prisma.VariantOptionMaxOrderByAggregateInput
@@ -286,20 +286,20 @@ export type VariantOptionScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"VariantOption"> | string
   name?: Prisma.StringWithAggregatesFilter<"VariantOption"> | string
   price?: Prisma.DecimalWithAggregatesFilter<"VariantOption"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  isAvailable?: Prisma.BoolWithAggregatesFilter<"VariantOption"> | boolean
-  displayOrder?: Prisma.IntWithAggregatesFilter<"VariantOption"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"VariantOption"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"VariantOption"> | Date | string
+  isAvailable?: Prisma.BoolWithAggregatesFilter<"VariantOption"> | boolean
+  displayOrder?: Prisma.IntWithAggregatesFilter<"VariantOption"> | number
 }
 
 export type VariantOptionCreateInput = {
   id?: string
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  isAvailable?: boolean
-  displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  isAvailable?: boolean
+  displayOrder?: number
   MenuItemVariantOptions?: Prisma.MenuItemVariantOptionCreateNestedManyWithoutVariantOptionInput
 }
 
@@ -307,10 +307,10 @@ export type VariantOptionUncheckedCreateInput = {
   id?: string
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  isAvailable?: boolean
-  displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  isAvailable?: boolean
+  displayOrder?: number
   MenuItemVariantOptions?: Prisma.MenuItemVariantOptionUncheckedCreateNestedManyWithoutVariantOptionInput
 }
 
@@ -318,10 +318,10 @@ export type VariantOptionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   MenuItemVariantOptions?: Prisma.MenuItemVariantOptionUpdateManyWithoutVariantOptionNestedInput
 }
 
@@ -329,10 +329,10 @@ export type VariantOptionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   MenuItemVariantOptions?: Prisma.MenuItemVariantOptionUncheckedUpdateManyWithoutVariantOptionNestedInput
 }
 
@@ -340,40 +340,40 @@ export type VariantOptionCreateManyInput = {
   id?: string
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  isAvailable?: boolean
-  displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  isAvailable?: boolean
+  displayOrder?: number
 }
 
 export type VariantOptionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type VariantOptionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type VariantOptionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  isAvailable?: Prisma.SortOrder
-  displayOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isAvailable?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
 }
 
 export type VariantOptionAvgOrderByAggregateInput = {
@@ -385,20 +385,20 @@ export type VariantOptionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  isAvailable?: Prisma.SortOrder
-  displayOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isAvailable?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
 }
 
 export type VariantOptionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  isAvailable?: Prisma.SortOrder
-  displayOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isAvailable?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
 }
 
 export type VariantOptionSumOrderByAggregateInput = {
@@ -429,20 +429,20 @@ export type VariantOptionCreateWithoutMenuItemVariantOptionsInput = {
   id?: string
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  isAvailable?: boolean
-  displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  isAvailable?: boolean
+  displayOrder?: number
 }
 
 export type VariantOptionUncheckedCreateWithoutMenuItemVariantOptionsInput = {
   id?: string
   name: string
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  isAvailable?: boolean
-  displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  isAvailable?: boolean
+  displayOrder?: number
 }
 
 export type VariantOptionCreateOrConnectWithoutMenuItemVariantOptionsInput = {
@@ -465,20 +465,20 @@ export type VariantOptionUpdateWithoutMenuItemVariantOptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type VariantOptionUncheckedUpdateWithoutMenuItemVariantOptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -516,10 +516,10 @@ export type VariantOptionSelect<ExtArgs extends runtime.Types.Extensions.Interna
   id?: boolean
   name?: boolean
   price?: boolean
-  isAvailable?: boolean
-  displayOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isAvailable?: boolean
+  displayOrder?: boolean
   MenuItemVariantOptions?: boolean | Prisma.VariantOption$MenuItemVariantOptionsArgs<ExtArgs>
   _count?: boolean | Prisma.VariantOptionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["variantOption"]>
@@ -528,33 +528,33 @@ export type VariantOptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   name?: boolean
   price?: boolean
-  isAvailable?: boolean
-  displayOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isAvailable?: boolean
+  displayOrder?: boolean
 }, ExtArgs["result"]["variantOption"]>
 
 export type VariantOptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   price?: boolean
-  isAvailable?: boolean
-  displayOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isAvailable?: boolean
+  displayOrder?: boolean
 }, ExtArgs["result"]["variantOption"]>
 
 export type VariantOptionSelectScalar = {
   id?: boolean
   name?: boolean
   price?: boolean
-  isAvailable?: boolean
-  displayOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isAvailable?: boolean
+  displayOrder?: boolean
 }
 
-export type VariantOptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "price" | "isAvailable" | "displayOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["variantOption"]>
+export type VariantOptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "price" | "createdAt" | "updatedAt" | "isAvailable" | "displayOrder", ExtArgs["result"]["variantOption"]>
 export type VariantOptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   MenuItemVariantOptions?: boolean | Prisma.VariantOption$MenuItemVariantOptionsArgs<ExtArgs>
   _count?: boolean | Prisma.VariantOptionCountOutputTypeDefaultArgs<ExtArgs>
@@ -571,10 +571,10 @@ export type $VariantOptionPayload<ExtArgs extends runtime.Types.Extensions.Inter
     id: string
     name: string
     price: runtime.Decimal
-    isAvailable: boolean
-    displayOrder: number
     createdAt: Date
     updatedAt: Date
+    isAvailable: boolean
+    displayOrder: number
   }, ExtArgs["result"]["variantOption"]>
   composites: {}
 }
@@ -1002,10 +1002,10 @@ export interface VariantOptionFieldRefs {
   readonly id: Prisma.FieldRef<"VariantOption", 'String'>
   readonly name: Prisma.FieldRef<"VariantOption", 'String'>
   readonly price: Prisma.FieldRef<"VariantOption", 'Decimal'>
-  readonly isAvailable: Prisma.FieldRef<"VariantOption", 'Boolean'>
-  readonly displayOrder: Prisma.FieldRef<"VariantOption", 'Int'>
   readonly createdAt: Prisma.FieldRef<"VariantOption", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"VariantOption", 'DateTime'>
+  readonly isAvailable: Prisma.FieldRef<"VariantOption", 'Boolean'>
+  readonly displayOrder: Prisma.FieldRef<"VariantOption", 'Int'>
 }
     
 

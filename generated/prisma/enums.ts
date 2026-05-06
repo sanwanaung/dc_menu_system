@@ -34,3 +34,11 @@ export const AddonStatus = {
 } as const
 
 export type AddonStatus = (typeof AddonStatus)[keyof typeof AddonStatus]
+
+
+export const MenuItemImageType = {
+  BASE_IMAGE: 'BASE_IMAGE',
+  VARIANT_IMAGE: 'VARIANT_IMAGE'
+} as const
+
+export type MenuItemImageType = (typeof MenuItemImageType)[keyof typeof MenuItemImageType]

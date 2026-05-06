@@ -182,6 +182,7 @@ export type MenuItemVariantOptionWhereInput = {
   variantOptionId?: Prisma.StringFilter<"MenuItemVariantOption"> | string
   createdAt?: Prisma.DateTimeFilter<"MenuItemVariantOption"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MenuItemVariantOption"> | Date | string
+  variantImage?: Prisma.VariantImageListRelationFilter
   menuItem?: Prisma.XOR<Prisma.MenuItemScalarRelationFilter, Prisma.MenuItemWhereInput>
   variantOption?: Prisma.XOR<Prisma.VariantOptionScalarRelationFilter, Prisma.VariantOptionWhereInput>
 }
@@ -192,6 +193,7 @@ export type MenuItemVariantOptionOrderByWithRelationInput = {
   variantOptionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  variantImage?: Prisma.VariantImageOrderByRelationAggregateInput
   menuItem?: Prisma.MenuItemOrderByWithRelationInput
   variantOption?: Prisma.VariantOptionOrderByWithRelationInput
 }
@@ -206,6 +208,7 @@ export type MenuItemVariantOptionWhereUniqueInput = Prisma.AtLeast<{
   variantOptionId?: Prisma.StringFilter<"MenuItemVariantOption"> | string
   createdAt?: Prisma.DateTimeFilter<"MenuItemVariantOption"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MenuItemVariantOption"> | Date | string
+  variantImage?: Prisma.VariantImageListRelationFilter
   menuItem?: Prisma.XOR<Prisma.MenuItemScalarRelationFilter, Prisma.MenuItemWhereInput>
   variantOption?: Prisma.XOR<Prisma.VariantOptionScalarRelationFilter, Prisma.VariantOptionWhereInput>
 }, "id" | "menuItemId_variantOptionId">
@@ -236,6 +239,7 @@ export type MenuItemVariantOptionCreateInput = {
   id?: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  variantImage?: Prisma.VariantImageCreateNestedManyWithoutMenuItemVariantOptionInput
   menuItem: Prisma.MenuItemCreateNestedOneWithoutMenuItemVariantOptionsInput
   variantOption: Prisma.VariantOptionCreateNestedOneWithoutMenuItemVariantOptionsInput
 }
@@ -246,12 +250,14 @@ export type MenuItemVariantOptionUncheckedCreateInput = {
   variantOptionId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  variantImage?: Prisma.VariantImageUncheckedCreateNestedManyWithoutMenuItemVariantOptionInput
 }
 
 export type MenuItemVariantOptionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  variantImage?: Prisma.VariantImageUpdateManyWithoutMenuItemVariantOptionNestedInput
   menuItem?: Prisma.MenuItemUpdateOneRequiredWithoutMenuItemVariantOptionsNestedInput
   variantOption?: Prisma.VariantOptionUpdateOneRequiredWithoutMenuItemVariantOptionsNestedInput
 }
@@ -262,6 +268,7 @@ export type MenuItemVariantOptionUncheckedUpdateInput = {
   variantOptionId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  variantImage?: Prisma.VariantImageUncheckedUpdateManyWithoutMenuItemVariantOptionNestedInput
 }
 
 export type MenuItemVariantOptionCreateManyInput = {
@@ -323,6 +330,11 @@ export type MenuItemVariantOptionMinOrderByAggregateInput = {
   variantOptionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type MenuItemVariantOptionScalarRelationFilter = {
+  is?: Prisma.MenuItemVariantOptionWhereInput
+  isNot?: Prisma.MenuItemVariantOptionWhereInput
 }
 
 export type MenuItemVariantOptionCreateNestedManyWithoutMenuItemInput = {
@@ -409,10 +421,25 @@ export type MenuItemVariantOptionUncheckedUpdateManyWithoutVariantOptionNestedIn
   deleteMany?: Prisma.MenuItemVariantOptionScalarWhereInput | Prisma.MenuItemVariantOptionScalarWhereInput[]
 }
 
+export type MenuItemVariantOptionCreateNestedOneWithoutVariantImageInput = {
+  create?: Prisma.XOR<Prisma.MenuItemVariantOptionCreateWithoutVariantImageInput, Prisma.MenuItemVariantOptionUncheckedCreateWithoutVariantImageInput>
+  connectOrCreate?: Prisma.MenuItemVariantOptionCreateOrConnectWithoutVariantImageInput
+  connect?: Prisma.MenuItemVariantOptionWhereUniqueInput
+}
+
+export type MenuItemVariantOptionUpdateOneRequiredWithoutVariantImageNestedInput = {
+  create?: Prisma.XOR<Prisma.MenuItemVariantOptionCreateWithoutVariantImageInput, Prisma.MenuItemVariantOptionUncheckedCreateWithoutVariantImageInput>
+  connectOrCreate?: Prisma.MenuItemVariantOptionCreateOrConnectWithoutVariantImageInput
+  upsert?: Prisma.MenuItemVariantOptionUpsertWithoutVariantImageInput
+  connect?: Prisma.MenuItemVariantOptionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MenuItemVariantOptionUpdateToOneWithWhereWithoutVariantImageInput, Prisma.MenuItemVariantOptionUpdateWithoutVariantImageInput>, Prisma.MenuItemVariantOptionUncheckedUpdateWithoutVariantImageInput>
+}
+
 export type MenuItemVariantOptionCreateWithoutMenuItemInput = {
   id?: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  variantImage?: Prisma.VariantImageCreateNestedManyWithoutMenuItemVariantOptionInput
   variantOption: Prisma.VariantOptionCreateNestedOneWithoutMenuItemVariantOptionsInput
 }
 
@@ -421,6 +448,7 @@ export type MenuItemVariantOptionUncheckedCreateWithoutMenuItemInput = {
   variantOptionId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  variantImage?: Prisma.VariantImageUncheckedCreateNestedManyWithoutMenuItemVariantOptionInput
 }
 
 export type MenuItemVariantOptionCreateOrConnectWithoutMenuItemInput = {
@@ -464,6 +492,7 @@ export type MenuItemVariantOptionCreateWithoutVariantOptionInput = {
   id?: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  variantImage?: Prisma.VariantImageCreateNestedManyWithoutMenuItemVariantOptionInput
   menuItem: Prisma.MenuItemCreateNestedOneWithoutMenuItemVariantOptionsInput
 }
 
@@ -472,6 +501,7 @@ export type MenuItemVariantOptionUncheckedCreateWithoutVariantOptionInput = {
   menuItemId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  variantImage?: Prisma.VariantImageUncheckedCreateNestedManyWithoutMenuItemVariantOptionInput
 }
 
 export type MenuItemVariantOptionCreateOrConnectWithoutVariantOptionInput = {
@@ -500,6 +530,54 @@ export type MenuItemVariantOptionUpdateManyWithWhereWithoutVariantOptionInput = 
   data: Prisma.XOR<Prisma.MenuItemVariantOptionUpdateManyMutationInput, Prisma.MenuItemVariantOptionUncheckedUpdateManyWithoutVariantOptionInput>
 }
 
+export type MenuItemVariantOptionCreateWithoutVariantImageInput = {
+  id?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  menuItem: Prisma.MenuItemCreateNestedOneWithoutMenuItemVariantOptionsInput
+  variantOption: Prisma.VariantOptionCreateNestedOneWithoutMenuItemVariantOptionsInput
+}
+
+export type MenuItemVariantOptionUncheckedCreateWithoutVariantImageInput = {
+  id?: string
+  menuItemId: string
+  variantOptionId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type MenuItemVariantOptionCreateOrConnectWithoutVariantImageInput = {
+  where: Prisma.MenuItemVariantOptionWhereUniqueInput
+  create: Prisma.XOR<Prisma.MenuItemVariantOptionCreateWithoutVariantImageInput, Prisma.MenuItemVariantOptionUncheckedCreateWithoutVariantImageInput>
+}
+
+export type MenuItemVariantOptionUpsertWithoutVariantImageInput = {
+  update: Prisma.XOR<Prisma.MenuItemVariantOptionUpdateWithoutVariantImageInput, Prisma.MenuItemVariantOptionUncheckedUpdateWithoutVariantImageInput>
+  create: Prisma.XOR<Prisma.MenuItemVariantOptionCreateWithoutVariantImageInput, Prisma.MenuItemVariantOptionUncheckedCreateWithoutVariantImageInput>
+  where?: Prisma.MenuItemVariantOptionWhereInput
+}
+
+export type MenuItemVariantOptionUpdateToOneWithWhereWithoutVariantImageInput = {
+  where?: Prisma.MenuItemVariantOptionWhereInput
+  data: Prisma.XOR<Prisma.MenuItemVariantOptionUpdateWithoutVariantImageInput, Prisma.MenuItemVariantOptionUncheckedUpdateWithoutVariantImageInput>
+}
+
+export type MenuItemVariantOptionUpdateWithoutVariantImageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  menuItem?: Prisma.MenuItemUpdateOneRequiredWithoutMenuItemVariantOptionsNestedInput
+  variantOption?: Prisma.VariantOptionUpdateOneRequiredWithoutMenuItemVariantOptionsNestedInput
+}
+
+export type MenuItemVariantOptionUncheckedUpdateWithoutVariantImageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  menuItemId?: Prisma.StringFieldUpdateOperationsInput | string
+  variantOptionId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type MenuItemVariantOptionCreateManyMenuItemInput = {
   id?: string
   variantOptionId: string
@@ -511,6 +589,7 @@ export type MenuItemVariantOptionUpdateWithoutMenuItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  variantImage?: Prisma.VariantImageUpdateManyWithoutMenuItemVariantOptionNestedInput
   variantOption?: Prisma.VariantOptionUpdateOneRequiredWithoutMenuItemVariantOptionsNestedInput
 }
 
@@ -519,6 +598,7 @@ export type MenuItemVariantOptionUncheckedUpdateWithoutMenuItemInput = {
   variantOptionId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  variantImage?: Prisma.VariantImageUncheckedUpdateManyWithoutMenuItemVariantOptionNestedInput
 }
 
 export type MenuItemVariantOptionUncheckedUpdateManyWithoutMenuItemInput = {
@@ -539,6 +619,7 @@ export type MenuItemVariantOptionUpdateWithoutVariantOptionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  variantImage?: Prisma.VariantImageUpdateManyWithoutMenuItemVariantOptionNestedInput
   menuItem?: Prisma.MenuItemUpdateOneRequiredWithoutMenuItemVariantOptionsNestedInput
 }
 
@@ -547,6 +628,7 @@ export type MenuItemVariantOptionUncheckedUpdateWithoutVariantOptionInput = {
   menuItemId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  variantImage?: Prisma.VariantImageUncheckedUpdateManyWithoutMenuItemVariantOptionNestedInput
 }
 
 export type MenuItemVariantOptionUncheckedUpdateManyWithoutVariantOptionInput = {
@@ -557,6 +639,35 @@ export type MenuItemVariantOptionUncheckedUpdateManyWithoutVariantOptionInput = 
 }
 
 
+/**
+ * Count Type MenuItemVariantOptionCountOutputType
+ */
+
+export type MenuItemVariantOptionCountOutputType = {
+  variantImage: number
+}
+
+export type MenuItemVariantOptionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  variantImage?: boolean | MenuItemVariantOptionCountOutputTypeCountVariantImageArgs
+}
+
+/**
+ * MenuItemVariantOptionCountOutputType without action
+ */
+export type MenuItemVariantOptionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MenuItemVariantOptionCountOutputType
+   */
+  select?: Prisma.MenuItemVariantOptionCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * MenuItemVariantOptionCountOutputType without action
+ */
+export type MenuItemVariantOptionCountOutputTypeCountVariantImageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.VariantImageWhereInput
+}
+
 
 export type MenuItemVariantOptionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -564,8 +675,10 @@ export type MenuItemVariantOptionSelect<ExtArgs extends runtime.Types.Extensions
   variantOptionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  variantImage?: boolean | Prisma.MenuItemVariantOption$variantImageArgs<ExtArgs>
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>
   variantOption?: boolean | Prisma.VariantOptionDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.MenuItemVariantOptionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["menuItemVariantOption"]>
 
 export type MenuItemVariantOptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -598,8 +711,10 @@ export type MenuItemVariantOptionSelectScalar = {
 
 export type MenuItemVariantOptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "menuItemId" | "variantOptionId" | "createdAt" | "updatedAt", ExtArgs["result"]["menuItemVariantOption"]>
 export type MenuItemVariantOptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  variantImage?: boolean | Prisma.MenuItemVariantOption$variantImageArgs<ExtArgs>
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>
   variantOption?: boolean | Prisma.VariantOptionDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.MenuItemVariantOptionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MenuItemVariantOptionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>
@@ -613,6 +728,7 @@ export type MenuItemVariantOptionIncludeUpdateManyAndReturn<ExtArgs extends runt
 export type $MenuItemVariantOptionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "MenuItemVariantOption"
   objects: {
+    variantImage: Prisma.$VariantImagePayload<ExtArgs>[]
     menuItem: Prisma.$MenuItemPayload<ExtArgs>
     variantOption: Prisma.$VariantOptionPayload<ExtArgs>
   }
@@ -1016,6 +1132,7 @@ readonly fields: MenuItemVariantOptionFieldRefs;
  */
 export interface Prisma__MenuItemVariantOptionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  variantImage<T extends Prisma.MenuItemVariantOption$variantImageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MenuItemVariantOption$variantImageArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VariantImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   menuItem<T extends Prisma.MenuItemDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MenuItemDefaultArgs<ExtArgs>>): Prisma.Prisma__MenuItemClient<runtime.Types.Result.GetResult<Prisma.$MenuItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   variantOption<T extends Prisma.VariantOptionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VariantOptionDefaultArgs<ExtArgs>>): Prisma.Prisma__VariantOptionClient<runtime.Types.Result.GetResult<Prisma.$VariantOptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
@@ -1445,6 +1562,30 @@ export type MenuItemVariantOptionDeleteManyArgs<ExtArgs extends runtime.Types.Ex
    * Limit how many MenuItemVariantOptions to delete.
    */
   limit?: number
+}
+
+/**
+ * MenuItemVariantOption.variantImage
+ */
+export type MenuItemVariantOption$variantImageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the VariantImage
+   */
+  select?: Prisma.VariantImageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the VariantImage
+   */
+  omit?: Prisma.VariantImageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VariantImageInclude<ExtArgs> | null
+  where?: Prisma.VariantImageWhereInput
+  orderBy?: Prisma.VariantImageOrderByWithRelationInput | Prisma.VariantImageOrderByWithRelationInput[]
+  cursor?: Prisma.VariantImageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.VariantImageScalarFieldEnum | Prisma.VariantImageScalarFieldEnum[]
 }
 
 /**

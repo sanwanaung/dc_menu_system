@@ -61,11 +61,16 @@ export function MenuItemActions({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All categories</SelectItem>
-            {menuItems?.map((a) => (
-              <SelectItem key={a.id} value={a.category?.name ?? "a"}>
-                {a.category?.name}
-              </SelectItem>
-            ))}
+            {menuItems?.map((item) =>
+              item.menuCategoryMenuItems.map((category) => (
+                <SelectItem
+                  key={category.menuCategory.id}
+                  value={category.menuCategory.name ?? "a"}
+                >
+                  {category.menuCategory.name}
+                </SelectItem>
+              )),
+            )}
           </SelectContent>
         </Select>
 

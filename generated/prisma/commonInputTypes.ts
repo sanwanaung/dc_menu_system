@@ -227,6 +227,13 @@ export type FloatFilter<$PrismaModel = never> = {
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
 }
 
+export type EnumMenuItemImageTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.MenuItemImageType | Prisma.EnumMenuItemImageTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.MenuItemImageType[] | Prisma.ListEnumMenuItemImageTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MenuItemImageType[] | Prisma.ListEnumMenuItemImageTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMenuItemImageTypeFilter<$PrismaModel> | $Enums.MenuItemImageType
+}
+
 export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
   equals?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>
   in?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel>
@@ -257,6 +264,16 @@ export type FloatWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedFloatFilter<$PrismaModel>
   _min?: Prisma.NestedFloatFilter<$PrismaModel>
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
+}
+
+export type EnumMenuItemImageTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.MenuItemImageType | Prisma.EnumMenuItemImageTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.MenuItemImageType[] | Prisma.ListEnumMenuItemImageTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MenuItemImageType[] | Prisma.ListEnumMenuItemImageTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMenuItemImageTypeWithAggregatesFilter<$PrismaModel> | $Enums.MenuItemImageType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumMenuItemImageTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumMenuItemImageTypeFilter<$PrismaModel>
 }
 
 export type EnumAddonStatusFilter<$PrismaModel = never> = {
@@ -491,6 +508,13 @@ export type NestedDecimalFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDecimalFilter<$PrismaModel> | runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
+export type NestedEnumMenuItemImageTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.MenuItemImageType | Prisma.EnumMenuItemImageTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.MenuItemImageType[] | Prisma.ListEnumMenuItemImageTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MenuItemImageType[] | Prisma.ListEnumMenuItemImageTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMenuItemImageTypeFilter<$PrismaModel> | $Enums.MenuItemImageType
+}
+
 export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
   equals?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>
   in?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel>
@@ -521,6 +545,16 @@ export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedFloatFilter<$PrismaModel>
   _min?: Prisma.NestedFloatFilter<$PrismaModel>
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
+}
+
+export type NestedEnumMenuItemImageTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.MenuItemImageType | Prisma.EnumMenuItemImageTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.MenuItemImageType[] | Prisma.ListEnumMenuItemImageTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MenuItemImageType[] | Prisma.ListEnumMenuItemImageTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMenuItemImageTypeWithAggregatesFilter<$PrismaModel> | $Enums.MenuItemImageType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumMenuItemImageTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumMenuItemImageTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumAddonStatusFilter<$PrismaModel = never> = {

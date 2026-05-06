@@ -1,5 +1,4 @@
 import { MenuItemDTO } from "@/types/menu-item";
-import type { MenuCategory, MenuItem } from "./types";
 
 export type AvailabilityFilter = "all" | "available" | "unavailable";
 export type CategoryFilter = "all" | string;
@@ -10,23 +9,7 @@ export type SortKey =
   | "priceDesc"
   | "displayOrderAsc";
 
-export function formatMoney(amount: number, currency = "USD") {
-  const safe = Number.isFinite(amount) ? amount : 0;
-  return new Intl.NumberFormat(undefined, {
-    style: "currency",
-    currency,
-    maximumFractionDigits: 2,
-  }).format(safe);
-}
-
-export function getCategoryName(
-  categories: MenuCategory[],
-  categoryId: string,
-) {
-  return categories.find((c) => c.id === categoryId)?.name ?? "Uncategorized";
-}
-
-export function sortMenuItems(items: MenuItem[], sort: SortKey) {
+export function sortMenuItems(items: MenuItemDTO[] = [], sort: SortKey) {
   const copy = [...items];
   switch (sort) {
     case "nameAsc":
@@ -52,8 +35,4 @@ export function sortMenuItems(items: MenuItem[], sort: SortKey) {
           a.name.localeCompare(b.name),
       );
   }
-}
-
-export function countCategoriesInUse(items: MenuItemDTO[]) {
-  return new Set(items.map((i) => i.category.name)).size;
 }

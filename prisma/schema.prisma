@@ -108,15 +108,32 @@ model RoomServiceOrder {
 }
 
 model MenuCategory {
-  id           String     @id @default(cuid())
-  name         String     @unique
-  displayOrder Int        @default(0)
-  isAvailable  Boolean    @default(true)
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  MenuItems    MenuItem[]
+  id           String   @id @default(cuid())
+  name         String   @unique
+  displayOrder Int      @default(0)
+  isAvailable  Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  menuCategoryMenuItems  MenuCategoryMenuItem[]
 
   @@map("menu_category")
+}
+
+model MenuCategoryMenuItem {
+  id             String   @id @default(cuid())
+  menuItemId     String
+  menuCategoryId String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  menuCategory   MenuCategory   @relation(fields: [menuCategoryId], references: [id], onDelete: Cascade)
+  menuItem       MenuItem       @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+
+  @@unique([menuItemId, menuCategoryId])
+  @@index([menuItemId])
+  @@index([menuCategoryId])
+  @@map("menucategory_menuitem")
 }
 
 model MenuItem {
@@ -125,20 +142,62 @@ model MenuItem {
   description             String?
   price                   Decimal                 @db.Decimal(10, 2)
   displayOrder            Int                     @default(0)
-  categoryId              String
   isAvailable             Boolean                 @default(true)
   createdAt               DateTime                @default(now())
   updatedAt               DateTime                @updatedAt
   ratingAverage           Float                   @default(0)
   ratingCount             Int                     @default(0)
-  category                MenuCategory            @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  imageType               MenuItemImageType       @default(BASE_IMAGE)
+  baseImage               String?
   menuItemAddonCategories MenuItemAddonCategory[]
-  menuItemImages          MenuItemImage[]
   menuItemRatings         MenuItemRating[]
-  MenuItemVariantOptions  MenuItemVariantOption[]
+  menuItemVariantOptions  MenuItemVariantOption[]
 
-  @@index([categoryId])
+  menuCategoryMenuItems   MenuCategoryMenuItem[]
+
+  @@index([name])
   @@map("menu_item")
+}
+
+model VariantOption {
+  id                     String                  @id @default(cuid())
+  name                   String
+  price                  Decimal                 @default(0) @db.Decimal(10, 2)
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+  isAvailable            Boolean                 @default(true)
+  displayOrder           Int                     @default(0)
+  MenuItemVariantOptions MenuItemVariantOption[]
+
+  @@map("variant_option")
+}
+
+model MenuItemVariantOption {
+  id              String         @id @default(cuid())
+  menuItemId      String
+  variantOptionId String
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  variantImage    VariantImage[]
+  menuItem        MenuItem       @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  variantOption   VariantOption  @relation(fields: [variantOptionId], references: [id], onDelete: Cascade)
+
+  @@unique([menuItemId, variantOptionId])
+  @@index([menuItemId])
+  @@index([variantOptionId])
+  @@map("menu_item_variant_option")
+}
+
+model VariantImage {
+  id                      String                @id @default(cuid())
+  menuItemVariantOptionId String
+  url                     String
+  createdAt               DateTime              @default(now())
+  updatedAt               DateTime              @updatedAt
+  menuItemVariantOption   MenuItemVariantOption @relation(fields: [menuItemVariantOptionId], references: [id], onDelete: Cascade)
+
+  @@index([menuItemVariantOptionId])
+  @@map("menu_item_image")
 }
 
 model MenuItemRating {
@@ -156,46 +215,6 @@ model MenuItemRating {
 
   @@index([menuItemId])
   @@map("menu_item_rating")
-}
-
-model VariantOption {
-  id                     String                  @id @default(cuid())
-  name                   String
-  price                  Decimal                 @default(0) @db.Decimal(10, 2)
-  isAvailable            Boolean    @default(true)
-  displayOrder           Int                     @default(0)
-  createdAt              DateTime                @default(now())
-  updatedAt              DateTime                @updatedAt
-  MenuItemVariantOptions MenuItemVariantOption[]
-
-  @@map("variant_option")
-}
-
-model MenuItemVariantOption {
-  id              String        @id @default(cuid())
-  menuItemId      String
-  variantOptionId String
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  menuItem        MenuItem      @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
-  variantOption   VariantOption @relation(fields: [variantOptionId], references: [id], onDelete: Cascade)
-
-  @@unique([menuItemId, variantOptionId])
-  @@index([menuItemId])
-  @@index([variantOptionId])
-  @@map("menu_item_variant_option")
-}
-
-model MenuItemImage {
-  id         String   @id @default(cuid())
-  menuItemId String
-  url        String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  menuItem   MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
-
-  @@index([menuItemId])
-  @@map("menu_item_image")
 }
 
 model Addon {
@@ -256,4 +275,9 @@ enum RoomServiceStatus {
 enum AddonStatus {
   FREE
   PAID
+}
+
+enum MenuItemImageType {
+  BASE_IMAGE
+  VARIANT_IMAGE
 }
