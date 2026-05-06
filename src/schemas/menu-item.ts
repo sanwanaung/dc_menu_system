@@ -9,6 +9,8 @@ const ACCEPTED_IMAGE_TYPES = [
   "image/svg+xml",
 ];
 
+const IMAGE_TYPES = ["BASE_IMAGE", "VARIANT_IMAGE"] as const;
+
 export const menuItemFormSchema = z.object({
   name: z
     .string()
@@ -45,7 +47,7 @@ export const menuItemFormSchema = z.object({
         value: z.string().trim(),
       }),
     )
-    .min(1, "Pick at least one variantoption"),
+    .optional(),
   imageFile: z
     .instanceof(File)
     .refine((file) => file.size <= MAX_FILE_SIZE, "Max image size is 10MB.")
@@ -54,6 +56,7 @@ export const menuItemFormSchema = z.object({
       "Only .jpeg, .jpg, .png, .webp and .svg formats are supported.",
     )
     .optional(),
+  imageType: z.enum(IMAGE_TYPES).default("BASE_IMAGE"),
 });
 
 export type FormInput = z.input<typeof menuItemFormSchema>;

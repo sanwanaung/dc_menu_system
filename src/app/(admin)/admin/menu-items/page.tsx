@@ -7,7 +7,7 @@ export default async function AdminMenuItemsPage() {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ["menu-category"],
+    queryKey: ["menu-item"],
     initialPageParam: 0,
     queryFn: ({ pageParam }) =>
       getMenuItems({ limit: 6, offset: Number(pageParam) }),

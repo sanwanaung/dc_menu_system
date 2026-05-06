@@ -91,10 +91,10 @@ const VariantOptionForm = () => {
   }, [isOpen, mode, currentVariantOpt, form]);
 
   const handleSubmitVariantOption = (data: VariantOptionFormSchema) => {
-    if (!id) return;
     if (session.data?.user.role !== allowedUserRole.ADMIN)
       return toast.error("You don't have permission!");
     if (mode === "edit") {
+      if (!id) return;
       updateMutation.mutate({ id, form: data });
       return;
     }

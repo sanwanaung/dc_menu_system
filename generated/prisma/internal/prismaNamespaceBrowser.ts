@@ -58,11 +58,12 @@ export const ModelName = {
   Room: 'Room',
   RoomServiceOrder: 'RoomServiceOrder',
   MenuCategory: 'MenuCategory',
+  MenuCategoryMenuItem: 'MenuCategoryMenuItem',
   MenuItem: 'MenuItem',
-  MenuItemRating: 'MenuItemRating',
   VariantOption: 'VariantOption',
   MenuItemVariantOption: 'MenuItemVariantOption',
-  MenuItemImage: 'MenuItemImage',
+  VariantImage: 'VariantImage',
+  MenuItemRating: 'MenuItemRating',
   Addon: 'Addon',
   AddonCategory: 'AddonCategory',
   MenuItemAddonCategory: 'MenuItemAddonCategory'
@@ -188,45 +189,43 @@ export const MenuCategoryScalarFieldEnum = {
 export type MenuCategoryScalarFieldEnum = (typeof MenuCategoryScalarFieldEnum)[keyof typeof MenuCategoryScalarFieldEnum]
 
 
+export const MenuCategoryMenuItemScalarFieldEnum = {
+  id: 'id',
+  menuItemId: 'menuItemId',
+  menuCategoryId: 'menuCategoryId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MenuCategoryMenuItemScalarFieldEnum = (typeof MenuCategoryMenuItemScalarFieldEnum)[keyof typeof MenuCategoryMenuItemScalarFieldEnum]
+
+
 export const MenuItemScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
   price: 'price',
   displayOrder: 'displayOrder',
-  categoryId: 'categoryId',
   isAvailable: 'isAvailable',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   ratingAverage: 'ratingAverage',
-  ratingCount: 'ratingCount'
+  ratingCount: 'ratingCount',
+  imageType: 'imageType',
+  baseImage: 'baseImage'
 } as const
 
 export type MenuItemScalarFieldEnum = (typeof MenuItemScalarFieldEnum)[keyof typeof MenuItemScalarFieldEnum]
-
-
-export const MenuItemRatingScalarFieldEnum = {
-  id: 'id',
-  menuItemId: 'menuItemId',
-  comment: 'comment',
-  userId: 'userId',
-  rating: 'rating',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  roomId: 'roomId'
-} as const
-
-export type MenuItemRatingScalarFieldEnum = (typeof MenuItemRatingScalarFieldEnum)[keyof typeof MenuItemRatingScalarFieldEnum]
 
 
 export const VariantOptionScalarFieldEnum = {
   id: 'id',
   name: 'name',
   price: 'price',
-  isAvailable: 'isAvailable',
-  displayOrder: 'displayOrder',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isAvailable: 'isAvailable',
+  displayOrder: 'displayOrder'
 } as const
 
 export type VariantOptionScalarFieldEnum = (typeof VariantOptionScalarFieldEnum)[keyof typeof VariantOptionScalarFieldEnum]
@@ -243,15 +242,29 @@ export const MenuItemVariantOptionScalarFieldEnum = {
 export type MenuItemVariantOptionScalarFieldEnum = (typeof MenuItemVariantOptionScalarFieldEnum)[keyof typeof MenuItemVariantOptionScalarFieldEnum]
 
 
-export const MenuItemImageScalarFieldEnum = {
+export const VariantImageScalarFieldEnum = {
   id: 'id',
-  menuItemId: 'menuItemId',
+  menuItemVariantOptionId: 'menuItemVariantOptionId',
   url: 'url',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type MenuItemImageScalarFieldEnum = (typeof MenuItemImageScalarFieldEnum)[keyof typeof MenuItemImageScalarFieldEnum]
+export type VariantImageScalarFieldEnum = (typeof VariantImageScalarFieldEnum)[keyof typeof VariantImageScalarFieldEnum]
+
+
+export const MenuItemRatingScalarFieldEnum = {
+  id: 'id',
+  menuItemId: 'menuItemId',
+  comment: 'comment',
+  userId: 'userId',
+  rating: 'rating',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  roomId: 'roomId'
+} as const
+
+export type MenuItemRatingScalarFieldEnum = (typeof MenuItemRatingScalarFieldEnum)[keyof typeof MenuItemRatingScalarFieldEnum]
 
 
 export const AddonScalarFieldEnum = {

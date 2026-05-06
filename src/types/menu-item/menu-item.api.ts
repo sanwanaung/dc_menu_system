@@ -1,26 +1,54 @@
+import { MenuCategory } from "../menu-category";
 import { ApiResponse, PaginatedData } from "../shared/api-response";
-import { MenuItem } from "./menu-item.type";
+import { MenuItem, VariantOption } from "./menu-item.type";
+
+export type BaseMenuItem = Pick<
+  MenuItem,
+  | "id"
+  | "imageType"
+  | "baseImage"
+  | "name"
+  | "price"
+  | "isAvailable"
+  | "updatedAt"
+  | "displayOrder"
+>;
+
+export type BaseVariantOption = Pick<
+  VariantOption,
+  "id" | "name" | "displayOrder" | "isAvailable" | "price"
+>;
+
+export type MenuCateoryForMenu = Pick<MenuCategory, "id" | "name">;
 
 export type SerializeMenuItem = Omit<
-  MenuItem,
+  BaseMenuItem,
   "createdAt" | "updatedAt" | "price"
 > & {
-  createdAt: string;
   updatedAt: string;
   price: number;
-  category: {
-    id: string;
-    name: string;
-  };
+};
+
+export type SerializeVariantOption = Omit<BaseVariantOption, "price"> & {
+  price: number;
+};
+
+export type SerializeMenuItemList = SerializeMenuItem & {
+  menuCategoryMenuItems: {
+    menuCategory: MenuCateoryForMenu;
+  }[];
+  menuItemVariantOptions: {
+    variantOption: SerializeVariantOption;
+  }[];
 };
 
 export type GetMenuItemsResponse = ApiResponse<
-  PaginatedData<SerializeMenuItem>
+  PaginatedData<SerializeMenuItemList>
 >;
 
 export type GetMenuItemResponse = ApiResponse<SerializeMenuItem>;
 
-export type CreateNewMenuItemResponse = ApiResponse<SerializeMenuItem>;
+export type CreateNewMenuItemResponse = ApiResponse<SerializeMenuItem | null>;
 
 export type UpdateMenuItemResponse = ApiResponse<SerializeMenuItem>;
 
