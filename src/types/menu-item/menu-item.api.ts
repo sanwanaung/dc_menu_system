@@ -53,3 +53,40 @@ export type CreateNewMenuItemResponse = ApiResponse<SerializeMenuItem | null>;
 export type UpdateMenuItemResponse = ApiResponse<SerializeMenuItem>;
 
 export type DeleteMenuItemResponse = ApiResponse<SerializeMenuItem>;
+
+export type SerializeVariantImage = {
+  id: string;
+  url: string;
+};
+
+export type SerializeMenuItemVariantOptionDetails = {
+  id: string;
+  variantOption: SerializeVariantOption;
+  variantImage: SerializeVariantImage[];
+};
+
+export type SerializeMenuItemDetails = {
+  id: string;
+  name: string;
+  description: string | null;
+  price: number;
+  displayOrder: number;
+  isAvailable: boolean;
+  baseImage: string | null;
+  imageType: "BASE_IMAGE" | "VARIANT_IMAGE";
+  createdAt: string;
+  updatedAt: string;
+  menuCategoryMenuItems: {
+    menuCategory: MenuCateoryForMenu;
+  }[];
+  menuItemAddonCategories: {
+    addonCategory: {
+      id: string;
+      name: string;
+    };
+  }[];
+  menuItemVariantOptions: SerializeMenuItemVariantOptionDetails[];
+  selectedVariant: SerializeMenuItemVariantOptionDetails | null;
+};
+
+export type GetMenuItemDetailsResponse = ApiResponse<SerializeMenuItemDetails>;
