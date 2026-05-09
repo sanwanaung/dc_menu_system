@@ -13,7 +13,7 @@ const UserPage = () => {
   const [query, setQuery] = useState<string>("");
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 2,
+    pageSize: 10,
   });
 
   const { data, isPending, isLoading } = useQuery({

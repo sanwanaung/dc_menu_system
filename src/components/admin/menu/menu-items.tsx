@@ -45,7 +45,7 @@ const MenuItemPage = () => {
     queryKey: ["menu-item"],
     initialPageParam: 0,
     queryFn: ({ pageParam }) =>
-      getMenuItems({ limit: 10, offset: Number(pageParam) }),
+      getMenuItems({ limit: 9, offset: Number(pageParam) }),
     getNextPageParam: (lastPage, pages) => lastPage.data?.meta.nextPage,
   });
 

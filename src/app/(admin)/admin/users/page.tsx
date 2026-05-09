@@ -9,7 +9,7 @@ export default async function AdminUsersPage() {
   await queryClient.prefetchQuery({
     queryKey: ["user"],
     queryFn: ({ pageParam }) =>
-      getUsers({ limit: 2, offset: Number(pageParam) }),
+      getUsers({ limit: 10, offset: Number(pageParam) }),
   });
 
   return (

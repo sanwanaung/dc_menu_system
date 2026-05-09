@@ -10,7 +10,7 @@ export default async function AdminMenuItemsPage() {
     queryKey: ["menu-item"],
     initialPageParam: 0,
     queryFn: ({ pageParam }) =>
-      getMenuItems({ limit: 6, offset: Number(pageParam) }),
+      getMenuItems({ limit: 9, offset: Number(pageParam) }),
   });
 
   return (

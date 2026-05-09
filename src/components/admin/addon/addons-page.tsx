@@ -31,7 +31,7 @@ const AddonPage = () => {
     queryKey: ["addon"],
     initialPageParam: 0,
     queryFn: ({ pageParam }) =>
-      getAddons({ limit: 10, offset: Number(pageParam) }),
+      getAddons({ limit: 9, offset: Number(pageParam) }),
     getNextPageParam: (lastPage, pages) => lastPage.data?.meta.nextPage,
   });
 
