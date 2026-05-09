@@ -9,7 +9,7 @@ export default async function AdminOrdersPage() {
   await queryClient.prefetchQuery({
     queryKey: ["room-service"],
     queryFn: ({ pageParam }) =>
-      getRoomServices({ limit: 5, offset: Number(pageParam) }),
+      getRoomServices({ limit: 10, offset: Number(pageParam) }),
   });
   return (
     <AdminLayout>

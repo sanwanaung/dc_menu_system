@@ -10,7 +10,7 @@ export default async function AdminMenuCategoriesPage() {
     queryKey: ["menu-category"],
     initialPageParam: 0,
     queryFn: ({ pageParam }) =>
-      getMenuCategories({ limit: 6, offset: Number(pageParam) }),
+      getMenuCategories({ limit: 9, offset: Number(pageParam) }),
   });
 
   return (

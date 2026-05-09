@@ -12,7 +12,7 @@ import { useMemo, useState } from "react";
 const RoomServicePage = () => {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 2,
+    pageSize: 10,
   });
   const [status, setStatus] = useState<RoomServiceDTOStatus | "all">("all");
   const [query, setQuery] = useState<string>("");

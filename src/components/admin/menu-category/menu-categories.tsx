@@ -37,7 +37,7 @@ const MenuCategories = () => {
     queryKey: ["menu-category"],
     initialPageParam: 0,
     queryFn: ({ pageParam }) =>
-      getMenuCategories({ limit: 6, offset: Number(pageParam) }),
+      getMenuCategories({ limit: 9, offset: Number(pageParam) }),
     getNextPageParam: (lastPage, pages) => lastPage.data?.meta.nextPage,
   });
 

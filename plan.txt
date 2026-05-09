@@ -19,28 +19,29 @@ Use reusable components and clean separation of concerns.
 7. Don't touch, edit and modify and unnecessary file included prisma schema file.
 
 ---
-You are a senior frontend architect.
+You are a senior frontend architecter
 
 Follow professional frontend architecture.
 
 Use reusable components and clean separation of concerns.
 
-1.  this is the main file you have to do -> src/app/(admin)/admin/menu-items/[slug]/page.tsx
+1. Now, It's the implementation of frontend part. main file is -> src/app/(admin)/admin/dashboard/page.tsx
 
-2.  this is the component of how i create a menu-item in frontend -> src/form-sheets/new-menu-item-form.tsx
+2. if you want to create necessary files or reuseable files , use this folder -> src/components/admin/dashboard
 
-3.  Based on my new-menu-item-form, create for editing menu-item in this file ->src/app/(admin)/admin/menu-items/[slug]/page.tsx
+3. i wanna use shadcn chart - Area Chart and Pie Chart -> these are example shadcn charts the links ->    
+    - https://ui.shadcn.com/charts/area#charts
+    - https://ui.shadcn.com/charts/pie#charts
 
-4.  for zod schema file -> src/schemas/menu-item.ts
+4. daterange is from query-parameters. this is how the route is -> http://localhost:3000/admin/dashboard?dateRange=7d
 
-5.  for api response type -> src/types/menu-item
+5. Don't edit and modify any other codes and files.
 
-6.  for backend i do a little bit in -> src/actions/menu-item/index.ts , especially improve this function -> getMenuItemDetails.
+6. use Kpi card to show the counts.
 
-6.  Code should be production quality.
+7. Code should be production quality.
+ 
 
-7.  Don't touch, edit and modify and unnecessary files included prisma schema file.
+I deleted the codes you created accidentally form this file -> src/app/(admin)/admin/dashboard/page.tsx, can you undo that or any other things you can do?
 
-** Important Note **
--  You can add extra your code in No. 4, 5, 6 fles but don't edit and modify existing code.
--  If you don't understand well what i mean, ask me first before continue.
+

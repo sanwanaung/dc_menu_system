@@ -19,7 +19,11 @@ export type AdminNavItem = {
 };
 
 export const adminNav: AdminNavItem[] = [
-  { label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
+  {
+    label: "Dashboard",
+    href: "/admin/dashboard?dateRange=7d",
+    icon: LayoutDashboard,
+  },
   { label: "Rooms", href: "/admin/rooms", icon: BedDouble },
   {
     label: "Room Service Orders",

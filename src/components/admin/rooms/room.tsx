@@ -14,7 +14,7 @@ export function RoomsPage() {
   const [query, setQuery] = useState("");
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 5,
+    pageSize: 10,
   });
   const [filterValues, setFilterValues] = useState<Record<string, string>>({
     Floors: "all",

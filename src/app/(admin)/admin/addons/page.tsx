@@ -13,7 +13,7 @@ export default async function AdminAddonsPage() {
     queryKey: ["addon"],
     initialPageParam: 0,
     queryFn: ({ pageParam }) =>
-      getAddons({ limit: 10, offset: Number(pageParam) }),
+      getAddons({ limit: 9, offset: Number(pageParam) }),
   });
 
   return (
