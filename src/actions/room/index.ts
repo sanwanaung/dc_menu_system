@@ -51,7 +51,6 @@ export const createNewRoom = async (
         imgUrl: response.data?.ufsUrl,
       },
     });
-    revalidatePath("/admin/rooms", "page");
     return { data: newRoom, message: "New room is added!", error: null };
   } catch (error) {
     console.log("error in create room: ", error);
