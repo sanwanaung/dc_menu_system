@@ -1,10 +1,9 @@
 import { Diamond, ShoppingCartIcon } from "lucide-react";
-import Link from "next/link";
 import React from "react";
 
 const ClientLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="min-h-dvh bg-slate-50 text-slate-900">
+    <div className="min-h-dvh text-slate-900">
       <div className="flex min-h-dvh flex-col">
         <header className="sticky top-0 z-10 border-b bg-background/20 backdrop-blur">
           <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
@@ -29,9 +28,7 @@ const ClientLayout = ({ children }: { children: React.ReactNode }) => {
 
         <main className="flex-1">
           <div className="mx-auto h-full max-w-6xl px-4 py-2 sm:px-6">
-            <div className="h-full bg-background/20 p-2 ring-1 sm:p-6">
-              {children}
-            </div>
+            <div className="h-full bg-background/20 p-2 sm:p-6">{children}</div>
           </div>
         </main>
       </div>

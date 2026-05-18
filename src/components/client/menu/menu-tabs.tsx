@@ -4,16 +4,12 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCallback, useMemo } from "react";
 
-type MenuItem = {
-  id: string;
-  name: string;
-  description: string | null;
-};
+import { MenuItemCard, type MenuItemData } from "./menu-item-card";
 
 type MenuCategory = {
   id: string;
   name: string;
-  items: MenuItem[];
+  items: MenuItemData[];
 };
 
 export default function MenuTabs({
@@ -41,17 +37,36 @@ export default function MenuTabs({
   const allItems = useMemo(
     () =>
       categories
-        .flatMap((c) => c.items.map((item) => ({ ...item, category: c.name })))
-        .filter((i) => i.name),
+        .flatMap((c) =>
+          c.items.map((item) => ({
+            item,
+            categoryId: c.id,
+            categoryName: c.name,
+          })),
+        )
+        .filter((x) => x.item.name),
     [categories],
   );
 
   return (
-    <Tabs value={activeCategory} onValueChange={setCategory} className="w-full">
-      <TabsList className="flex flex-wrap">
-        <TabsTrigger value="all">All</TabsTrigger>
+    <Tabs
+      value={activeCategory}
+      onValueChange={setCategory}
+      className="w-full "
+    >
+      <TabsList
+        variant="line"
+        className="px-2 py-1 min-w-full md:min-w-2xl mx-auto overflow-y-hidden overflow-x-scroll md:overflow-x-hidden "
+      >
+        <TabsTrigger value="all" className="capitalize px-2 py-3">
+          All
+        </TabsTrigger>
         {categories.map((category) => (
-          <TabsTrigger key={category.id} value={category.name}>
+          <TabsTrigger
+            key={category.id}
+            value={category.name}
+            className="capitalize px-2 py-3"
+          >
             {category.name}
           </TabsTrigger>
         ))}
@@ -59,21 +74,17 @@ export default function MenuTabs({
 
       <TabsContent value="all" className="mt-4">
         {allItems.length === 0 ? (
-          <div className="text-muted-foreground">No items found.</div>
+          <div className="text-muted-foreground font-semibold text-center w-full">
+            No items found.
+          </div>
         ) : (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {allItems.map((item, index) => (
-              <div key={index} className="rounded-lg border p-3">
-                <div className="text-xs text-muted-foreground">
-                  {item.category}
-                </div>
-                <div className="font-medium">{item.name}</div>
-                {item.description ? (
-                  <div className="mt-1 text-sm text-muted-foreground">
-                    {item.description}
-                  </div>
-                ) : null}
-              </div>
+            {allItems.map(({ item, categoryId, categoryName }) => (
+              <MenuItemCard
+                key={`${categoryId}:${item.id}`}
+                item={item}
+                categoryLabel={categoryName}
+              />
             ))}
           </div>
         )}
@@ -82,18 +93,13 @@ export default function MenuTabs({
       {categories.map((category) => (
         <TabsContent key={category.id} value={category.name} className="mt-4">
           {category.items.length === 0 ? (
-            <div className="text-muted-foreground">No items found.</div>
+            <div className="text-muted-foreground font-semibold w-full text-center">
+              No menu items found.
+            </div>
           ) : (
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               {category.items.map((item) => (
-                <div key={item.id} className="rounded-lg border p-3">
-                  <div className="font-medium">{item.name}</div>
-                  {item.description ? (
-                    <div className="mt-1 text-sm text-muted-foreground">
-                      {item.description}
-                    </div>
-                  ) : null}
-                </div>
+                <MenuItemCard key={item.id} item={item} />
               ))}
             </div>
           )}

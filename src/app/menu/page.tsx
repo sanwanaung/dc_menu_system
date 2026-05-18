@@ -1,6 +1,7 @@
 import { getMenuItemsForCustomers } from "@/actions/client/menu";
 import ClientLayout from "@/components/client/client-layout";
-import MenuTabs from "./menu-tabs";
+import MenuTabs from "@/components/client/menu/menu-tabs";
+import { BiError } from "react-icons/bi";
 
 export const dynamic = "force-dynamic";
 
@@ -15,7 +16,7 @@ const MenuItem = async ({
       <ClientLayout>
         <div className="rounded-lg border bg-background p-4 text-sm">
           <div className="font-medium">Invalid URL parameters</div>
-          <div className="mt-1 text-muted-foreground">
+          <div className="mt-1 text-muted-foreground ">
             Expected <span className="font-mono">room</span> and{" "}
             <span className="font-mono">roomQR</span>.
           </div>
@@ -33,15 +34,16 @@ const MenuItem = async ({
   if (menuItems.error) {
     return (
       <ClientLayout>
-        <div className="rounded-lg border bg-background p-4 text-sm">
-          <div className="font-medium">Failed to load menu</div>
-          <div className="mt-1 text-muted-foreground">{menuItems.error}</div>
+        <div className="rounded-lg border bg-background text-red-500 p-4 text-sm">
+          <div className="font-medium flex items-center">
+            <BiError className="inline-block mr-2 size-4" />
+            <span>Failed to load menu</span>
+          </div>
+          <div className="mt-3 text-muted-foreground">{menuItems.error}</div>
         </div>
       </ClientLayout>
     );
   }
-
-  console.log("Menu Items: ", menuItems.data);
 
   const requestedCategory =
     params.category?.trim().toLowerCase() === "all"
@@ -59,7 +61,7 @@ const MenuItem = async ({
 
   return (
     <ClientLayout>
-      <div className="w-full ">
+      <div className="w-full overflow-hidden">
         <MenuTabs
           categories={menuItems.data?.categories ?? []}
           activeCategory={activeCategory}
