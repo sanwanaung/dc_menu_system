@@ -1,15 +1,74 @@
-import React from "react";
+import { getMenuItemsForCustomers } from "@/actions/client/menu";
+import ClientLayout from "@/components/client/client-layout";
+import MenuTabs from "@/components/client/menu/menu-tabs";
+import { BiError } from "react-icons/bi";
+
+export const dynamic = "force-dynamic";
 
 const MenuItem = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ room: string; roomQR: string }>;
+  searchParams: Promise<{ room: string; roomQR: string; category?: string }>;
 }) => {
-  //http://localhost:3000/menu?room=101&roomQR=RQ-RN-101
   const params = await searchParams;
-  console.log("Received search params:", params);
+  if (!params.room || !params.roomQR) {
+    return (
+      <ClientLayout>
+        <div className="rounded-lg border bg-background p-4 text-sm">
+          <div className="font-medium">Invalid URL parameters</div>
+          <div className="mt-1 text-muted-foreground ">
+            Expected <span className="font-mono">room</span> and{" "}
+            <span className="font-mono">roomQR</span>.
+          </div>
+        </div>
+      </ClientLayout>
+    );
+  }
 
-  return <div>MenuItem Preview</div>;
+  const menuItems = await getMenuItemsForCustomers({
+    room: params.room,
+    roomQR: params.roomQR,
+    category: params.category || "all",
+  });
+
+  if (menuItems.error) {
+    return (
+      <ClientLayout>
+        <div className="rounded-lg border bg-background text-red-500 p-4 text-sm">
+          <div className="font-medium flex items-center">
+            <BiError className="inline-block mr-2 size-4" />
+            <span>Failed to load menu</span>
+          </div>
+          <div className="mt-3 text-muted-foreground">{menuItems.error}</div>
+        </div>
+      </ClientLayout>
+    );
+  }
+
+  const requestedCategory =
+    params.category?.trim().toLowerCase() === "all"
+      ? "all"
+      : (params.category?.trim() ?? "all");
+
+  const availableCategoryNames = new Set(
+    menuItems.data?.categories.map((c) => c.name),
+  );
+  const activeCategory =
+    requestedCategory !== "all" &&
+    !availableCategoryNames.has(requestedCategory)
+      ? "all"
+      : requestedCategory;
+
+  return (
+    <ClientLayout>
+      <div className="w-full overflow-hidden">
+        <MenuTabs
+          categories={menuItems.data?.categories ?? []}
+          activeCategory={activeCategory}
+        />
+      </div>
+    </ClientLayout>
+  );
 };
 
 export default MenuItem;
