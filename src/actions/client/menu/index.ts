@@ -74,17 +74,22 @@ type CustomerMenuData = {
 export const getMenuItemsForCustomers = async ({
   room,
   roomQR,
+  category = "all",
 }: {
   room: string;
   roomQR: string;
+  category: string | null;
 }): Promise<ApiResponse<CustomerMenuData>> => {
   if (!room || !roomQR) {
     return {
       message: null,
       data: null,
-      error: "Missing required parameters: room and roomQR.",
+      error: "Missing required parameters: room or roomQR.",
     };
   }
+
+  const normalizedCategory = (category ?? "all").trim();
+  const isAllCategory = normalizedCategory.toLowerCase() === "all";
 
   try {
     const roomRecord = await prisma.room.findFirst({
@@ -109,8 +114,20 @@ export const getMenuItemsForCustomers = async ({
       };
     }
 
-    const categories = await prisma.menuCategory.findMany({
+    const allCategories = await prisma.menuCategory.findMany({
       where: { isAvailable: true },
+      orderBy: { displayOrder: "asc" },
+      select: {
+        id: true,
+        name: true,
+        displayOrder: true,
+      },
+    });
+
+    const categoriesWithItems = await prisma.menuCategory.findMany({
+      where: isAllCategory
+        ? { isAvailable: true }
+        : { isAvailable: true, name: normalizedCategory },
       orderBy: { displayOrder: "asc" },
       select: {
         id: true,
@@ -275,31 +292,43 @@ export const getMenuItemsForCustomers = async ({
       };
     };
 
-    const serializedCategories: CustomerMenuCategory[] = categories
-      .map((category) => {
-        const items = category.menuCategoryMenuItems
-          .slice()
-          .sort((a, b) => {
-            const byOrder = a.menuItem.displayOrder - b.menuItem.displayOrder;
-            if (byOrder !== 0) return byOrder;
-            return a.createdAt.getTime() - b.createdAt.getTime();
-          })
-          .map((link) => serializeMenuItem(link.menuItem));
+    const serializedCategoriesWithItems: CustomerMenuCategory[] =
+      categoriesWithItems
+        .map((category) => {
+          const items = category.menuCategoryMenuItems
+            .slice()
+            .sort((a, b) => {
+              const byOrder = a.menuItem.displayOrder - b.menuItem.displayOrder;
+              if (byOrder !== 0) return byOrder;
+              return a.createdAt.getTime() - b.createdAt.getTime();
+            })
+            .map((link) => serializeMenuItem(link.menuItem));
 
-        return {
-          id: category.id,
-          name: category.name,
-          displayOrder: category.displayOrder,
-          items,
-        };
-      })
-      .filter((c) => c.items.length > 0);
+          return {
+            id: category.id,
+            name: category.name,
+            displayOrder: category.displayOrder,
+            items,
+          };
+        })
+        .filter((c) => c.items.length > 0);
+
+    const itemsByCategoryId = new Map<string, CustomerMenuItem[]>(
+      serializedCategoriesWithItems.map((c) => [c.id, c.items]),
+    );
+
+    const mergedCategories: CustomerMenuCategory[] = allCategories.map((c) => ({
+      id: c.id,
+      name: c.name,
+      displayOrder: c.displayOrder,
+      items: itemsByCategoryId.get(c.id) ?? [],
+    }));
 
     return {
       message: "Fetched menu items for customers.",
       data: {
         room: roomRecord,
-        categories: serializedCategories,
+        categories: mergedCategories,
       },
       error: null,
     };
