@@ -9,7 +9,7 @@ export const auth = betterAuth({
     provider: "postgresql",
   }),
   experimental: { joins: true },
-  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+  baseURL: process.env.BETTER_AUTH_URL!,
   emailAndPassword: {
     enabled: true,
   },
