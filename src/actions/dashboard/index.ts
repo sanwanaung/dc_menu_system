@@ -11,6 +11,7 @@ import {
   format,
   startOfDay,
   subDays,
+  //@ts-ignore
 } from "date-fns";
 import { headers } from "next/headers";
 
@@ -113,7 +114,7 @@ export const getRoomServiceStatusChart = async (
     const { start, end } = getInclusiveDateRange(days);
 
     const allDates = eachDayOfInterval({ start, end });
-    const points: RoomServiceStatusChartPoint[] = allDates.map((d) => ({
+    const points: RoomServiceStatusChartPoint[] = allDates.map((d: any) => ({
       date: format(d, "yyyy-MM-dd"),
       pending: 0,
       accepted: 0,

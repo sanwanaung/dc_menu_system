@@ -17,8 +17,8 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { AddonCategory } from "generated/prisma/client";
 import { useMemo, useState } from "react";
+import { AddonCategoryDTO } from "@/types/addon-category";
 
 export function AddonCategoryCombobox({
   categories,
@@ -27,7 +27,7 @@ export function AddonCategoryCombobox({
   placeholder = "Select category…",
   disabled,
 }: {
-  categories: AddonCategory[];
+  categories: AddonCategoryDTO[];
   value?: string | null;
   onValueChange: (next: string | null) => void;
   placeholder?: string;

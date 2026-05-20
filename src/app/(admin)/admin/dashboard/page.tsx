@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
+//@ts-ignore
 import { format } from "date-fns";
 import { ClipboardCheck, ClipboardList, Users } from "lucide-react";
 

@@ -32,7 +32,7 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import { useNewAddonMutation } from "@/hooks/mutations/addon/use-new-addon";
-import { AddonCategory } from "@/types/addon-category";
+import { AddonCategoryDTO } from "@/types/addon-category";
 import { getAddon } from "@/actions/addon";
 import { AddonDTO } from "@/types/addon";
 import { useUpdateAddonMutation } from "@/hooks/mutations/addon/use-update-addon";
@@ -43,7 +43,9 @@ const NewAddonForm = () => {
   const updateAddonMutation = useUpdateAddonMutation();
   const session = authClient.useSession();
   const [isLoading, setIsLoading] = useState(false);
-  const [addonCategories, setAddonCategories] = useState<AddonCategory[]>([]);
+  const [addonCategories, setAddonCategories] = useState<AddonCategoryDTO[]>(
+    [],
+  );
   const [addon, setAddon] = useState<AddonDTO | null>(null);
   const form = useForm<FormInput>({
     resolver: zodResolver(addonFormSchema),

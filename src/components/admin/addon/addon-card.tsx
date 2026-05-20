@@ -1,5 +1,6 @@
 "use client";
 
+//@ts-ignore
 import { format } from "date-fns";
 import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 

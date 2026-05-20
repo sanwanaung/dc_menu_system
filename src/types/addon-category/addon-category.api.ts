@@ -26,10 +26,12 @@ export type UpdateAddonCategoryAvailabilityResponse =
 
 export type DeleteAddonCategoryResponse = ApiResponse<null>;
 
-export type GetAvailableAddonCategoriesResponse = ApiResponse<AddonCategory[]>;
+export type GetAvailableAddonCategoriesResponse = ApiResponse<
+  AddonCategoryListResponseSerializable[]
+>;
 
 export type GetAvailableAddonCategoriesByIdResponse = ApiResponse<
-  AddonCategory[]
+  AddonCategoryListResponseSerializable[]
 >;
 
 export type GetAddonCategoriesForMenuResponse = ApiResponse<

@@ -11,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+//@ts-ignore
 import { format } from "date-fns";
 import { MoreHorizontal, Pencil, Trash2, Eye, EyeOff } from "lucide-react";
 import { AddonCategoryDTO } from "@/types/addon-category";

@@ -6,7 +6,6 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 
-import type { Addon, AddonCategory } from "./types";
 import { AddonCategoryCombobox } from "./addon-category-combobox";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -26,16 +25,22 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { AddonDTO } from "@/types/addon";
+import { AddonCategoryDTO } from "@/types/addon-category";
 
 const addonFormSchema = z.object({
-  name: z.string().trim().min(1, "Name is required.").max(60, "Name is too long."),
+  name: z
+    .string()
+    .trim()
+    .min(1, "Name is required.")
+    .max(60, "Name is too long."),
   price: z.coerce.number().min(0, "Price must be 0 or greater.").default(0),
   addonCategoryId: z.string().nullable().optional(),
 });
 
 type FormInput = z.input<typeof addonFormSchema>;
 
-function toDefaultValues(addon?: Addon | null): FormInput {
+function toDefaultValues(addon?: AddonDTO | null): FormInput {
   return {
     name: addon?.name ?? "",
     price: addon?.price ?? 0,
@@ -53,10 +58,14 @@ export function AddonFormDialog({
 }: {
   open: boolean;
   mode: "create" | "edit";
-  addon?: Addon | null;
-  categories: AddonCategory[];
+  addon?: AddonDTO | null;
+  categories: AddonCategoryDTO[];
   onOpenChange: (open: boolean) => void;
-  onSubmit: (values: { name: string; price: number; addonCategoryId: string | null }) => Promise<void> | void;
+  onSubmit: (values: {
+    name: string;
+    price: number;
+    addonCategoryId: string | null;
+  }) => Promise<void> | void;
 }) {
   const [submitting, setSubmitting] = React.useState(false);
   const form = useForm<FormInput>({
@@ -80,7 +89,9 @@ export function AddonFormDialog({
     try {
       await onSubmit({
         name: values.name,
-        price: Number.isFinite(values.price) ? values.price : 0,
+        price: Number.isFinite(values.price)
+          ? (values.price as unknown as number)
+          : 0,
         addonCategoryId: values.addonCategoryId ?? null,
       });
       onOpenChange(false);
@@ -90,7 +101,10 @@ export function AddonFormDialog({
   };
 
   return (
-    <Dialog open={open} onOpenChange={(next) => !submitting && onOpenChange(next)}>
+    <Dialog
+      open={open}
+      onOpenChange={(next) => !submitting && onOpenChange(next)}
+    >
       <DialogContent
         className="sm:max-w-lg"
         showCloseButton={!submitting}
@@ -102,7 +116,9 @@ export function AddonFormDialog({
         }}
       >
         <DialogHeader>
-          <DialogTitle>{mode === "create" ? "Create Addon" : "Edit Addon"}</DialogTitle>
+          <DialogTitle>
+            {mode === "create" ? "Create Addon" : "Edit Addon"}
+          </DialogTitle>
           <DialogDescription>
             {mode === "create"
               ? "Add a new addon that can be attached to menu items."
@@ -127,7 +143,9 @@ export function AddonFormDialog({
                     aria-invalid={fieldState.invalid}
                     autoFocus
                   />
-                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
                 </Field>
               )}
             />
@@ -144,7 +162,9 @@ export function AddonFormDialog({
                     onValueChange={field.onChange}
                     disabled={submitting}
                   />
-                  <FieldDescription>Optional, but recommended for better organization.</FieldDescription>
+                  <FieldDescription>
+                    Optional, but recommended for better organization.
+                  </FieldDescription>
                 </Field>
               )}
             />
@@ -154,7 +174,10 @@ export function AddonFormDialog({
                 control={form.control}
                 name="price"
                 render={({ field, fieldState }) => (
-                  <Field className="sm:col-span-2" data-invalid={fieldState.invalid}>
+                  <Field
+                    className="sm:col-span-2"
+                    data-invalid={fieldState.invalid}
+                  >
                     <FieldLabel htmlFor="addon-price">Price</FieldLabel>
                     <Input
                       {...field}
@@ -168,8 +191,12 @@ export function AddonFormDialog({
                       onChange={(e) => field.onChange(Number(e.target.value))}
                       aria-invalid={fieldState.invalid}
                     />
-                    <FieldDescription>Set to 0 for free addons.</FieldDescription>
-                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                    <FieldDescription>
+                      Set to 0 for free addons.
+                    </FieldDescription>
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
                   </Field>
                 )}
               />
@@ -202,7 +229,13 @@ export function AddonFormDialog({
               Cancel
             </Button>
             <Button type="submit" disabled={submitting}>
-              {submitting ? <Loader2 className="size-4 animate-spin" /> : mode === "create" ? "Create" : "Save changes"}
+              {submitting ? (
+                <Loader2 className="size-4 animate-spin" />
+              ) : mode === "create" ? (
+                "Create"
+              ) : (
+                "Save changes"
+              )}
             </Button>
           </DialogFooter>
         </form>
@@ -210,4 +243,3 @@ export function AddonFormDialog({
     </Dialog>
   );
 }
-

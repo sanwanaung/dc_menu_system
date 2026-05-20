@@ -268,8 +268,15 @@ export const getAvailableAddonCategories =
       const addonCategories = await prisma.addonCategory.findMany({
         where: { isAvailable: true },
       });
+      const serializedAddonCategories = addonCategories.map((item) => {
+        return {
+          ...item,
+          createdAt: item.createdAt.toString(),
+          updatedAt: item.updatedAt.toString(),
+        };
+      });
       return {
-        data: addonCategories,
+        data: serializedAddonCategories,
         message: "Fetched successfully!",
         error: null,
       };
@@ -305,8 +312,16 @@ export const getAvailableAddonCategoriesById = async (
         },
       },
     });
+
+    const serializeAddonCategories = addonCategories.map((item) => {
+      return {
+        ...item,
+        createdAt: item.createdAt.toString(),
+        updatedAt: item.updatedAt.toString(),
+      };
+    });
     return {
-      data: addonCategories,
+      data: serializeAddonCategories,
       message: "Fetched successfully!",
       error: null,
     };

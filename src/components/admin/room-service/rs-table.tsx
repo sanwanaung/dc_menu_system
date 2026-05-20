@@ -9,8 +9,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatTime, statusVariant, toStatusLabel } from "@/utils";
+//@ts-ignore
 import { format } from "date-fns";
-import {} from "date-fns/locale";
 import { Tag } from "../shared/tag";
 import Actions from "./actions";
 import { RoomServiceDTO } from "@/types/room-service";

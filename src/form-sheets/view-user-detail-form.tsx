@@ -17,6 +17,7 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useViewUserDetail } from "@/hooks/use-view-user-detail";
 import { useChangeUserRole } from "@/hooks/user-change-user-role";
+//@ts-ignore
 import { format } from "date-fns";
 import { User } from "generated/prisma/client";
 import { useCallback, useEffect, useState } from "react";

@@ -1,4 +1,5 @@
 import { RoomServiceDTOStatus } from "@/types/room-service/room-service.dto";
+//@ts-ignore
 import { format, set } from "date-fns";
 
 export function generateFilterOptions<T>(data: T[], key: keyof T) {
