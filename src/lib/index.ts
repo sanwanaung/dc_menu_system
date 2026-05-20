@@ -10,7 +10,7 @@ export const allowedUserRole = {
 
 export const generateQrFile = async (roomName: string, roomQR: string) => {
   try {
-    const qrCodeData = `${process.env.BETTER_AUTH_URL}?room=${encodeURIComponent(
+    const qrCodeData = `${process.env.BETTER_AUTH_URL}/menu?room=${encodeURIComponent(
       roomName,
     )}&roomQR=${encodeURIComponent(roomQR)}`;
 

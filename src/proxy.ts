@@ -12,7 +12,8 @@ export default async function middleware(request: NextRequest) {
   });
 
   const isAuthApi = pathname.startsWith("/api/auth");
-  const isPublicPage = pathname === "/" || pathname.startsWith("/auth");
+  const isPublicPage =
+    pathname === "/" || pathname.startsWith("/auth") || pathname === "/menu";
   const isApi = pathname.startsWith("/api");
 
   if (isPublicPage || isAuthApi) {
