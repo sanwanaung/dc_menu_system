@@ -199,7 +199,7 @@ export type MenuCategoryGroupByOutputType = {
   _max: MenuCategoryMaxAggregateOutputType | null
 }
 
-type GetMenuCategoryGroupByPayload<T extends MenuCategoryGroupByArgs> = Prisma.PrismaPromise<
+export type GetMenuCategoryGroupByPayload<T extends MenuCategoryGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<MenuCategoryGroupByOutputType, T['by']> &
       {
@@ -1172,6 +1172,11 @@ export type MenuCategoryFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` MenuCategories.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of MenuCategories.
+   */
   distinct?: Prisma.MenuCategoryScalarFieldEnum | Prisma.MenuCategoryScalarFieldEnum[]
 }
 
