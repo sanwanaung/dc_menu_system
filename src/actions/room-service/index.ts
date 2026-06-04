@@ -14,35 +14,6 @@ import { RoomServiceStatus } from "generated/prisma/client";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 
-export const createRoomService = async (
-  name: string,
-  date: Date,
-  stime: string,
-  etime: string,
-  ot: string,
-): Promise<CreateRoomServiceResponse> => {
-  const room = await prisma.room.findFirst({
-    where: {
-      name,
-    },
-  });
-  if (!room) return { error: "Room not found!", data: null, message: null };
-  const rs = await prisma.roomServiceOrder.create({
-    data: {
-      date,
-      startTime: stime,
-      endTime: etime,
-      notes: ot,
-      roomId: room?.id,
-    },
-  });
-  return {
-    data: rs,
-    error: null,
-    message: "Room service order created successfully!",
-  };
-};
-
 export const getRoomServices = async ({
   limit,
   offset,
@@ -212,7 +183,7 @@ export const cancelRoomService = async (
     await prisma.roomServiceOrder.update({
       data: {
         status,
-        notes: option,
+        cancellationReason: option,
       },
       where: {
         id: isFound.id,

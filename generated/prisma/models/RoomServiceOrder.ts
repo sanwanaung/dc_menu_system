@@ -31,6 +31,7 @@ export type RoomServiceOrderMinAggregateOutputType = {
   startTime: string | null
   endTime: string | null
   notes: string | null
+  cancellationReason: string | null
   status: $Enums.RoomServiceStatus | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -43,6 +44,7 @@ export type RoomServiceOrderMaxAggregateOutputType = {
   startTime: string | null
   endTime: string | null
   notes: string | null
+  cancellationReason: string | null
   status: $Enums.RoomServiceStatus | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -55,6 +57,7 @@ export type RoomServiceOrderCountAggregateOutputType = {
   startTime: number
   endTime: number
   notes: number
+  cancellationReason: number
   status: number
   createdAt: number
   updatedAt: number
@@ -69,6 +72,7 @@ export type RoomServiceOrderMinAggregateInputType = {
   startTime?: true
   endTime?: true
   notes?: true
+  cancellationReason?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -81,6 +85,7 @@ export type RoomServiceOrderMaxAggregateInputType = {
   startTime?: true
   endTime?: true
   notes?: true
+  cancellationReason?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -93,6 +98,7 @@ export type RoomServiceOrderCountAggregateInputType = {
   startTime?: true
   endTime?: true
   notes?: true
+  cancellationReason?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -178,6 +184,7 @@ export type RoomServiceOrderGroupByOutputType = {
   startTime: string
   endTime: string
   notes: string | null
+  cancellationReason: string | null
   status: $Enums.RoomServiceStatus
   createdAt: Date
   updatedAt: Date
@@ -186,7 +193,7 @@ export type RoomServiceOrderGroupByOutputType = {
   _max: RoomServiceOrderMaxAggregateOutputType | null
 }
 
-type GetRoomServiceOrderGroupByPayload<T extends RoomServiceOrderGroupByArgs> = Prisma.PrismaPromise<
+export type GetRoomServiceOrderGroupByPayload<T extends RoomServiceOrderGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<RoomServiceOrderGroupByOutputType, T['by']> &
       {
@@ -211,6 +218,7 @@ export type RoomServiceOrderWhereInput = {
   startTime?: Prisma.StringFilter<"RoomServiceOrder"> | string
   endTime?: Prisma.StringFilter<"RoomServiceOrder"> | string
   notes?: Prisma.StringNullableFilter<"RoomServiceOrder"> | string | null
+  cancellationReason?: Prisma.StringNullableFilter<"RoomServiceOrder"> | string | null
   status?: Prisma.EnumRoomServiceStatusFilter<"RoomServiceOrder"> | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
@@ -224,6 +232,7 @@ export type RoomServiceOrderOrderByWithRelationInput = {
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  cancellationReason?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -241,6 +250,7 @@ export type RoomServiceOrderWhereUniqueInput = Prisma.AtLeast<{
   startTime?: Prisma.StringFilter<"RoomServiceOrder"> | string
   endTime?: Prisma.StringFilter<"RoomServiceOrder"> | string
   notes?: Prisma.StringNullableFilter<"RoomServiceOrder"> | string | null
+  cancellationReason?: Prisma.StringNullableFilter<"RoomServiceOrder"> | string | null
   status?: Prisma.EnumRoomServiceStatusFilter<"RoomServiceOrder"> | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
@@ -254,6 +264,7 @@ export type RoomServiceOrderOrderByWithAggregationInput = {
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  cancellationReason?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -272,6 +283,7 @@ export type RoomServiceOrderScalarWhereWithAggregatesInput = {
   startTime?: Prisma.StringWithAggregatesFilter<"RoomServiceOrder"> | string
   endTime?: Prisma.StringWithAggregatesFilter<"RoomServiceOrder"> | string
   notes?: Prisma.StringNullableWithAggregatesFilter<"RoomServiceOrder"> | string | null
+  cancellationReason?: Prisma.StringNullableWithAggregatesFilter<"RoomServiceOrder"> | string | null
   status?: Prisma.EnumRoomServiceStatusWithAggregatesFilter<"RoomServiceOrder"> | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"RoomServiceOrder"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"RoomServiceOrder"> | Date | string
@@ -283,6 +295,7 @@ export type RoomServiceOrderCreateInput = {
   startTime: string
   endTime: string
   notes?: string | null
+  cancellationReason?: string | null
   status?: $Enums.RoomServiceStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -296,6 +309,7 @@ export type RoomServiceOrderUncheckedCreateInput = {
   startTime: string
   endTime: string
   notes?: string | null
+  cancellationReason?: string | null
   status?: $Enums.RoomServiceStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -307,6 +321,7 @@ export type RoomServiceOrderUpdateInput = {
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRoomServiceStatusFieldUpdateOperationsInput | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -320,6 +335,7 @@ export type RoomServiceOrderUncheckedUpdateInput = {
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRoomServiceStatusFieldUpdateOperationsInput | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -332,6 +348,7 @@ export type RoomServiceOrderCreateManyInput = {
   startTime: string
   endTime: string
   notes?: string | null
+  cancellationReason?: string | null
   status?: $Enums.RoomServiceStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -343,6 +360,7 @@ export type RoomServiceOrderUpdateManyMutationInput = {
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRoomServiceStatusFieldUpdateOperationsInput | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -355,6 +373,7 @@ export type RoomServiceOrderUncheckedUpdateManyInput = {
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRoomServiceStatusFieldUpdateOperationsInput | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -382,6 +401,7 @@ export type RoomServiceOrderCountOrderByAggregateInput = {
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  cancellationReason?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -394,6 +414,7 @@ export type RoomServiceOrderMaxOrderByAggregateInput = {
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  cancellationReason?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -406,6 +427,7 @@ export type RoomServiceOrderMinOrderByAggregateInput = {
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  cancellationReason?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -463,6 +485,7 @@ export type RoomServiceOrderCreateWithoutRoomInput = {
   startTime: string
   endTime: string
   notes?: string | null
+  cancellationReason?: string | null
   status?: $Enums.RoomServiceStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -474,6 +497,7 @@ export type RoomServiceOrderUncheckedCreateWithoutRoomInput = {
   startTime: string
   endTime: string
   notes?: string | null
+  cancellationReason?: string | null
   status?: $Enums.RoomServiceStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -515,6 +539,7 @@ export type RoomServiceOrderScalarWhereInput = {
   startTime?: Prisma.StringFilter<"RoomServiceOrder"> | string
   endTime?: Prisma.StringFilter<"RoomServiceOrder"> | string
   notes?: Prisma.StringNullableFilter<"RoomServiceOrder"> | string | null
+  cancellationReason?: Prisma.StringNullableFilter<"RoomServiceOrder"> | string | null
   status?: Prisma.EnumRoomServiceStatusFilter<"RoomServiceOrder"> | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RoomServiceOrder"> | Date | string
@@ -526,6 +551,7 @@ export type RoomServiceOrderCreateManyRoomInput = {
   startTime: string
   endTime: string
   notes?: string | null
+  cancellationReason?: string | null
   status?: $Enums.RoomServiceStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -537,6 +563,7 @@ export type RoomServiceOrderUpdateWithoutRoomInput = {
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRoomServiceStatusFieldUpdateOperationsInput | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -548,6 +575,7 @@ export type RoomServiceOrderUncheckedUpdateWithoutRoomInput = {
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRoomServiceStatusFieldUpdateOperationsInput | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -559,6 +587,7 @@ export type RoomServiceOrderUncheckedUpdateManyWithoutRoomInput = {
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumRoomServiceStatusFieldUpdateOperationsInput | $Enums.RoomServiceStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -573,6 +602,7 @@ export type RoomServiceOrderSelect<ExtArgs extends runtime.Types.Extensions.Inte
   startTime?: boolean
   endTime?: boolean
   notes?: boolean
+  cancellationReason?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -586,6 +616,7 @@ export type RoomServiceOrderSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   startTime?: boolean
   endTime?: boolean
   notes?: boolean
+  cancellationReason?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -599,6 +630,7 @@ export type RoomServiceOrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   startTime?: boolean
   endTime?: boolean
   notes?: boolean
+  cancellationReason?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -612,12 +644,13 @@ export type RoomServiceOrderSelectScalar = {
   startTime?: boolean
   endTime?: boolean
   notes?: boolean
+  cancellationReason?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type RoomServiceOrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "roomId" | "date" | "startTime" | "endTime" | "notes" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["roomServiceOrder"]>
+export type RoomServiceOrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "roomId" | "date" | "startTime" | "endTime" | "notes" | "cancellationReason" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["roomServiceOrder"]>
 export type RoomServiceOrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   room?: boolean | Prisma.RoomDefaultArgs<ExtArgs>
 }
@@ -640,6 +673,7 @@ export type $RoomServiceOrderPayload<ExtArgs extends runtime.Types.Extensions.In
     startTime: string
     endTime: string
     notes: string | null
+    cancellationReason: string | null
     status: $Enums.RoomServiceStatus
     createdAt: Date
     updatedAt: Date
@@ -1073,6 +1107,7 @@ export interface RoomServiceOrderFieldRefs {
   readonly startTime: Prisma.FieldRef<"RoomServiceOrder", 'String'>
   readonly endTime: Prisma.FieldRef<"RoomServiceOrder", 'String'>
   readonly notes: Prisma.FieldRef<"RoomServiceOrder", 'String'>
+  readonly cancellationReason: Prisma.FieldRef<"RoomServiceOrder", 'String'>
   readonly status: Prisma.FieldRef<"RoomServiceOrder", 'RoomServiceStatus'>
   readonly createdAt: Prisma.FieldRef<"RoomServiceOrder", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"RoomServiceOrder", 'DateTime'>
@@ -1272,6 +1307,11 @@ export type RoomServiceOrderFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` RoomServiceOrders.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of RoomServiceOrders.
+   */
   distinct?: Prisma.RoomServiceOrderScalarFieldEnum | Prisma.RoomServiceOrderScalarFieldEnum[]
 }
 

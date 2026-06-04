@@ -169,6 +169,7 @@ export const RoomServiceOrderScalarFieldEnum = {
   startTime: 'startTime',
   endTime: 'endTime',
   notes: 'notes',
+  cancellationReason: 'cancellationReason',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

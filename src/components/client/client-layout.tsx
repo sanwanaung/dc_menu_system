@@ -1,14 +1,31 @@
 "use client";
 
+import React from "react";
+import { Button } from "@/components/ui/button";
 import { useOpenCartStore } from "@/hooks/client/use-open-cart-store";
 import { useSelectedMenuStore } from "@/hooks/client/use-selected-menu-store";
 import ClientProviders from "@/providers/client-providers";
-import { Diamond, ShoppingCartIcon } from "lucide-react";
-import React from "react";
+import {
+  ChevronLeft,
+  ConciergeBell,
+  Diamond,
+  ShoppingCartIcon,
+} from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const ClientLayout = ({ children }: { children: React.ReactNode }) => {
   const { selectedMenu } = useSelectedMenuStore();
   const { onOpenCart } = useOpenCartStore();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const requestRoomService = () => {
+    const next = new URLSearchParams(searchParams.toString());
+    next.delete("category");
+    router.push(`/room-service?${next.toString()}`, { scroll: false });
+  };
+
   return (
     <>
       <ClientProviders />
@@ -24,20 +41,34 @@ const ClientLayout = ({ children }: { children: React.ReactNode }) => {
                   Skyline Hub Hotel
                 </span>
               </div>
-              <button
-                type="button"
-                aria-label="Open cart"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full hover:bg-slate-100
-  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 relative"
-                onClick={onOpenCart}
-              >
-                <ShoppingCartIcon className="h-6 w-6" />
-                {selectedMenu && selectedMenu.length > 0 ? (
-                  <span className="bg-red-500 absolute top-0 -right-2 text-white w-fit h-fit px-2 py-1 rounded-full text-xs">
-                    {selectedMenu ? selectedMenu.length : 0}
-                  </span>
-                ) : null}
-              </button>
+              <div className="flex items-center gap-4">
+                {pathname !== "/room-service" ? (
+                  <Button variant="outline" onClick={requestRoomService}>
+                    <ConciergeBell className="h-6 w-6" />
+                    Request Room Service
+                  </Button>
+                ) : (
+                  <Button variant="outline" onClick={() => router.back()}>
+                    <ChevronLeft className="h-6 w-6" />
+                    Back to menu
+                  </Button>
+                )}
+                {pathname !== "/room-service" && (
+                  <Button
+                    variant="outline"
+                    size="icon-lg"
+                    onClick={onOpenCart}
+                    className="relative"
+                  >
+                    <ShoppingCartIcon className="h-6 w-6" />
+                    {selectedMenu && selectedMenu.length > 0 ? (
+                      <span className="bg-red-500 absolute -top-2 -right-4 text-white w-fit h-fit px-2 py-1 rounded-full text-xs">
+                        {selectedMenu ? selectedMenu.length : 0}
+                      </span>
+                    ) : null}
+                  </Button>
+                )}
+              </div>
             </div>
           </header>
 
