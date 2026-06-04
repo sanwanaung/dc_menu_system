@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { format } from "date-fns";
 import { CalendarIcon, Clock3, ConciergeBell, Info } from "lucide-react";
 
@@ -37,6 +36,7 @@ import RoomServiceInfos from "@/components/client/room-service/infos";
 import { RoomServiceOrder } from "generated/prisma/client";
 import { useRequestRoomService } from "@/hooks/client/use-request-room-service";
 import { useQuery } from "@tanstack/react-query";
+import { Suspense, useEffect, useState } from "react";
 
 const timeSlots = [
   "12:00",
@@ -51,37 +51,38 @@ const timeSlots = [
   "21:00",
 ];
 
-export default function RoomServicePage() {
+export default async function RoomServicePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ room: string; roomQR: string }>;
+}) {
   const mutation = useRequestRoomService();
   const [roomServiceOrder, setRoomServiceOrder] =
-    React.useState<RoomServiceOrder | null>(null);
-  const [date, setDate] = React.useState<Date>();
-  const [fromTime, setFromTime] = React.useState("");
-  const [toTime, setToTime] = React.useState("");
-  const [specialRequest, setSpecialRequest] = React.useState("");
-  const searchParams = useSearchParams();
+    useState<RoomServiceOrder | null>(null);
+  const [date, setDate] = useState<Date>();
+  const [fromTime, setFromTime] = useState("");
+  const [toTime, setToTime] = useState("");
+  const [specialRequest, setSpecialRequest] = useState("");
 
-  const next = new URLSearchParams(searchParams.toString());
-  const room = next.get("room");
-  const roomQR = next.get("roomQR");
+  const params = await searchParams;
 
   const data = useQuery({
-    queryKey: ["room-service", roomQR],
-    queryFn: () => getRoomServiceOrder(roomQR ?? ""),
+    queryKey: ["room-service", params.roomQR],
+    queryFn: () => getRoomServiceOrder(params.roomQR ?? ""),
     refetchOnWindowFocus: true,
     refetchOnMount: true,
     refetchOnReconnect: true,
     refetchInterval: 15000,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (data.data?.data) {
       setRoomServiceOrder(data.data.data);
     }
   }, [data.data]);
 
   const requestRoomService = async () => {
-    if (!date || !fromTime || !toTime || !room || !roomQR) {
+    if (!date || !fromTime || !toTime || !params.room || !params.roomQR) {
       return {
         message: null,
         data: null,
@@ -94,8 +95,8 @@ export default function RoomServicePage() {
       startTime: fromTime,
       endTime: toTime,
       notes: specialRequest,
-      room,
-      roomQR,
+      room: params.room,
+      roomQR: params.roomQR,
     });
   };
 
@@ -103,9 +104,10 @@ export default function RoomServicePage() {
     <ClientLayout>
       <RoomServiceInfos
         roomServiceOrder={roomServiceOrder}
-        room={room ?? ""}
-        roomQR={roomQR ?? ""}
+        room={params.room ?? ""}
+        roomQR={params.roomQR ?? ""}
       />
+
       <div className="space-y-4 mt-2">
         <div className="space-y-2">
           <div className="flex items-center gap-2">

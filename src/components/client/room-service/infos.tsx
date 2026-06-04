@@ -1,3 +1,5 @@
+"use client";
+
 import { RoomServiceOrder, RoomServiceStatus } from "generated/prisma/client";
 
 type Props = {
