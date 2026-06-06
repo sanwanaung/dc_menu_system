@@ -13,7 +13,10 @@ export default async function middleware(request: NextRequest) {
 
   const isAuthApi = pathname.startsWith("/api/auth");
   const isPublicPage =
-    pathname === "/" || pathname.startsWith("/auth") || pathname === "/menu";
+    pathname === "/" ||
+    pathname.startsWith("/auth") ||
+    pathname === "/menu" ||
+    pathname === "/room-service";
   const isApi = pathname.startsWith("/api");
 
   if (isPublicPage || isAuthApi) {
