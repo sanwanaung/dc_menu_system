@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import { formatMoneyMMK } from "./format-money";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useSelectedMenuStore } from "@/hooks/client/use-selected-menu-store";
 
 type MenuVariantImage = { id: string; url: string };
 
@@ -102,6 +103,7 @@ export function MenuItemCard({
   item: MenuItemData;
   categoryLabel?: string;
 }) {
+  const { addSelectedMenu, selectedMenu } = useSelectedMenuStore();
   const [selectedVariant, setSelectedVariant] = useState<string>("");
   const coverImage = getCoverImage(item);
   const priceLabel = getPriceLabel(item, selectedVariant);
@@ -122,7 +124,20 @@ export function MenuItemCard({
     }
   }, [item]);
 
-  console.log("Selected variant:", selectedVariant);
+  const handleAddToCart = (selectedMenuData: MenuItemData) => {
+    console.log("selectedMenuData: ", selectedMenuData);
+    const selectedItem = selectedMenuData.variantLinks.filter(
+      (selectedMenuData) =>
+        selectedMenuData.variantOption.name === selectedVariant,
+    );
+    const newItem = {
+      ...selectedMenuData,
+      variantLinks: selectedItem,
+      orderId: crypto.randomUUID(),
+      quantity: 1,
+    };
+    addSelectedMenu(newItem);
+  };
 
   return (
     <Card
@@ -234,7 +249,12 @@ export function MenuItemCard({
           </span>
           <span className="text-base font-semibold">{priceLabel}</span>
         </div>
-        <Button className="rounded-sm px-5 text-sm">Add to Cart</Button>
+        <Button
+          className="rounded-sm px-5 text-sm"
+          onClick={() => handleAddToCart(item)}
+        >
+          Add to Cart
+        </Button>
       </CardFooter>
     </Card>
   );

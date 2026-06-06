@@ -91,16 +91,17 @@ model Room {
 }
 
 model RoomServiceOrder {
-  id        String            @id @default(cuid())
-  roomId    String
-  date      DateTime
-  startTime String
-  endTime   String
-  notes     String?
-  status    RoomServiceStatus @default(PENDING)
-  createdAt DateTime          @default(now())
-  updatedAt DateTime          @updatedAt
-  room      Room              @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  id                 String            @id @default(cuid())
+  roomId             String
+  date               DateTime
+  startTime          String
+  endTime            String
+  notes              String?
+  status             RoomServiceStatus @default(PENDING)
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  cancellationReason String?
+  room               Room              @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
   @@unique([roomId, date])
   @@index([roomId, status])
@@ -108,27 +109,25 @@ model RoomServiceOrder {
 }
 
 model MenuCategory {
-  id           String   @id @default(cuid())
-  name         String   @unique
-  displayOrder Int      @default(0)
-  isAvailable  Boolean  @default(true)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  menuCategoryMenuItems  MenuCategoryMenuItem[]
+  id                    String                 @id @default(cuid())
+  name                  String                 @unique
+  displayOrder          Int                    @default(0)
+  isAvailable           Boolean                @default(true)
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  menuCategoryMenuItems MenuCategoryMenuItem[]
 
   @@map("menu_category")
 }
 
 model MenuCategoryMenuItem {
-  id             String   @id @default(cuid())
+  id             String       @id @default(cuid())
   menuItemId     String
   menuCategoryId String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
-  menuCategory   MenuCategory   @relation(fields: [menuCategoryId], references: [id], onDelete: Cascade)
-  menuItem       MenuItem       @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  menuCategory   MenuCategory @relation(fields: [menuCategoryId], references: [id], onDelete: Cascade)
+  menuItem       MenuItem     @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
 
   @@unique([menuItemId, menuCategoryId])
   @@index([menuItemId])
@@ -152,7 +151,6 @@ model MenuItem {
   menuItemAddonCategories MenuItemAddonCategory[]
   menuItemRatings         MenuItemRating[]
   menuItemVariantOptions  MenuItemVariantOption[]
-
   menuCategoryMenuItems   MenuCategoryMenuItem[]
 
   @@index([name])

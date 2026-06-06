@@ -56,16 +56,24 @@ export default function MenuTabs({
     >
       <TabsList
         variant="line"
-        className="px-2 py-1 min-w-full md:min-w-2xl mx-auto overflow-y-hidden overflow-x-scroll md:overflow-x-hidden "
+        className="
+                flex h-auto w-full min-w-0 items-center gap-1
+                justify-start md:justify-center
+                flex-nowrap md:flex-wrap
+                overflow-x-auto overflow-y-hidden md:overflow-visible scrollbar-hide
+                px-2 py-1
+                [-webkit-overflow-scrolling:touch]
+                md:max-w-2xl md:mx-auto
+      "
       >
-        <TabsTrigger value="all" className="capitalize px-2 py-3">
+        <TabsTrigger value="all" className="flex-none capitalize px-2 py-3">
           All
         </TabsTrigger>
         {categories.map((category) => (
           <TabsTrigger
             key={category.id}
             value={category.name}
-            className="capitalize px-2 py-3"
+            className="flex-none capitalize px-2 py-3"
           >
             {category.name}
           </TabsTrigger>

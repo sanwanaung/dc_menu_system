@@ -1,147 +1,399 @@
-# DC Menu System
+# 🍽️ Skyline Hub Menu System
 
-Next.js (App Router) application for a hotel/restaurant-style QR menu and room service workflow, with an admin dashboard for managing rooms, menu data, and users.
+> ### 🚀 Modern Hotel & Restaurant Digital Menu Platform
+>
+> **Developed by: San Wan Aung**
+>
+> A QR-powered digital menu and room service management system built with a modern full-stack architecture.
 
-## What's Inside
+---
 
-- Authentication via Better Auth (`/api/auth/[...all]`) with email/password plus Google/GitHub OAuth
-- Role-based admin area under `/admin/*` (admin/subadmin/user)
-- Room management with QR generation + print-ready QR view
-- Room service orders workflow
-- Menu management (categories, items, add-ons, variant options)
-- UploadThing integration for storing generated QR images and uploads
-- Postgres + Prisma (Prisma client is generated into `generated/prisma/`)
+# ✨ Overview
 
-## Tech Stack
+Skyline Hub Menu System is a full-stack hotel and restaurant digital menu platform built with **Next.js App Router**, **PostgreSQL**, **Prisma**, and **Better Auth**.
 
-- Next.js + React + TypeScript
-- Tailwind CSS + shadcn/ui style component patterns
-- Prisma + PostgreSQL
+## 🎯 Guest Experience
+
+Guests can:
+
+- 🍔 Browse food & beverage menus
+- 📱 Scan room QR codes
+- 🛎️ Request room services
+- 📂 Explore menu categories
+- 🍽️ View menu items and details
+- 🎨 Select variants and add-ons
+- ⭐ Submit ratings and feedback
+
+## 🛠️ Administration Features
+
+Administrators can manage:
+
+- 🏨 Rooms
+- 🔳 QR Codes
+- 📋 Menu Categories
+- 🍴 Menu Items
+- ➕ Add-ons
+- 🎛️ Variant Options
+- 🛎️ Room Service Requests
+- 👥 User Accounts
+- 📊 Analytics
+
+---
+
+# 🌟 Features
+
+## 👤 Guest Features
+
+### 🏠 Landing Page
+
+- Hotel branding & information
+- Smooth navigation
+- Quick access to menu & room service
+
+### 📖 Digital Menu
+
+- 📂 Category browsing
+- 🍽️ Menu item details
+- 🖼️ Item images
+- 🎛️ Variant selection
+- ➕ Add-on selection
+- 💰 Dynamic pricing
+- ✅ Availability control
+
+### 🔳 QR-Based Room Access
+
+Each room contains a unique QR code.
+
+```text
+RQ-RN-102
+```
+
+The QR system enables:
+
+- 🏨 Room detection
+- ⭐ Rating association
+- 🛎️ Room service tracking
+
+### 🛎️ Room Service Booking
+
+Guests can:
+
+- 📅 Select service date
+- ⏰ Choose start time
+- ⏰ Choose end time
+- 📝 Add notes
+- 📤 Submit requests
+
+### ⭐ Rating System
+
+Guests can:
+
+- ⭐ Rate menu items
+- 💬 Leave feedback
+- 🏨 Associate ratings with rooms
+
+---
+
+# 🔐 Admin Features
+
+## 📊 Dashboard
+
+- 📈 System overview
+- 👥 User management
+- 🍽️ Menu management
+- 🏨 Room management
+- 🛎️ Service management
+
+## 🏨 Room Management
+
+Manage:
+
+- 🏷️ Room names
+- 🛏️ Room types
+- 🏢 Floor information
+- 🔳 QR identifiers
+- 🖼️ Room images
+
+Features:
+
+- ⚡ QR generation
+- 🖨️ QR printing
+- 📤 Image uploads
+
+## 📋 Menu Category Management
+
+Examples:
+
+- 🌅 Breakfast
+- ☀️ Lunch
+- 🌙 Dinner
+- 🥤 Drinks
+- 🍰 Desserts
+
+## 🍴 Menu Item Management
+
+Manage:
+
+- 🏷️ Name
+- 📝 Description
+- 💰 Price
+- 🖼️ Images
+- ✅ Availability
+- 📂 Category assignments
+
+## ➕ Add-on Management
+
+Examples:
+
+- 🧀 Extra Cheese
+- 🥫 Extra Sauce
+- 🍨 Ice Cream Scoop
+- 🍫 Additional Toppings
+
+## 🎛️ Variant Management
+
+Examples:
+
+- 🔹 Small
+- 🔸 Medium
+- 🔷 Large
+
+or
+
+- 🔥 Hot
+- ❄️ Cold
+
+Each variant supports:
+
+- 💰 Custom pricing
+- 🖼️ Images
+- ✅ Availability settings
+
+## 👥 User Management
+
+Roles:
+
+- 👤 USER
+- 🛡️ ADMIN
+- ⚙️ SUBADMIN
+
+## 🛎️ Room Service Management
+
+Track:
+
+- 🟡 Pending
+- 🔵 Approved
+- 🟢 Completed
+- 🔴 Cancelled
+
+---
+
+# 🏗️ Architecture
+
+## 🎨 Frontend
+
+### Framework
+
+- Next.js 16
+- React 19
+- TypeScript
+
+### UI Stack
+
+- Tailwind CSS
+- shadcn/ui
+- Radix UI
+- Lucide Icons
+
+### State Management
+
+- Zustand
+
+### Data Fetching
+
+- TanStack React Query
+
+### Forms
+
+- React Hook Form
+- Zod
+
+---
+
+## ⚙️ Backend
+
+### Server
+
+- Next.js Server Actions
+- Route Handlers
+
+### Authentication
+
 - Better Auth
+- Email / Password
+- Google OAuth
+- GitHub OAuth
+
+### Database
+
+- PostgreSQL
+- Prisma ORM
+
+### File Uploads
+
 - UploadThing
 
-## Getting Started (Local)
+### QR Generation
 
-### 1) Install dependencies
+- qrcode package
 
-This repo includes a `pnpm-lock.yaml`, so `pnpm` is the expected package manager.
+---
+
+# 🧭 Main Routes
+
+## 🌐 Public Routes
+
+| Route         | Purpose      |
+| ------------- | ------------ |
+| /             | Landing Page |
+| /menu         | Digital Menu |
+| /room-service | Room Service |
+| /auth/signin  | Sign In      |
+| /auth/signup  | Sign Up      |
+
+## 🔒 Admin Routes
+
+| Route                   | Purpose           |
+| ----------------------- | ----------------- |
+| /admin                  | Admin Home        |
+| /admin/dashboard        | Dashboard         |
+| /admin/users            | Users             |
+| /admin/rooms            | Rooms             |
+| /admin/menu-categories  | Categories        |
+| /admin/menu-items       | Menu Items        |
+| /admin/addons           | Add-ons           |
+| /admin/addon-categories | Add-on Categories |
+| /admin/variant-options  | Variants          |
+| /admin/room-services    | Room Services     |
+| /admin/ratings          | Ratings           |
+| /admin/analytics        | Analytics         |
+
+---
+
+# 🗄️ Database Overview
+
+### Core Entities
+
+- 👤 User
+- 🔐 Session
+- 🔗 Account
+- ✅ Verification
+- 🏨 Room
+- 🛎️ RoomServiceOrder
+- 📂 MenuCategory
+- 🍴 MenuItem
+- ⭐ MenuItemRating
+- ➕ Addon
+- 📦 AddonCategory
+- 🎛️ VariantOption
+- 🖼️ VariantImage
+
+---
+
+# 💻 Technology Stack
+
+## 🚀 Core
+
+- Next.js 16.1.6
+- React 19.2.3
+- TypeScript
+
+## 🗄️ Database
+
+- PostgreSQL
+- Prisma
+
+## 🔐 Authentication
+
+- Better Auth
+
+## 🎨 UI
+
+- Tailwind CSS
+- Radix UI
+- Lucide React
+- Sonner
+
+## 📡 State & Data
+
+- Zustand
+- TanStack Query
+
+## ✅ Validation
+
+- Zod
+- React Hook Form
+
+## 📤 Uploads
+
+- UploadThing
+
+---
+
+# ⚙️ Environment Variables
+
+```env
+DATABASE_URL=
+
+APP_URL=
+
+NEXT_PUBLIC_APP_NAME=
+
+UPLOADTHING_TOKEN=
+UPLOADTHING_APIURL=
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+```
+
+---
+
+# 🚀 Development
 
 ```bash
 pnpm install
-```
-
-### 2) Configure environment variables
-
-Create `.env` and set:
-
-```bash
-# Database
-DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DB?schema=public"
-
-# App URL used to embed QR destination links
-APP_URL="http://localhost:3000"
-
-# Optional branding for print QR UI
-NEXT_PUBLIC_APP_NAME="Diamond Crown"
-
-# UploadThing (required for room QR uploads / file uploads)
-UPLOADTHING_TOKEN="..."
-UPLOADTHING_APIURL="..."
-
-# Social auth (optional)
-GOOGLE_CLIENT_ID="..."
-GOOGLE_CLIENT_SECRET="..."
-GITHUB_CLIENT_ID="..."
-GITHUB_CLIENT_SECRET="..."
-```
-
-Notes:
-
-- Prisma loads env vars from `.env` by default (see `prisma.config.ts` importing `dotenv/config`).
-- Next.js also supports `.env.local` for local-only overrides.
-- `APP_URL` is used to build the QR code URL (see `src/lib/index.ts`).
-- `NEXT_PUBLIC_APP_NAME` is read in the admin QR print view (see `src/components/admin/rooms/room-qr-view.tsx`).
-- UploadThing is required for `createNewRoom()` because it uploads the generated QR image (see `src/actions/room/index.ts`).
-
-### 3) Sync the database schema
-
-There is no `prisma/migrations/` directory committed right now, so the simplest local setup is:
-
-```bash
-pnpm prisma db push
-pnpm prisma generate
-```
-
-If you prefer migrations, you can create them locally:
-
-```bash
-pnpm prisma migrate dev
-pnpm prisma generate
-```
-
-### 4) Run the dev server
-
-```bash
 pnpm dev
 ```
 
-Open `http://localhost:3000`.
-
-## Common Scripts
-
-From `package.json`:
+### Production Build
 
 ```bash
-pnpm dev
 pnpm build
 pnpm start
-pnpm lint
 ```
 
-## Routes
+---
 
-- `/` currently contains a simple room-service request form (see `src/app/page.tsx`)
-- `/auth/signin` and `/auth/signup` for authentication UI
-- `/admin/*` for the admin area
+# 🎯 Project Goal
 
-Admin pages in `src/app/(admin)/admin/*` include:
+Replace traditional hotel room menus and manual room-service workflows with a modern, QR-powered digital experience that improves:
 
-- `/admin/dashboard` (uses demo data from `demo.tsx`)
-- `/admin/rooms` (rooms + QR)
-- `/admin/room-services` (room service orders)
-- `/admin/menu-categories`
-- `/admin/menu-items`
-- `/admin/addon-categories`
-- `/admin/addons`
-- `/admin/variant-options`
-- `/admin/users`
-- `/admin/ratings`
-- `/admin/analytics`
+- 🚀 Guest Convenience
+- ⚡ Operational Efficiency
+- 📊 Service Visibility
+- ⭐ Customer Satisfaction
 
-## Roles and Access
+---
 
-Most server actions check the signed-in user's role before allowing reads/writes (see `src/actions/*`).
+## 👨‍💻 Developer
 
-Role values used by this project are:
+**San Wan Aung**
 
-- `admin`
-- `subadmin`
-- `user`
+Full-Stack Developer • Next.js • React • TypeScript • PostgreSQL
 
-(See `src/utils/index.ts` and `src/lib/index.ts`.)
+---
 
-Bootstrapping the first admin: after creating your first account, update that user's `role` column in the database to `admin` (for example using `pnpm prisma studio`).
-
-## Project Structure
-
-- `src/app/`: Next.js routes (App Router)
-- `src/actions/`: server actions (Prisma access + permission checks)
-- `src/components/`: UI, including the full admin surface
-- `src/lib/`: shared utilities (auth, prisma client, QR helpers)
-- `src/schemas/`: Zod schemas for validation
-- `prisma/schema.prisma`: database schema (Postgres)
-- `generated/prisma/`: generated Prisma client output (imported by the app)
-
-## Deployment Notes
-
-- `src/lib/auth-client.ts` currently hardcodes `baseURL` to `http://localhost:3000`. For non-local deployments, update it to match your deployed URL (or read it from an env var).
+⭐ Built for modern hospitality experiences.

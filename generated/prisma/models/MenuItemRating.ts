@@ -213,7 +213,7 @@ export type MenuItemRatingGroupByOutputType = {
   _max: MenuItemRatingMaxAggregateOutputType | null
 }
 
-type GetMenuItemRatingGroupByPayload<T extends MenuItemRatingGroupByArgs> = Prisma.PrismaPromise<
+export type GetMenuItemRatingGroupByPayload<T extends MenuItemRatingGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<MenuItemRatingGroupByOutputType, T['by']> &
       {
@@ -1547,6 +1547,11 @@ export type MenuItemRatingFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` MenuItemRatings.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of MenuItemRatings.
+   */
   distinct?: Prisma.MenuItemRatingScalarFieldEnum | Prisma.MenuItemRatingScalarFieldEnum[]
 }
 
