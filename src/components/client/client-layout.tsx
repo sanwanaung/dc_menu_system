@@ -45,7 +45,10 @@ const ClientLayout = ({ children }: { children: React.ReactNode }) => {
                 {pathname !== "/room-service" ? (
                   <Button variant="outline" onClick={requestRoomService}>
                     <ConciergeBell className="h-6 w-6" />
-                    Request Room Service
+                    <span className="hidden md:block">
+                      {" "}
+                      Request Room Service
+                    </span>
                   </Button>
                 ) : (
                   <Button variant="outline" onClick={() => router.back()}>

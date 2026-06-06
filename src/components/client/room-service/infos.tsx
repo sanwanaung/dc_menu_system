@@ -3,7 +3,6 @@
 import { RoomServiceOrder, RoomServiceStatus } from "generated/prisma/client";
 
 type Props = {
-  roomServiceOrder?: RoomServiceOrder | null;
   room: string;
   roomQR: string;
 };
@@ -19,6 +18,9 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useDeleteRoomService } from "@/hooks/client/use-delete-room-service";
+import { useQuery } from "@tanstack/react-query";
+import { getRoomServiceOrder } from "@/actions/client/room-service";
+import { useEffect, useState } from "react";
 
 export function getStatusBadge(status: RoomServiceStatus) {
   switch (status) {
@@ -66,8 +68,10 @@ function StatusStep({
   );
 }
 
-const RoomServiceInfos = ({ roomServiceOrder, room, roomQR }: Props) => {
+const RoomServiceInfos = ({ room, roomQR }: Props) => {
   const mutation = useDeleteRoomService();
+  const [roomServiceOrder, setRoomServiceOrder] =
+    useState<RoomServiceOrder | null>(null);
 
   const deleteRoomServiceOrder = () => {
     if (!roomServiceOrder || !roomQR) return;
@@ -77,6 +81,21 @@ const RoomServiceInfos = ({ roomServiceOrder, room, roomQR }: Props) => {
       roomQR,
     });
   };
+
+  const data = useQuery({
+    queryKey: ["room-service", roomQR],
+    queryFn: () => getRoomServiceOrder(roomQR ?? ""),
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
+    refetchOnReconnect: true,
+    refetchInterval: 15000,
+  });
+
+  useEffect(() => {
+    if (data.data?.data) {
+      setRoomServiceOrder(data.data?.data);
+    }
+  }, [data.data?.data]);
 
   return (
     <div className="space-y-2">
@@ -97,7 +116,7 @@ const RoomServiceInfos = ({ roomServiceOrder, room, roomQR }: Props) => {
                   onClick={deleteRoomServiceOrder}
                 >
                   <Trash2 className="mr-2 h-4 w-4" />
-                  Delete
+                  Cancel
                 </Button>
                 {getStatusBadge(roomServiceOrder.status)}
               </div>
