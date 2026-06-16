@@ -2,6 +2,8 @@ import { Addon } from "@/types/addon";
 import crypto from "crypto";
 import QRCode from "qrcode";
 
+export const SCAN_SESSION_TOKEN = "session_token_cookie";
+
 export const allowedUserRole = {
   ADMIN: "admin",
   SUBADMIN: "subadmin",

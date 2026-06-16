@@ -1,6 +1,9 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { cookies } from "next/headers";
+import { verifyScanSessionToken } from "..";
+import { SCAN_SESSION_TOKEN } from "@/lib";
 
 export const createRoomServiceOrder = async ({
   date,
@@ -18,6 +21,23 @@ export const createRoomServiceOrder = async ({
   roomQR: string;
 }) => {
   try {
+    const token = (await cookies()).get(SCAN_SESSION_TOKEN);
+    if (!token) {
+      return {
+        message: null,
+        data: null,
+        error:
+          "Your ordering session could not be found. Please scan the QR code again.",
+      };
+    }
+    const isValidToken = await verifyScanSessionToken({ token: token.value });
+    if (isValidToken.error) {
+      return {
+        data: null,
+        message: null,
+        error: isValidToken.error || "Something went wrong!",
+      };
+    }
     if (!date || !startTime || !endTime || !room || !roomQR) {
       return {
         message: null,
@@ -98,6 +118,23 @@ export const createRoomServiceOrder = async ({
 
 export const getRoomServiceOrder = async (roomQR: string) => {
   try {
+    const token = (await cookies()).get(SCAN_SESSION_TOKEN);
+    if (!token) {
+      return {
+        message: null,
+        data: null,
+        error:
+          "Your ordering session could not be found. Please scan the QR code again.",
+      };
+    }
+    const isValidToken = await verifyScanSessionToken({ token: token.value });
+    if (isValidToken.error) {
+      return {
+        data: null,
+        message: null,
+        error: isValidToken.error || "Something went wrong!",
+      };
+    }
     if (!roomQR) {
       return {
         message: null,
@@ -164,6 +201,23 @@ export const deleteRoomServiceOrder = async ({
   roomId: string;
 }) => {
   try {
+    const token = (await cookies()).get(SCAN_SESSION_TOKEN);
+    if (!token) {
+      return {
+        message: null,
+        data: null,
+        error:
+          "Your ordering session could not be found. Please scan the QR code again.",
+      };
+    }
+    const isValidToken = await verifyScanSessionToken({ token: token.value });
+    if (isValidToken.error) {
+      return {
+        data: null,
+        message: null,
+        error: isValidToken.error || "Something went wrong!",
+      };
+    }
     if (!id || !roomId) {
       return {
         message: null,

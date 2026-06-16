@@ -1,4 +1,4 @@
-import { prismaAdapter } from "@better-auth/prisma-adapter";
+import { prismaAdapter } from "better-auth/adapters/prisma";
 import { betterAuth } from "better-auth";
 import prisma from "./prisma";
 import { admin as adminPlugin } from "better-auth/plugins";
