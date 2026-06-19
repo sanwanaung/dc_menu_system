@@ -53,7 +53,7 @@ type Props = {
 const RoomServiceCard = ({ room, roomQR }: Props) => {
   const mutation = useRequestRoomService();
 
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState<Date | undefined>(undefined);
   const [fromTime, setFromTime] = useState("");
   const [toTime, setToTime] = useState("");
   const [specialRequest, setSpecialRequest] = useState("");
@@ -75,6 +75,12 @@ const RoomServiceCard = ({ room, roomQR }: Props) => {
       room: room,
       roomQR: roomQR,
     });
+    if (mutation.isSuccess || !mutation.isError) {
+      setDate(undefined);
+      setFromTime("");
+      setToTime("");
+      setSpecialRequest("");
+    }
   };
 
   return (

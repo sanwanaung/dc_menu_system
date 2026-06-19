@@ -19,7 +19,6 @@ export const useDeleteRoomService = () => {
     mutationFn: ({ id, roomId, roomQR }) =>
       deleteRoomServiceOrder({ id, roomId, roomQR }),
     onSuccess: (data, variables) => {
-      console.log("varian: ", variables);
       if (data.error) throw new Error(data.error);
       queryClient.invalidateQueries({
         queryKey: ["room-service", variables.roomQR],

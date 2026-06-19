@@ -20,9 +20,11 @@ export const useRequestRoomService = () => {
   return useMutation<ResponseType, Error, ParamTypes>({
     mutationFn: ({ date, startTime, endTime, notes, room, roomQR }) =>
       createRoomServiceOrder({ date, startTime, endTime, notes, room, roomQR }),
-    onSuccess: (data) => {
+    onSuccess: (data, variables) => {
       if (data.error) throw new Error(data.error);
-      queryClient.invalidateQueries({ queryKey: ["room-service"] });
+      queryClient.invalidateQueries({
+        queryKey: ["room-service", variables.roomQR],
+      });
       toast.success("Room service request submitted successfully!");
     },
     onError: (error) => {
