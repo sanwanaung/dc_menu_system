@@ -30,7 +30,10 @@ export const createRoomServiceOrder = async ({
           "Your ordering session could not be found. Please scan the QR code again.",
       };
     }
-    const isValidToken = await verifyScanSessionToken({ token: token.value });
+    const isValidToken = await verifyScanSessionToken({
+      token: token.value,
+      roomQR,
+    });
     if (isValidToken.error) {
       return {
         data: null,
@@ -127,7 +130,10 @@ export const getRoomServiceOrder = async (roomQR: string) => {
           "Your ordering session could not be found. Please scan the QR code again.",
       };
     }
-    const isValidToken = await verifyScanSessionToken({ token: token.value });
+    const isValidToken = await verifyScanSessionToken({
+      token: token.value,
+      roomId,
+    });
     if (isValidToken.error) {
       return {
         data: null,
@@ -210,7 +216,10 @@ export const deleteRoomServiceOrder = async ({
           "Your ordering session could not be found. Please scan the QR code again.",
       };
     }
-    const isValidToken = await verifyScanSessionToken({ token: token.value });
+    const isValidToken = await verifyScanSessionToken({
+      token: token.value,
+      roomQR,
+    });
     if (isValidToken.error) {
       return {
         data: null,
@@ -266,7 +275,7 @@ export const deleteRoomServiceOrder = async ({
       data: deletedRoomService,
       error: null,
     };
-  } catch (error) {
+  } catch {
     return {
       message: null,
       data: null,

@@ -85,9 +85,23 @@ model Room {
   updatedAt      DateTime           @updatedAt
   menuItemRating MenuItemRating[]
   roomService    RoomServiceOrder[]
+  roomSessionToken  RoomSessionToken[]
 
   @@index([name, roomQR])
   @@map("room")
+}
+
+model RoomSessionToken {
+  id           String   @id @default(cuid())
+  roomId       String
+  sessionToken String   @unique
+  expiresIn    DateTime
+
+  room      Room     @relation(fields: [roomId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([roomId, expiresIn])
 }
 
 model RoomServiceOrder {

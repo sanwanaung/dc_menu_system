@@ -3,9 +3,14 @@ import { SCAN_SESSION_TOKEN } from "@/lib";
 import { cookies } from "next/headers";
 import { ReactNode } from "react";
 
-const ClientShell = async ({ children }: { children: ReactNode }) => {
+const ClientShell = async ({
+  children,
+  roomQR,
+}: {
+  children: ReactNode;
+  roomQR: string;
+}) => {
   const token = (await cookies()).get(SCAN_SESSION_TOKEN);
-  console.log("token in clientshell: ", token);
 
   if (!token) {
     throw new Error(
@@ -13,7 +18,10 @@ const ClientShell = async ({ children }: { children: ReactNode }) => {
     );
   }
 
-  const validToken = await verifyScanSessionToken({ token: token.value });
+  const validToken = await verifyScanSessionToken({
+    token: token.value,
+    roomQR,
+  });
 
   if (validToken.error) {
     throw new Error(validToken.error || "Something went wrong!");

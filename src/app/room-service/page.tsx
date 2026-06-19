@@ -33,21 +33,17 @@ export default async function RoomServicePage({
     const bootstrapParams = new URLSearchParams({
       room: params.room,
       roomQR: params.roomQR,
-    });
-
-    bootstrapParams.set(
-      "next",
-      `/room-service?${new URLSearchParams({
+      next: `/room-service?${new URLSearchParams({
         room: params.room,
         roomQR: params.roomQR,
       }).toString()}`,
-    );
+    });
 
     redirect(`/api/scan-session?${bootstrapParams.toString()}`);
   }
 
   return (
-    <ClientShell>
+    <ClientShell roomQR={params.roomQR}>
       <ClientLayout>
         <RoomServiceInfos room={params.room} roomQR={params.roomQR} />
         <RoomServiceCard room={params.room} roomQR={params.roomQR} />

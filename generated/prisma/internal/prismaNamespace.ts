@@ -389,6 +389,7 @@ export const ModelName = {
   Account: 'Account',
   Verification: 'Verification',
   Room: 'Room',
+  RoomSessionToken: 'RoomSessionToken',
   RoomServiceOrder: 'RoomServiceOrder',
   MenuCategory: 'MenuCategory',
   MenuCategoryMenuItem: 'MenuCategoryMenuItem',
@@ -415,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "room" | "roomServiceOrder" | "menuCategory" | "menuCategoryMenuItem" | "menuItem" | "variantOption" | "menuItemVariantOption" | "variantImage" | "menuItemRating" | "addon" | "addonCategory" | "menuItemAddonCategory"
+    modelProps: "user" | "session" | "account" | "verification" | "room" | "roomSessionToken" | "roomServiceOrder" | "menuCategory" | "menuCategoryMenuItem" | "menuItem" | "variantOption" | "menuItemVariantOption" | "variantImage" | "menuItemRating" | "addon" | "addonCategory" | "menuItemAddonCategory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -786,6 +787,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.RoomCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.RoomCountAggregateOutputType> | number
+        }
+      }
+    }
+    RoomSessionToken: {
+      payload: Prisma.$RoomSessionTokenPayload<ExtArgs>
+      fields: Prisma.RoomSessionTokenFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RoomSessionTokenFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomSessionTokenPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RoomSessionTokenFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomSessionTokenPayload>
+        }
+        findFirst: {
+          args: Prisma.RoomSessionTokenFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomSessionTokenPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RoomSessionTokenFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomSessionTokenPayload>
+        }
+        findMany: {
+          args: Prisma.RoomSessionTokenFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomSessionTokenPayload>[]
+        }
+        create: {
+          args: Prisma.RoomSessionTokenCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomSessionTokenPayload>
+        }
+        createMany: {
+          args: Prisma.RoomSessionTokenCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RoomSessionTokenCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomSessionTokenPayload>[]
+        }
+        delete: {
+          args: Prisma.RoomSessionTokenDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomSessionTokenPayload>
+        }
+        update: {
+          args: Prisma.RoomSessionTokenUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomSessionTokenPayload>
+        }
+        deleteMany: {
+          args: Prisma.RoomSessionTokenDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RoomSessionTokenUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RoomSessionTokenUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomSessionTokenPayload>[]
+        }
+        upsert: {
+          args: Prisma.RoomSessionTokenUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoomSessionTokenPayload>
+        }
+        aggregate: {
+          args: Prisma.RoomSessionTokenAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRoomSessionToken>
+        }
+        groupBy: {
+          args: Prisma.RoomSessionTokenGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RoomSessionTokenGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RoomSessionTokenCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RoomSessionTokenCountAggregateOutputType> | number
         }
       }
     }
@@ -1719,6 +1794,18 @@ export const RoomScalarFieldEnum = {
 export type RoomScalarFieldEnum = (typeof RoomScalarFieldEnum)[keyof typeof RoomScalarFieldEnum]
 
 
+export const RoomSessionTokenScalarFieldEnum = {
+  id: 'id',
+  roomId: 'roomId',
+  sessionToken: 'sessionToken',
+  expiresIn: 'expiresIn',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RoomSessionTokenScalarFieldEnum = (typeof RoomSessionTokenScalarFieldEnum)[keyof typeof RoomSessionTokenScalarFieldEnum]
+
+
 export const RoomServiceOrderScalarFieldEnum = {
   id: 'id',
   roomId: 'roomId',
@@ -1726,10 +1813,10 @@ export const RoomServiceOrderScalarFieldEnum = {
   startTime: 'startTime',
   endTime: 'endTime',
   notes: 'notes',
-  cancellationReason: 'cancellationReason',
   status: 'status',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  cancellationReason: 'cancellationReason'
 } as const
 
 export type RoomServiceOrderScalarFieldEnum = (typeof RoomServiceOrderScalarFieldEnum)[keyof typeof RoomServiceOrderScalarFieldEnum]
@@ -2124,6 +2211,7 @@ export type GlobalOmitConfig = {
   account?: Prisma.AccountOmit
   verification?: Prisma.VerificationOmit
   room?: Prisma.RoomOmit
+  roomSessionToken?: Prisma.RoomSessionTokenOmit
   roomServiceOrder?: Prisma.RoomServiceOrderOmit
   menuCategory?: Prisma.MenuCategoryOmit
   menuCategoryMenuItem?: Prisma.MenuCategoryMenuItemOmit

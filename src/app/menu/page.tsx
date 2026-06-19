@@ -91,7 +91,7 @@ const MenuItem = async ({
       : requestedCategory;
 
   return (
-    <ClientShell>
+    <ClientShell roomQR={params.roomQR}>
       <ClientLayout>
         <div className="w-full overflow-hidden">
           <MenuTabs

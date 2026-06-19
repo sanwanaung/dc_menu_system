@@ -67,6 +67,11 @@ export type Verification = Prisma.VerificationModel
  */
 export type Room = Prisma.RoomModel
 /**
+ * Model RoomSessionToken
+ * 
+ */
+export type RoomSessionToken = Prisma.RoomSessionTokenModel
+/**
  * Model RoomServiceOrder
  * 
  */

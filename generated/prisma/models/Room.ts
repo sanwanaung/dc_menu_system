@@ -208,6 +208,7 @@ export type RoomWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Room"> | Date | string
   menuItemRating?: Prisma.MenuItemRatingListRelationFilter
   roomService?: Prisma.RoomServiceOrderListRelationFilter
+  roomSessionToken?: Prisma.RoomSessionTokenListRelationFilter
 }
 
 export type RoomOrderByWithRelationInput = {
@@ -221,6 +222,7 @@ export type RoomOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   menuItemRating?: Prisma.MenuItemRatingOrderByRelationAggregateInput
   roomService?: Prisma.RoomServiceOrderOrderByRelationAggregateInput
+  roomSessionToken?: Prisma.RoomSessionTokenOrderByRelationAggregateInput
 }
 
 export type RoomWhereUniqueInput = Prisma.AtLeast<{
@@ -237,6 +239,7 @@ export type RoomWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Room"> | Date | string
   menuItemRating?: Prisma.MenuItemRatingListRelationFilter
   roomService?: Prisma.RoomServiceOrderListRelationFilter
+  roomSessionToken?: Prisma.RoomSessionTokenListRelationFilter
 }, "id" | "roomQR">
 
 export type RoomOrderByWithAggregationInput = {
@@ -278,6 +281,7 @@ export type RoomCreateInput = {
   updatedAt?: Date | string
   menuItemRating?: Prisma.MenuItemRatingCreateNestedManyWithoutRoomInput
   roomService?: Prisma.RoomServiceOrderCreateNestedManyWithoutRoomInput
+  roomSessionToken?: Prisma.RoomSessionTokenCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateInput = {
@@ -291,6 +295,7 @@ export type RoomUncheckedCreateInput = {
   updatedAt?: Date | string
   menuItemRating?: Prisma.MenuItemRatingUncheckedCreateNestedManyWithoutRoomInput
   roomService?: Prisma.RoomServiceOrderUncheckedCreateNestedManyWithoutRoomInput
+  roomSessionToken?: Prisma.RoomSessionTokenUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUpdateInput = {
@@ -304,6 +309,7 @@ export type RoomUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   menuItemRating?: Prisma.MenuItemRatingUpdateManyWithoutRoomNestedInput
   roomService?: Prisma.RoomServiceOrderUpdateManyWithoutRoomNestedInput
+  roomSessionToken?: Prisma.RoomSessionTokenUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateInput = {
@@ -317,6 +323,7 @@ export type RoomUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   menuItemRating?: Prisma.MenuItemRatingUncheckedUpdateManyWithoutRoomNestedInput
   roomService?: Prisma.RoomServiceOrderUncheckedUpdateManyWithoutRoomNestedInput
+  roomSessionToken?: Prisma.RoomSessionTokenUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateManyInput = {
@@ -390,6 +397,20 @@ export type RoomScalarRelationFilter = {
   isNot?: Prisma.RoomWhereInput
 }
 
+export type RoomCreateNestedOneWithoutRoomSessionTokenInput = {
+  create?: Prisma.XOR<Prisma.RoomCreateWithoutRoomSessionTokenInput, Prisma.RoomUncheckedCreateWithoutRoomSessionTokenInput>
+  connectOrCreate?: Prisma.RoomCreateOrConnectWithoutRoomSessionTokenInput
+  connect?: Prisma.RoomWhereUniqueInput
+}
+
+export type RoomUpdateOneRequiredWithoutRoomSessionTokenNestedInput = {
+  create?: Prisma.XOR<Prisma.RoomCreateWithoutRoomSessionTokenInput, Prisma.RoomUncheckedCreateWithoutRoomSessionTokenInput>
+  connectOrCreate?: Prisma.RoomCreateOrConnectWithoutRoomSessionTokenInput
+  upsert?: Prisma.RoomUpsertWithoutRoomSessionTokenInput
+  connect?: Prisma.RoomWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RoomUpdateToOneWithWhereWithoutRoomSessionTokenInput, Prisma.RoomUpdateWithoutRoomSessionTokenInput>, Prisma.RoomUncheckedUpdateWithoutRoomSessionTokenInput>
+}
+
 export type RoomCreateNestedOneWithoutRoomServiceInput = {
   create?: Prisma.XOR<Prisma.RoomCreateWithoutRoomServiceInput, Prisma.RoomUncheckedCreateWithoutRoomServiceInput>
   connectOrCreate?: Prisma.RoomCreateOrConnectWithoutRoomServiceInput
@@ -418,6 +439,74 @@ export type RoomUpdateOneRequiredWithoutMenuItemRatingNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RoomUpdateToOneWithWhereWithoutMenuItemRatingInput, Prisma.RoomUpdateWithoutMenuItemRatingInput>, Prisma.RoomUncheckedUpdateWithoutMenuItemRatingInput>
 }
 
+export type RoomCreateWithoutRoomSessionTokenInput = {
+  id?: string
+  name: string
+  imgUrl?: string | null
+  roomQR: string
+  type: string
+  floor: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  menuItemRating?: Prisma.MenuItemRatingCreateNestedManyWithoutRoomInput
+  roomService?: Prisma.RoomServiceOrderCreateNestedManyWithoutRoomInput
+}
+
+export type RoomUncheckedCreateWithoutRoomSessionTokenInput = {
+  id?: string
+  name: string
+  imgUrl?: string | null
+  roomQR: string
+  type: string
+  floor: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  menuItemRating?: Prisma.MenuItemRatingUncheckedCreateNestedManyWithoutRoomInput
+  roomService?: Prisma.RoomServiceOrderUncheckedCreateNestedManyWithoutRoomInput
+}
+
+export type RoomCreateOrConnectWithoutRoomSessionTokenInput = {
+  where: Prisma.RoomWhereUniqueInput
+  create: Prisma.XOR<Prisma.RoomCreateWithoutRoomSessionTokenInput, Prisma.RoomUncheckedCreateWithoutRoomSessionTokenInput>
+}
+
+export type RoomUpsertWithoutRoomSessionTokenInput = {
+  update: Prisma.XOR<Prisma.RoomUpdateWithoutRoomSessionTokenInput, Prisma.RoomUncheckedUpdateWithoutRoomSessionTokenInput>
+  create: Prisma.XOR<Prisma.RoomCreateWithoutRoomSessionTokenInput, Prisma.RoomUncheckedCreateWithoutRoomSessionTokenInput>
+  where?: Prisma.RoomWhereInput
+}
+
+export type RoomUpdateToOneWithWhereWithoutRoomSessionTokenInput = {
+  where?: Prisma.RoomWhereInput
+  data: Prisma.XOR<Prisma.RoomUpdateWithoutRoomSessionTokenInput, Prisma.RoomUncheckedUpdateWithoutRoomSessionTokenInput>
+}
+
+export type RoomUpdateWithoutRoomSessionTokenInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imgUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomQR?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  floor?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  menuItemRating?: Prisma.MenuItemRatingUpdateManyWithoutRoomNestedInput
+  roomService?: Prisma.RoomServiceOrderUpdateManyWithoutRoomNestedInput
+}
+
+export type RoomUncheckedUpdateWithoutRoomSessionTokenInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imgUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roomQR?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  floor?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  menuItemRating?: Prisma.MenuItemRatingUncheckedUpdateManyWithoutRoomNestedInput
+  roomService?: Prisma.RoomServiceOrderUncheckedUpdateManyWithoutRoomNestedInput
+}
+
 export type RoomCreateWithoutRoomServiceInput = {
   id?: string
   name: string
@@ -428,6 +517,7 @@ export type RoomCreateWithoutRoomServiceInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   menuItemRating?: Prisma.MenuItemRatingCreateNestedManyWithoutRoomInput
+  roomSessionToken?: Prisma.RoomSessionTokenCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutRoomServiceInput = {
@@ -440,6 +530,7 @@ export type RoomUncheckedCreateWithoutRoomServiceInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   menuItemRating?: Prisma.MenuItemRatingUncheckedCreateNestedManyWithoutRoomInput
+  roomSessionToken?: Prisma.RoomSessionTokenUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutRoomServiceInput = {
@@ -468,6 +559,7 @@ export type RoomUpdateWithoutRoomServiceInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   menuItemRating?: Prisma.MenuItemRatingUpdateManyWithoutRoomNestedInput
+  roomSessionToken?: Prisma.RoomSessionTokenUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutRoomServiceInput = {
@@ -480,6 +572,7 @@ export type RoomUncheckedUpdateWithoutRoomServiceInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   menuItemRating?: Prisma.MenuItemRatingUncheckedUpdateManyWithoutRoomNestedInput
+  roomSessionToken?: Prisma.RoomSessionTokenUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateWithoutMenuItemRatingInput = {
@@ -492,6 +585,7 @@ export type RoomCreateWithoutMenuItemRatingInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   roomService?: Prisma.RoomServiceOrderCreateNestedManyWithoutRoomInput
+  roomSessionToken?: Prisma.RoomSessionTokenCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutMenuItemRatingInput = {
@@ -504,6 +598,7 @@ export type RoomUncheckedCreateWithoutMenuItemRatingInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   roomService?: Prisma.RoomServiceOrderUncheckedCreateNestedManyWithoutRoomInput
+  roomSessionToken?: Prisma.RoomSessionTokenUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutMenuItemRatingInput = {
@@ -532,6 +627,7 @@ export type RoomUpdateWithoutMenuItemRatingInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   roomService?: Prisma.RoomServiceOrderUpdateManyWithoutRoomNestedInput
+  roomSessionToken?: Prisma.RoomSessionTokenUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutMenuItemRatingInput = {
@@ -544,6 +640,7 @@ export type RoomUncheckedUpdateWithoutMenuItemRatingInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   roomService?: Prisma.RoomServiceOrderUncheckedUpdateManyWithoutRoomNestedInput
+  roomSessionToken?: Prisma.RoomSessionTokenUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 
@@ -554,11 +651,13 @@ export type RoomUncheckedUpdateWithoutMenuItemRatingInput = {
 export type RoomCountOutputType = {
   menuItemRating: number
   roomService: number
+  roomSessionToken: number
 }
 
 export type RoomCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   menuItemRating?: boolean | RoomCountOutputTypeCountMenuItemRatingArgs
   roomService?: boolean | RoomCountOutputTypeCountRoomServiceArgs
+  roomSessionToken?: boolean | RoomCountOutputTypeCountRoomSessionTokenArgs
 }
 
 /**
@@ -585,6 +684,13 @@ export type RoomCountOutputTypeCountRoomServiceArgs<ExtArgs extends runtime.Type
   where?: Prisma.RoomServiceOrderWhereInput
 }
 
+/**
+ * RoomCountOutputType without action
+ */
+export type RoomCountOutputTypeCountRoomSessionTokenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RoomSessionTokenWhereInput
+}
+
 
 export type RoomSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -597,6 +703,7 @@ export type RoomSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   menuItemRating?: boolean | Prisma.Room$menuItemRatingArgs<ExtArgs>
   roomService?: boolean | Prisma.Room$roomServiceArgs<ExtArgs>
+  roomSessionToken?: boolean | Prisma.Room$roomSessionTokenArgs<ExtArgs>
   _count?: boolean | Prisma.RoomCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["room"]>
 
@@ -637,6 +744,7 @@ export type RoomOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type RoomInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   menuItemRating?: boolean | Prisma.Room$menuItemRatingArgs<ExtArgs>
   roomService?: boolean | Prisma.Room$roomServiceArgs<ExtArgs>
+  roomSessionToken?: boolean | Prisma.Room$roomSessionTokenArgs<ExtArgs>
   _count?: boolean | Prisma.RoomCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RoomIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -647,6 +755,7 @@ export type $RoomPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     menuItemRating: Prisma.$MenuItemRatingPayload<ExtArgs>[]
     roomService: Prisma.$RoomServiceOrderPayload<ExtArgs>[]
+    roomSessionToken: Prisma.$RoomSessionTokenPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1053,6 +1162,7 @@ export interface Prisma__RoomClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   menuItemRating<T extends Prisma.Room$menuItemRatingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Room$menuItemRatingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MenuItemRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   roomService<T extends Prisma.Room$roomServiceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Room$roomServiceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RoomServiceOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  roomSessionToken<T extends Prisma.Room$roomSessionTokenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Room$roomSessionTokenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RoomSessionTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1528,6 +1638,30 @@ export type Room$roomServiceArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.RoomServiceOrderScalarFieldEnum | Prisma.RoomServiceOrderScalarFieldEnum[]
+}
+
+/**
+ * Room.roomSessionToken
+ */
+export type Room$roomSessionTokenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RoomSessionToken
+   */
+  select?: Prisma.RoomSessionTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RoomSessionToken
+   */
+  omit?: Prisma.RoomSessionTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoomSessionTokenInclude<ExtArgs> | null
+  where?: Prisma.RoomSessionTokenWhereInput
+  orderBy?: Prisma.RoomSessionTokenOrderByWithRelationInput | Prisma.RoomSessionTokenOrderByWithRelationInput[]
+  cursor?: Prisma.RoomSessionTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RoomSessionTokenScalarFieldEnum | Prisma.RoomSessionTokenScalarFieldEnum[]
 }
 
 /**

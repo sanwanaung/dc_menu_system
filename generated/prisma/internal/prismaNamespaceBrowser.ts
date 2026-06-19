@@ -56,6 +56,7 @@ export const ModelName = {
   Account: 'Account',
   Verification: 'Verification',
   Room: 'Room',
+  RoomSessionToken: 'RoomSessionToken',
   RoomServiceOrder: 'RoomServiceOrder',
   MenuCategory: 'MenuCategory',
   MenuCategoryMenuItem: 'MenuCategoryMenuItem',
@@ -162,6 +163,18 @@ export const RoomScalarFieldEnum = {
 export type RoomScalarFieldEnum = (typeof RoomScalarFieldEnum)[keyof typeof RoomScalarFieldEnum]
 
 
+export const RoomSessionTokenScalarFieldEnum = {
+  id: 'id',
+  roomId: 'roomId',
+  sessionToken: 'sessionToken',
+  expiresIn: 'expiresIn',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RoomSessionTokenScalarFieldEnum = (typeof RoomSessionTokenScalarFieldEnum)[keyof typeof RoomSessionTokenScalarFieldEnum]
+
+
 export const RoomServiceOrderScalarFieldEnum = {
   id: 'id',
   roomId: 'roomId',
@@ -169,10 +182,10 @@ export const RoomServiceOrderScalarFieldEnum = {
   startTime: 'startTime',
   endTime: 'endTime',
   notes: 'notes',
-  cancellationReason: 'cancellationReason',
   status: 'status',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  cancellationReason: 'cancellationReason'
 } as const
 
 export type RoomServiceOrderScalarFieldEnum = (typeof RoomServiceOrderScalarFieldEnum)[keyof typeof RoomServiceOrderScalarFieldEnum]
