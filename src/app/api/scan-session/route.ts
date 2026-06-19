@@ -46,7 +46,8 @@ export async function GET(request: NextRequest) {
     },
   });
 
-  const redirectPath = next.startsWith("/") ? next : "/";
+  const isSafePath = next && next.startsWith("/") && !next.startsWith("//");
+  const redirectPath = isSafePath ? next : "/";
 
   const response = NextResponse.redirect(new URL(redirectPath, origin));
   response.cookies.set({

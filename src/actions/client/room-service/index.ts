@@ -130,9 +130,12 @@ export const getRoomServiceOrder = async (roomQR: string) => {
           "Your ordering session could not be found. Please scan the QR code again.",
       };
     }
+    const roomSessionToken = await prisma.roomSessionToken.findUnique({
+      where: { sessionToken: token.value },
+    });
     const isValidToken = await verifyScanSessionToken({
       token: token.value,
-      roomId,
+      roomId: roomSessionToken?.roomId,
     });
     if (isValidToken.error) {
       return {
@@ -202,9 +205,11 @@ export const getRoomServiceOrder = async (roomQR: string) => {
 export const deleteRoomServiceOrder = async ({
   id,
   roomId,
+  roomQR,
 }: {
   id: string;
   roomId: string;
+  roomQR: string;
 }) => {
   try {
     const token = (await cookies()).get(SCAN_SESSION_TOKEN);

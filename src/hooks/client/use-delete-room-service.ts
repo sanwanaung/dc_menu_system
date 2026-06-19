@@ -16,7 +16,8 @@ export const useDeleteRoomService = () => {
   const queryClient = useQueryClient();
 
   return useMutation<ResponseType, Error, ParamTypes>({
-    mutationFn: ({ id, roomId }) => deleteRoomServiceOrder({ id, roomId }),
+    mutationFn: ({ id, roomId, roomQR }) =>
+      deleteRoomServiceOrder({ id, roomId, roomQR }),
     onSuccess: (data, variables) => {
       console.log("varian: ", variables);
       if (data.error) throw new Error(data.error);
