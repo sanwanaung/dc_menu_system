@@ -55,7 +55,7 @@ export const verifyScanSessionToken = async ({
       };
     }
 
-    return { error: null, data: sessionToken, message: "Success!" };
+    return { error: null, data: null, message: "Success!" };
   } catch (error) {
     return {
       error:
