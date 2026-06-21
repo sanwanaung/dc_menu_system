@@ -2,6 +2,7 @@
 
 import { AlertCircle, RefreshCcw, HomeIcon } from "lucide-react";
 import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function ErrorPage({
   error,
@@ -13,6 +14,16 @@ export default function ErrorPage({
   useEffect(() => {
     console.error(error);
   }, [error]);
+
+  const searchParams = useSearchParams();
+
+  const room = searchParams.get("room");
+  const roomQR = searchParams.get("roomQR");
+  console.log("roomQR: ", roomQR);
+
+  const retry = async () => {
+    await fetch(`/api/scan-session?room=${room}&roomQR=${roomQR}`);
+  };
 
   return (
     <div className="min-h-[70vh] flex items-center justify-center px-4">
@@ -27,7 +38,7 @@ export default function ErrorPage({
 
         <div className="mt-6 flex flex-col gap-3">
           <button
-            onClick={unstable_retry}
+            onClick={retry}
             className="inline-flex items-center justify-center gap-2 rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted"
           >
             <RefreshCcw className="h-4 w-4" />

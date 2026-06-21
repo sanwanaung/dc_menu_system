@@ -19,37 +19,27 @@ export const verifyScanSessionToken = async ({
     const sessionToken = await prisma.roomSessionToken.findFirst({
       where: {
         sessionToken: token,
-        expiresIn: {
-          gt: new Date(),
-        },
-        ...(roomId ? { roomId } : {}),
-        ...(roomQR
-          ? {
-              room: {
-                roomQR,
-              },
-            }
-          : {}),
-      },
-      select: {
-        id: true,
-        sessionToken: true,
-        expiresIn: true,
-        roomId: true,
-        room: {
-          select: {
-            id: true,
-            name: true,
-            roomQR: true,
-          },
-        },
       },
     });
 
     if (!sessionToken) {
       return {
         error:
-          "Your ordering session could not be found or has expired. Please scan the QR code again.",
+          "Your ordering session could not be found. Please scan the QR code again.",
+        data: null,
+        message: null,
+      };
+    }
+
+    if (sessionToken.expiresIn <= new Date()) {
+      await prisma.roomSessionToken.delete({
+        where: {
+          id: sessionToken.id,
+        },
+      });
+      return {
+        error:
+          "Your ordering session has expired. Please scan the QR code again.",
         data: null,
         message: null,
       };
