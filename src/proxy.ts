@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 const roles = ["admin", "subadmin"];
+const PUBLIC_API_ROUTES = ["/api/scan-session"];
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -19,7 +20,11 @@ export default async function middleware(request: NextRequest) {
     pathname === "/room-service";
   const isApi = pathname.startsWith("/api");
 
-  if (isPublicPage || isAuthApi) {
+  const isPublicApiRoute = PUBLIC_API_ROUTES.some((route) => {
+    pathname.startsWith(route);
+  });
+
+  if (isPublicPage || isAuthApi || isPublicApiRoute) {
     return NextResponse.next();
   }
 

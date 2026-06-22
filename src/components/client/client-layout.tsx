@@ -12,6 +12,8 @@ import {
   ShoppingCartIcon,
 } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import logo from "./../../../public/logo.png";
+import Image from "next/image";
 
 const ClientLayout = ({ children }: { children: React.ReactNode }) => {
   const { selectedMenu } = useSelectedMenuStore();
@@ -33,9 +35,16 @@ const ClientLayout = ({ children }: { children: React.ReactNode }) => {
         <div className="flex min-h-dvh flex-col">
           <header className="sticky top-0 z-10 border-b bg-background/20 backdrop-blur">
             <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-              <div className="inline-flex items-center rounded">
-                <span className="inline-flex size-9 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/15">
-                  <Diamond className="size-4" />
+              <div className="inline-flex items-center rounded gap-2">
+                <span className="inline-flex size-8 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/15">
+                  {/* <Diamond className="size-4" /> */}
+                  <Image
+                    src={logo}
+                    alt="logo"
+                    width={1000}
+                    height={800}
+                    className="w-full h-full rounded-full"
+                  />
                 </span>
                 <span className="text-sm font-semibold tracking-wide">
                   Skyline Hub Hotel

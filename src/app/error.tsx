@@ -2,7 +2,7 @@
 
 import { AlertCircle, RefreshCcw, HomeIcon } from "lucide-react";
 import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ErrorPage({
   error,
@@ -11,6 +11,8 @@ export default function ErrorPage({
   error: Error & { digest?: string };
   unstable_retry: () => void;
 }) {
+  const router = useRouter();
+
   useEffect(() => {
     console.error(error);
   }, [error]);
@@ -19,10 +21,10 @@ export default function ErrorPage({
 
   const room = searchParams.get("room");
   const roomQR = searchParams.get("roomQR");
-  console.log("roomQR: ", roomQR);
 
   const retry = async () => {
     await fetch(`/api/scan-session?room=${room}&roomQR=${roomQR}`);
+    router.push(`menu?room=${room}&roomQR=${roomQR}&category=all`);
   };
 
   return (
@@ -32,7 +34,7 @@ export default function ErrorPage({
           <AlertCircle className="h-7 w-7" />
         </div>
 
-        <h1 className="text-xl font-semibold">Session Verification Failed</h1>
+        <h1 className="text-xl font-semibold">Something went wrong</h1>
 
         <p className="mt-2 text-sm text-muted-foreground">{error.message}</p>
 

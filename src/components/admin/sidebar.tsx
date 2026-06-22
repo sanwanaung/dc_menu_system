@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
-
+import logo from "./../../../public/logo.png";
 import { adminNav } from "@/components/admin/nav";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export function AdminSidebar({
   collapsed,
@@ -39,8 +40,15 @@ export function AdminSidebar({
             collapsed && "justify-center",
           )}
         >
-          <div className="grid size-9 place-items-center rounded-xl bg-muted ring-1 ring-border">
-            <span className="text-sm font-semibold">HQ</span>
+          <div className="grid size-8 place-items-center rounded-full">
+            {/* <span className="text-sm font-semibold">HQ</span> */}
+            <Image
+              src={logo}
+              alt="logo"
+              width={1000}
+              height={800}
+              className="w-full h-full rounded-full"
+            />
           </div>
           {!collapsed ? (
             <div className="leading-tight">

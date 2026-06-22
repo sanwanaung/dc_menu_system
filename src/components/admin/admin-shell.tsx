@@ -28,7 +28,10 @@ export function AdminShell({ children }: { children: ReactNode }) {
   }, [collapsed]);
 
   return (
-    <div className="min-h-dvh bg-zinc-50 text-foreground dark:bg-black">
+    <div
+      className="min-h-dvh bg-zinc-50 text-foreground dark:bg-black"
+      suppressHydrationWarning
+    >
       <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(1000px_circle_at_0%_0%,rgba(24,24,27,0.06),transparent_45%),radial-gradient(900px_circle_at_100%_0%,rgba(24,24,27,0.06),transparent_45%)] dark:bg-[radial-gradient(1000px_circle_at_0%_0%,rgba(255,255,255,0.06),transparent_45%),radial-gradient(900px_circle_at_100%_0%,rgba(255,255,255,0.06),transparent_45%)]" />
 
       <div className="mx-auto grid min-h-dvh max-w-400 grid-cols-1 lg:grid-cols-[auto_1fr]">

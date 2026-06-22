@@ -4,6 +4,8 @@ import {
   Sparkles,
   UtensilsCrossed,
 } from "lucide-react";
+import Image from "next/image";
+import logo from "./../../../public/logo.png";
 
 const WelcomeMsg = () => {
   return (
@@ -13,8 +15,15 @@ const WelcomeMsg = () => {
 
       <div className="relative">
         <div className="flex items-center gap-2">
-          <div className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground shadow-sm">
-            <Sparkles className="size-5" aria-hidden="true" />
+          <div className="grid size-10 place-items-center rounded-full shadow-sm">
+            {/* <Sparkles className="size-5" aria-hidden="true" /> */}
+            <Image
+              src={logo}
+              alt="logo"
+              width={1000}
+              height={800}
+              className="w-full h-full rounded-full"
+            />
           </div>
           <div className="leading-tight">
             <p className="text-sm font-medium">Hotel QR Ordering</p>

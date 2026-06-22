@@ -3,9 +3,11 @@
 import * as React from "react";
 import Link from "next/link";
 import { Diamond, Phone, UtensilsCrossed } from "lucide-react";
+import logo from "./../../../../public/logo.png";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 type LandingHeaderProps = {
   onJump: (id: string) => void;
@@ -37,7 +39,14 @@ export function LandingHeader({ onJump, onRoomService }: LandingHeaderProps) {
           className="inline-flex items-center gap-2 text-white"
         >
           <span className="inline-flex size-9 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/15">
-            <Diamond className="size-4 text-white/90" />
+            {/* <Diamond className="size-4 text-white/90" /> */}
+            <Image
+              src={logo}
+              alt="logo"
+              width={1000}
+              height={800}
+              className="w-full h-full rounded-full"
+            />
           </span>
           <span className="text-sm font-semibold tracking-wide">
             Skyline Hub Hotel
