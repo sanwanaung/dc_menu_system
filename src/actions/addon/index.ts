@@ -17,6 +17,7 @@ export const createNewAddon = async (
   data: FormInput,
 ): Promise<CreateAddonResponse> => {
   try {
+    console.log("data: ", data);
     if (!data.addonCategoryId)
       return { error: "Bad Request!", data: null, message: null };
     const session = await auth.api.getSession({
@@ -173,7 +174,7 @@ export const updateAddon = async ({
   id: string;
 }): Promise<UpdateAddonResponse> => {
   try {
-    if (!id || !form.addonCategoryId || !form.name)
+    if (!id || !form.name)
       return { error: "Bad Request!", data: null, message: null };
     const session = await auth.api.getSession({
       headers: await headers(),
@@ -201,7 +202,9 @@ export const updateAddon = async ({
       },
       data: {
         name: form.name,
-        addonCategoryId: form.addonCategoryId,
+        addonCategoryId: form.addonCategoryId
+          ? form.addonCategoryId
+          : hasAddon.addonCategoryId,
         price: Number(form.price),
         status: Number(form.price) === 0 ? "FREE" : "PAID",
       },
@@ -218,7 +221,7 @@ export const updateAddon = async ({
       error: null,
     };
   } catch {
-    return { error: "Failed to create addons!", data: null, message: null };
+    return { error: "Failed to update addons!", data: null, message: null };
   }
 };
 

@@ -223,7 +223,7 @@ export const createNewMenuItem = async ({
         }
       }
 
-      if (data.addonCategories.length > 0) {
+      if (data.addonCategories && data.addonCategories.length > 0) {
         await tx.menuItemAddonCategory.createMany({
           data: data.addonCategories.map((a) => ({
             menuItemId: menuItem.id,
@@ -344,7 +344,7 @@ export const updateMenuItem = async ({
       await tx.menuItemAddonCategory.deleteMany({
         where: { menuItemId: existing.id },
       });
-      if (data.addonCategories.length > 0) {
+      if (data.addonCategories && data.addonCategories.length > 0) {
         await tx.menuItemAddonCategory.createMany({
           data: data.addonCategories.map((a) => ({
             menuItemId: existing.id,

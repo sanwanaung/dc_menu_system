@@ -109,8 +109,10 @@ const NewAddonForm = () => {
   const isFree = form.watch("price") === 0;
 
   const handleSumitAddon = async (data: FormInput) => {
-    if (!data.addonCategoryId)
-      return toast.error("Addon category is required!");
+    // if (!data.addonCategoryId)
+    //   return toast.error("Addon category is required!");
+    console.log("id: ", id);
+    console.log("data: ", data);
     if (session.data?.user.role !== "admin")
       return toast.error("You don't have permission!");
     if (mode === "edit") {
