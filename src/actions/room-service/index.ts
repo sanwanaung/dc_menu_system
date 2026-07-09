@@ -45,6 +45,9 @@ export const getRoomServices = async ({
           },
         },
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
     const serializeRoomServices = roomservices.map((rs) => {
       return {

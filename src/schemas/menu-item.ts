@@ -39,7 +39,7 @@ export const menuItemFormSchema = z.object({
         value: z.string().trim(),
       }),
     )
-    .min(1, "Pick at least one addoncategory"),
+    .optional(),
   variantOptions: z
     .array(
       z.object({

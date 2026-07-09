@@ -1,7 +1,13 @@
 "use client";
 
 import { format } from "date-fns";
-import { CalendarIcon, Clock3, ConciergeBell, Info } from "lucide-react";
+import {
+  CalendarIcon,
+  Clock3,
+  ConciergeBell,
+  Info,
+  Loader2,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -30,6 +36,7 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { useRequestRoomService } from "@/hooks/client/use-request-room-service";
 import { RoomServiceOrder } from "generated/prisma/client";
+import { toast } from "sonner";
 
 const timeSlots = [
   "12:00",
@@ -60,22 +67,19 @@ const RoomServiceCard = ({ room, roomQR }: Props) => {
 
   const requestRoomService = async () => {
     if (!date || !fromTime || !toTime || !room || !roomQR) {
-      return {
-        message: null,
-        data: null,
-        error:
-          "Please fill in all required fields for your room service request or ensure you are in a valid room with a QR code.",
-      };
+      toast.error(
+        "Please fill in all required fields for your room service request or ensure you are in a valid room with a QR code.",
+      );
     }
     mutation.mutate({
-      date,
+      date: date as Date,
       startTime: fromTime,
       endTime: toTime,
       notes: specialRequest,
       room: room,
       roomQR: roomQR,
     });
-    if (mutation.isSuccess || !mutation.isError) {
+    if (!mutation.isPending) {
       setDate(undefined);
       setFromTime("");
       setToTime("");
@@ -211,8 +215,17 @@ const RoomServiceCard = ({ room, roomQR }: Props) => {
           />
         </CardContent>
       </Card>
-      <Button size="lg" className="w-full" onClick={requestRoomService}>
-        Submit Room Service Request
+      <Button
+        size="lg"
+        className="w-full"
+        disabled={mutation.isPending}
+        onClick={requestRoomService}
+      >
+        {mutation.isPending ? (
+          <Loader2 className="animate-spin size-4" />
+        ) : (
+          "Submit Roomservice Request"
+        )}
       </Button>
     </div>
   );

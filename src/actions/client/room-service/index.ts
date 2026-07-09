@@ -13,7 +13,7 @@ export const createRoomServiceOrder = async ({
   room,
   roomQR,
 }: {
-  date: Date;
+  date: Date | undefined;
   startTime: string;
   endTime: string;
   notes: string | null;
