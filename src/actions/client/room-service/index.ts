@@ -4,6 +4,11 @@ import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
 import { verifyScanSessionToken } from "..";
 import { SCAN_SESSION_TOKEN } from "@/lib";
+import { logger } from "@/utils/logger";
+import { startOfDay, endOfDay } from "date-fns";
+import { toZonedTime } from "date-fns-tz";
+
+const TIMEZONE = "Asia/Yangon";
 
 export const createRoomServiceOrder = async ({
   date,
@@ -67,18 +72,18 @@ export const createRoomServiceOrder = async ({
 
     const today = new Date();
 
-    const startOfDay = new Date(today);
-    startOfDay.setHours(0, 0, 0, 0);
+    const zonedDate = toZonedTime(today, TIMEZONE);
 
-    const endOfDay = new Date(today);
-    endOfDay.setHours(23, 59, 59, 999);
+    const start = startOfDay(zonedDate);
+
+    const end = endOfDay(zonedDate);
 
     const isExistingOrder = await prisma.roomServiceOrder.findFirst({
       where: {
         roomId: isExistingRoom.id,
         date: {
-          gte: startOfDay,
-          lte: endOfDay,
+          gte: start,
+          lte: end,
         },
       },
     });
@@ -121,7 +126,17 @@ export const createRoomServiceOrder = async ({
 
 export const getRoomServiceOrder = async (roomQR: string) => {
   try {
+    logger.info("roomQR: " + roomQR);
     const token = (await cookies()).get(SCAN_SESSION_TOKEN);
+    logger.info("token: " + token);
+    if (!roomQR) {
+      return {
+        message: null,
+        data: null,
+        error:
+          "Please provide a valid room QR code to fetch room service order.",
+      };
+    }
     if (!token) {
       return {
         message: null,
@@ -144,14 +159,6 @@ export const getRoomServiceOrder = async (roomQR: string) => {
         error: isValidToken.error || "Something went wrong!",
       };
     }
-    if (!roomQR) {
-      return {
-        message: null,
-        data: null,
-        error:
-          "Please provide a valid room QR code to fetch room service order.",
-      };
-    }
 
     const isExistingRoom = await prisma.room.findUnique({
       where: {
@@ -170,18 +177,18 @@ export const getRoomServiceOrder = async (roomQR: string) => {
 
     const today = new Date();
 
-    const startOfDay = new Date(today);
-    startOfDay.setHours(0, 0, 0, 0);
+    const zonedDate = toZonedTime(today, TIMEZONE);
 
-    const endOfDay = new Date(today);
-    endOfDay.setHours(23, 59, 59, 999);
+    const start = startOfDay(zonedDate);
+
+    const end = endOfDay(zonedDate);
 
     const roomServiceOrder = await prisma.roomServiceOrder.findFirst({
       where: {
         roomId: isExistingRoom.id,
         date: {
-          gte: startOfDay,
-          lte: endOfDay,
+          gte: start,
+          lte: end,
         },
       },
     });
