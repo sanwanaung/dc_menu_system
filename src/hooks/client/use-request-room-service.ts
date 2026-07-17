@@ -22,7 +22,7 @@ export const useRequestRoomService = () => {
       createRoomServiceOrder({ date, startTime, endTime, notes, room, roomQR }),
     onSuccess: (data, variables) => {
       if (data.error) throw new Error(data.error);
-      queryClient.invalidateQueries({
+      queryClient.refetchQueries({
         queryKey: ["room-service", variables.roomQR],
       });
       toast.success("Room service request submitted successfully!");
