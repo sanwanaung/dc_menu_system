@@ -6,6 +6,8 @@ import RoomServiceInfos from "@/components/client/room-service/infos";
 import RoomServiceCard from "@/components/client/room-service/room-service-card";
 import { redirect } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 export default async function RoomServicePage({
   searchParams,
 }: {
