@@ -8,6 +8,8 @@ import { logger } from "@/utils/logger";
 import { startOfDay, endOfDay } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
 
+export const dynamic = "force-dynamic";
+
 const TIMEZONE = "Asia/Yangon";
 
 export const createRoomServiceOrder = async ({
