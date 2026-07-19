@@ -91,12 +91,15 @@ export const createRoomServiceOrder = async ({
       };
     }
 
+    const stTime = startTime.split(" ")[0];
+    const edTime = endTime.split(" ")[0];
+
     const roomServiceOrder = await prisma.roomServiceOrder.create({
       data: {
         roomId: isExistingRoom.id,
         date: start,
-        startTime: startTime,
-        endTime: endTime,
+        startTime: stTime,
+        endTime: edTime,
         notes: notes,
         status: "PENDING",
       },
