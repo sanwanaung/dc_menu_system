@@ -5,8 +5,9 @@ import { cookies } from "next/headers";
 import RoomServiceInfos from "@/components/client/room-service/infos";
 import RoomServiceCard from "@/components/client/room-service/room-service-card";
 import { redirect } from "next/navigation";
+import { RoomServiceContainer } from "@/components/client/room-service/room-service-container";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 export default async function RoomServicePage({
   searchParams,
@@ -47,8 +48,9 @@ export default async function RoomServicePage({
   return (
     <ClientShell roomQR={params.roomQR}>
       <ClientLayout>
-        <RoomServiceInfos room={params.room} roomQR={params.roomQR} />
-        <RoomServiceCard room={params.room} roomQR={params.roomQR} />
+        <RoomServiceContainer room={params.room} roomQR={params.roomQR} />
+        {/* <RoomServiceInfos room={params.room} roomQR={params.roomQR} />
+        <RoomServiceCard room={params.room} roomQR={params.roomQR} /> */}
       </ClientLayout>
     </ClientShell>
   );

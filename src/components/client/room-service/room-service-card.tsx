@@ -79,7 +79,7 @@ const RoomServiceCard = ({ room, roomQR }: Props) => {
       room: room,
       roomQR: roomQR,
     });
-    if (!mutation.isPending) {
+    if (mutation.isSuccess || mutation.isError) {
       setDate(undefined);
       setFromTime("");
       setToTime("");

@@ -23,7 +23,7 @@ export const useRequestRoomService = () => {
     onSuccess: (data, variables) => {
       if (data.error) throw new Error(data.error);
       queryClient.refetchQueries({
-        queryKey: ["room-service", variables.roomQR],
+        queryKey: ["service", variables.roomQR],
       });
       toast.success("Room service request submitted successfully!");
     },
