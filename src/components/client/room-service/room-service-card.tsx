@@ -37,18 +37,19 @@ import { useState } from "react";
 import { useRequestRoomService } from "@/hooks/client/use-request-room-service";
 import { RoomServiceOrder } from "generated/prisma/client";
 import { toast } from "sonner";
+import { getRoomServiceCalendarFloorDate } from "@/lib/room-service-date";
 
 const timeSlots = [
-  "12:00",
-  "13:00",
-  "14:00",
-  "15:00",
-  "16:00",
-  "17:00",
-  "18:00",
-  "19:00",
-  "20:00",
-  "21:00",
+  "12:00 PM",
+  "13:00 PM",
+  "14:00 PM",
+  "15:00 PM",
+  "16:00 PM",
+  "17:00 PM",
+  "18:00 PM",
+  "19:00 PM",
+  "20:00 PM",
+  "21:00 PM",
 ];
 
 type Props = {
@@ -70,21 +71,17 @@ const RoomServiceCard = ({ room, roomQR }: Props) => {
       toast.error(
         "Please fill in all required fields for your room service request or ensure you are in a valid room with a QR code.",
       );
+      return;
     }
+
     mutation.mutate({
-      date: date as Date,
+      date: format(date, "yyyy-MM-dd"),
       startTime: fromTime,
       endTime: toTime,
       notes: specialRequest,
       room: room,
       roomQR: roomQR,
     });
-    if (mutation.isSuccess || mutation.isError) {
-      setDate(undefined);
-      setFromTime("");
-      setToTime("");
-      setSpecialRequest("");
-    }
   };
 
   return (
@@ -114,7 +111,7 @@ const RoomServiceCard = ({ room, roomQR }: Props) => {
           <div className="flex items-center gap-2 text-sm">
             <Clock3 className="size-4 text-muted-foreground" />
             <span>
-              Room service available daily from <strong>12:00 Pm</strong> to{" "}
+              Room service available daily from <strong>12:00 PM</strong> to{" "}
               <strong>09:00 PM</strong>.
             </span>
           </div>
@@ -159,7 +156,7 @@ const RoomServiceCard = ({ room, roomQR }: Props) => {
                   selected={date}
                   onSelect={setDate}
                   disabled={{
-                    before: new Date(new Date().setHours(0, 0, 0, 0)),
+                    before: getRoomServiceCalendarFloorDate(),
                   }}
                 />
               </PopoverContent>

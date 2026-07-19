@@ -6,10 +6,11 @@ import { createRoomServiceOrder } from "@/actions/client/room-service";
 
 type ResponseType = ApiResponse<RoomServiceOrder>;
 
-type ParamTypes = Pick<
-  RoomServiceOrder,
-  "date" | "startTime" | "endTime" | "notes"
-> & {
+type ParamTypes = {
+  date: string;
+  startTime: string;
+  endTime: string;
+  notes: string | null;
   room: string;
   roomQR: string;
 };

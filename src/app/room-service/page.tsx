@@ -2,12 +2,10 @@ import ClientLayout from "@/components/client/client-layout";
 import ClientShell from "@/components/client/client-shell";
 import { SCAN_SESSION_TOKEN } from "@/lib";
 import { cookies } from "next/headers";
-import RoomServiceInfos from "@/components/client/room-service/infos";
-import RoomServiceCard from "@/components/client/room-service/room-service-card";
 import { redirect } from "next/navigation";
 import { RoomServiceContainer } from "@/components/client/room-service/room-service-container";
 
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 export default async function RoomServicePage({
   searchParams,
@@ -49,8 +47,6 @@ export default async function RoomServicePage({
     <ClientShell roomQR={params.roomQR}>
       <ClientLayout>
         <RoomServiceContainer room={params.room} roomQR={params.roomQR} />
-        {/* <RoomServiceInfos room={params.room} roomQR={params.roomQR} />
-        <RoomServiceCard room={params.room} roomQR={params.roomQR} /> */}
       </ClientLayout>
     </ClientShell>
   );

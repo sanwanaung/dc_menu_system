@@ -13,6 +13,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useDeleteRoomService } from "@/hooks/client/use-delete-room-service";
+import { getRoomServiceDisplayDate } from "@/lib/room-service-date";
 
 export function getStatusBadge(status: RoomServiceStatus) {
   switch (status) {
@@ -108,7 +109,7 @@ const RoomServiceInfos = ({ room, roomQR, roomServiceOrder }: Props) => {
             <div className="grid gap-3 text-sm">
               <div className="flex items-center gap-2">
                 <CalendarDays className="size-4 text-muted-foreground" />
-                <span>{new Date(roomServiceOrder.date).toDateString()}</span>
+                <span>{getRoomServiceDisplayDate(roomServiceOrder.date)}</span>
               </div>
 
               <div className="flex items-center gap-2">

@@ -5,10 +5,10 @@ import { cookies } from "next/headers";
 import { verifyScanSessionToken } from "..";
 import { SCAN_SESSION_TOKEN } from "@/lib";
 import { logger } from "@/utils/logger";
-import { startOfDay, endOfDay } from "date-fns";
-import { toZonedTime } from "date-fns-tz";
-
-const TIMEZONE = "Asia/Yangon";
+import {
+  getRoomServiceWindow,
+  getTodayRoomServiceWindow,
+} from "@/lib/room-service-date";
 
 export const createRoomServiceOrder = async ({
   date,
@@ -18,7 +18,7 @@ export const createRoomServiceOrder = async ({
   room,
   roomQR,
 }: {
-  date: Date | undefined;
+  date: string | undefined;
   startTime: string;
   endTime: string;
   notes: string | null;
@@ -70,13 +70,7 @@ export const createRoomServiceOrder = async ({
       };
     }
 
-    const today = new Date();
-
-    const zonedDate = toZonedTime(today, TIMEZONE);
-
-    const start = startOfDay(zonedDate);
-
-    const end = endOfDay(zonedDate);
+    const { start, end } = getRoomServiceWindow(date);
 
     const isExistingOrder = await prisma.roomServiceOrder.findFirst({
       where: {
@@ -100,7 +94,7 @@ export const createRoomServiceOrder = async ({
     const roomServiceOrder = await prisma.roomServiceOrder.create({
       data: {
         roomId: isExistingRoom.id,
-        date,
+        date: start,
         startTime: startTime,
         endTime: endTime,
         notes: notes,
@@ -175,13 +169,7 @@ export const getRoomServiceOrder = async (roomQR: string) => {
       };
     }
 
-    const today = new Date();
-
-    const zonedDate = toZonedTime(today, TIMEZONE);
-
-    const start = startOfDay(zonedDate);
-
-    const end = endOfDay(zonedDate);
+    const { start, end } = getTodayRoomServiceWindow();
 
     const roomServiceOrder = await prisma.roomServiceOrder.findFirst({
       where: {
