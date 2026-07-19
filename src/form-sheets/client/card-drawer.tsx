@@ -10,26 +10,21 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
-
 import { Button } from "@/components/ui/button";
-
 import { useOpenCartStore } from "@/hooks/client/use-open-cart-store";
 import { useSelectedMenuStore } from "@/hooks/client/use-selected-menu-store";
 import Image from "next/image";
 
 export function formatMoney(amount: number) {
   const safe = Number.isFinite(amount) ? amount : 0;
-  const formated = new Intl.NumberFormat("en-US", {
+  return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "MMK",
   }).format(safe);
-
-  return formated;
 }
 
 export default function CartDrawer() {
   const { isOpen, onCloseCart } = useOpenCartStore();
-
   const { selectedMenu, removeSelectedMenu, updateQuantity } =
     useSelectedMenuStore();
 
@@ -40,7 +35,6 @@ export default function CartDrawer() {
       (sum, variant) => sum + variant.variantOption.price,
       0,
     );
-
     return acc + (item.price + variantPrice) * item.quantity;
   }, 0);
 
@@ -53,65 +47,85 @@ export default function CartDrawer() {
       onOpenChange={(open) => !open && onCloseCart()}
       direction="right"
     >
-      <DrawerContent className="py-1 px-2 w-[50%]">
-        <DrawerHeader>
-          <DrawerTitle className="flex items-center gap-2">
+      <DrawerContent className="flex flex-col h-full w-[80%] md:w-1/2 bg-background p-0">
+        <DrawerHeader className="px-6 pt-6 pb-4">
+          <DrawerTitle className="flex items-center gap-2 text-xl font-semibold">
             <ShoppingCart className="size-5" />
             Review Order
           </DrawerTitle>
-          <DrawerDescription>
+          <DrawerDescription className="text-sm text-muted-foreground mt-1">
             Review your selected items before placing the order.
           </DrawerDescription>
         </DrawerHeader>
 
         {cartItems.length === 0 ? (
-          <div className="flex h-48 flex-col items-center justify-center px-4 text-center">
-            <ShoppingCart className="mb-3 size-10 text-muted-foreground" />
-            <p className="font-medium">Your cart is empty</p>
-            <p className="text-sm text-muted-foreground">
+          <div className="flex-1 flex flex-col items-center justify-center px-6 pb-8">
+            <div className="rounded-full bg-muted p-4 mb-4">
+              <ShoppingCart className="size-8 text-muted-foreground" />
+            </div>
+            <p className="text-lg font-medium">Your cart is empty</p>
+            <p className="text-sm text-muted-foreground text-center max-w-xs">
               Add menu items to start an order.
             </p>
           </div>
         ) : (
-          //   <ScrollArea className="px-4">
-          //   </ScrollArea>
-          <div className="space-y-2 pb-4 no-scrollbar overflow-y-auto">
-            {cartItems.map((item) => {
-              const variantPrice = item.variantLinks.reduce(
-                (sum, variant) => sum + variant.variantOption.price,
-                0,
-              );
+          <div className="flex-1 overflow-y-auto px-6 no-scrollbar">
+            <div className="space-y-3 pb-4">
+              {cartItems.map((item) => {
+                const variantPrice = item.variantLinks.reduce(
+                  (sum, variant) => sum + variant.variantOption.price,
+                  0,
+                );
+                const unitPrice = item.price + variantPrice;
+                const subtotal = unitPrice * item.quantity;
 
-              const unitPrice = item.price + variantPrice;
-              const subtotal = unitPrice * item.quantity;
+                const imageUrl =
+                  item.imageType === "BASE_IMAGE"
+                    ? item.baseImage || ""
+                    : item.variantLinks[0]?.variantImage[0]?.url || "";
 
-              return (
-                <div key={item.orderId} className="rounded-xl border p-4">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0 flex-1 flex items-center gap-2">
-                      <div className="w-16 h-16">
-                        <Image
-                          src={
-                            item.imageType === "BASE_IMAGE"
-                              ? item.baseImage
-                                ? item.baseImage
-                                : ""
-                              : item.variantLinks[0].variantImage[0].url
-                          }
-                          alt={item.name}
-                          className="w-full h-full rounded-md object-cover"
-                          width={800}
-                          height={800}
-                        />
+                return (
+                  <div
+                    key={item.orderId}
+                    className="rounded-2xl border border-border/60 bg-card shadow-sm p-4 transition-shadow hover:shadow-md"
+                  >
+                    <div className="flex gap-4">
+                      <div className="w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-muted">
+                        {imageUrl ? (
+                          <Image
+                            src={imageUrl}
+                            alt={item.name}
+                            width={800}
+                            height={800}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                            <ShoppingCart className="size-5" />
+                          </div>
+                        )}
                       </div>
-                      <div>
-                        <h3 className="truncate font-medium">{item.name}</h3>
+
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-2">
+                          <h3 className="font-medium truncate">{item.name}</h3>
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            className="h-8 w-8 -mr-1 -mt-1 text-muted-foreground hover:text-destructive"
+                            onClick={() => removeSelectedMenu(item.orderId)}
+                            aria-label={`Remove ${item.name}`}
+                          >
+                            <Trash2 className="size-4" />
+                          </Button>
+                        </div>
+
                         {item.variantLinks.length > 0 && (
-                          <div className="mt-1 flex flex-wrap gap-1">
+                          <div className="mt-2 flex flex-wrap gap-1.5">
                             {item.variantLinks.map((variant) => (
                               <span
                                 key={variant.id}
-                                className="rounded-md bg-muted px-2 py-1 text-xs"
+                                className="inline-flex items-center rounded-md bg-muted px-2 py-0.5 text-xs font-medium"
                               >
                                 {variant.variantOption.name}
                               </span>
@@ -119,75 +133,77 @@ export default function CartDrawer() {
                           </div>
                         )}
 
-                        <div className="mt-2 text-sm text-muted-foreground">
+                        <p className="mt-2 text-sm text-muted-foreground">
                           {formatMoney(unitPrice)}
+                        </p>
+
+                        {/* Quantity & Subtotal */}
+                        <div className="mt-4 flex items-center justify-between">
+                          <div className="flex items-center border rounded-lg">
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              className="h-9 w-9 rounded-r-none"
+                              onClick={() =>
+                                updateQuantity(item.orderId, "decrease")
+                              }
+                              disabled={item.quantity <= 1}
+                              aria-label="Decrease quantity"
+                            >
+                              <Minus className="size-4" />
+                            </Button>
+                            <span className="w-10 text-center text-sm font-medium tabular-nums select-none">
+                              {item.quantity}
+                            </span>
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              className="h-9 w-9 rounded-l-none"
+                              onClick={() =>
+                                updateQuantity(item.orderId, "increase")
+                              }
+                              aria-label="Increase quantity"
+                            >
+                              <Plus className="size-4" />
+                            </Button>
+                          </div>
+                          <span className="font-semibold text-sm">
+                            {formatMoney(subtotal)}
+                          </span>
                         </div>
                       </div>
                     </div>
-
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      onClick={() => removeSelectedMenu(item.orderId)}
-                    >
-                      <Trash2 className="size-4 text-destructive" />
-                    </Button>
                   </div>
-
-                  <div className="mt-4 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Button
-                        size="icon"
-                        variant="outline"
-                        onClick={() => updateQuantity(item.orderId, "decrease")}
-                      >
-                        <Minus className="size-4" />
-                      </Button>
-
-                      <span className="min-w-8 text-center font-medium">
-                        {item.quantity}
-                      </span>
-
-                      <Button
-                        size="icon"
-                        variant="outline"
-                        onClick={() => updateQuantity(item.orderId, "increase")}
-                      >
-                        <Plus className="size-4" />
-                      </Button>
-                    </div>
-
-                    <div className="font-semibold">
-                      ${formatMoney(subtotal)}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         )}
+
         {cartItems.length > 0 && (
-          <DrawerFooter className="border-t">
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center justify-between text-sm">
-                <span>Subtotal : </span>
-                <span>{formatMoney(subTotalPrice)}</span>
+          <DrawerFooter className="sticky bottom-0 bg-background border-t px-6 py-3 space-y-3">
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Subtotal</span>
+                <span className="font-medium">
+                  {formatMoney(subTotalPrice)}
+                </span>
               </div>
-              <div className="flex items-center justify-between text-sm">
-                <span>Commercial Tax : </span>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Commercial Tax</span>
                 <span>10%</span>
               </div>
-              <div className="flex items-center justify-between text-sm">
-                <span>Service Charges : </span>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Service Charges</span>
                 <span>5%</span>
               </div>
-              <div className="flex items-center justify-between text-base font-semibold">
-                <span>Toal : </span>
+              <div className="flex justify-between pt-2 border-t text-base font-semibold">
+                <span>Total</span>
                 <span>{formatMoney(totalPrice)}</span>
               </div>
             </div>
 
-            <Button size="sm" className="w-full" disabled>
+            <Button size="lg" className="w-full font-semibold" disabled>
               Place Order
             </Button>
           </DrawerFooter>
