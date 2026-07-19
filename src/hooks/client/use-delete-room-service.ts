@@ -21,7 +21,7 @@ export const useDeleteRoomService = () => {
     onSuccess: (data, variables) => {
       if (data.error) throw new Error(data.error);
       queryClient.invalidateQueries({
-        queryKey: ["room-service", variables.roomQR],
+        queryKey: ["service", variables.roomQR],
       });
       toast.success("Deleted successfully!");
     },
