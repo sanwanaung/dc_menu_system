@@ -13,6 +13,7 @@ import { LayoutGrid, Plus, Search } from "lucide-react";
 import { AvailabilityFilter, CategoryFilter, SortKey } from "./menu-utils";
 import { MenuItemDTO } from "@/types/menu-item";
 import { useMenuItem } from "@/hooks/use-menu-item";
+import { useMemo } from "react";
 
 type Props = {
   query: string;
@@ -39,6 +40,24 @@ export function MenuItemActions({
 }: Props) {
   const { onOpenNewMenuItem } = useMenuItem();
 
+  const uniqueCategories = useMemo(() => {
+    if (!menuItems) return [];
+    const seen = new Set<string>();
+    const categories: { id: string; name: string }[] = [];
+
+    for (const menuItem of menuItems) {
+      for (const category of menuItem.menuCategoryMenuItems) {
+        if (!seen.has(category.menuCategory.id)) {
+          seen.add(category.menuCategory.id);
+          categories.push(category.menuCategory);
+        }
+      }
+    }
+    return categories;
+  }, [menuItems]);
+
+  console.log("hello");
+
   return (
     <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
       <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
@@ -61,16 +80,11 @@ export function MenuItemActions({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All categories</SelectItem>
-            {menuItems?.map((item) =>
-              item.menuCategoryMenuItems.map((category) => (
-                <SelectItem
-                  key={category.menuCategory.id}
-                  value={category.menuCategory.name ?? "a"}
-                >
-                  {category.menuCategory.name}
-                </SelectItem>
-              )),
-            )}
+            {uniqueCategories?.map((item) => (
+              <SelectItem key={item.id} value={item.name ?? "a"}>
+                {item.name}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
 

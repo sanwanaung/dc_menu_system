@@ -13,6 +13,7 @@ import { LayoutGrid, Plus, Search } from "lucide-react";
 import { CategoryFilter, PriceFilter, SortKey } from "./addon-utils";
 import { useNewAddon } from "@/hooks/use-new-addon";
 import { AddonWithAddonCategoryDTO } from "@/types/addon";
+import { useMemo } from "react";
 
 type Props = {
   query: string;
@@ -38,6 +39,20 @@ export function AddonActions({
   addons,
 }: Props) {
   const { onOpenNewAddon } = useNewAddon();
+
+  const uniqueCategories = useMemo(() => {
+    if (!addons) return [];
+    const seen = new Set<string>();
+    const categories: { id: string; name: string }[] = [];
+    for (const addon of addons) {
+      if (addon.addonCategory && !seen.has(addon.addonCategory?.id)) {
+        seen.add(addon.addonCategory?.id);
+        categories.push(addon.addonCategory);
+      }
+    }
+    return categories;
+  }, [addons]);
+
   return (
     <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
       <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
@@ -60,9 +75,9 @@ export function AddonActions({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All categories</SelectItem>
-            {addons?.map((a) => (
-              <SelectItem key={a.id} value={a.addonCategory?.name ?? "a"}>
-                {a.addonCategory?.name}
+            {uniqueCategories.map((category) => (
+              <SelectItem key={category.id} value={category.name}>
+                {category.name}
               </SelectItem>
             ))}
           </SelectContent>

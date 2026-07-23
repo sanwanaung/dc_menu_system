@@ -78,8 +78,6 @@ const MenuItemPage = () => {
     return sortMenuItems(filtered, sort);
   }, [query, availabilityFilter, categoryFilter, sort, allMenuItems]);
 
-  console.log("visibleMeuItems: ", visibleMenuItems);
-
   const formatMoney = (amount: number) => {
     const safe = Number.isFinite(amount) ? amount : 0;
     return new Intl.NumberFormat("en-US", {

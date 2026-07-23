@@ -89,15 +89,15 @@ export default function CartDrawer() {
                     key={item.orderId}
                     className="rounded-2xl border border-border/60 bg-card shadow-sm p-4 transition-shadow hover:shadow-md"
                   >
-                    <div className="flex gap-4">
-                      <div className="w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-muted">
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <div className="w-full sm:w-20 h-32 sm:h-20 shrink-0 rounded-xl overflow-hidden bg-muted relative">
                         {imageUrl ? (
                           <Image
                             src={imageUrl}
                             alt={item.name}
-                            width={800}
-                            height={800}
-                            className="w-full h-full object-cover"
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 640px) 100vw, 80px"
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-muted-foreground">
@@ -137,7 +137,6 @@ export default function CartDrawer() {
                           {formatMoney(unitPrice)}
                         </p>
 
-                        {/* Quantity & Subtotal */}
                         <div className="mt-4 flex items-center justify-between">
                           <div className="flex items-center border rounded-lg">
                             <Button
