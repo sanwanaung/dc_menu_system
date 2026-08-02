@@ -1,9 +1,6 @@
 "use client";
 
-import * as React from "react";
-import Link from "next/link";
-import { ConciergeBell, PhoneCall, UtensilsCrossed } from "lucide-react";
-
+import { BrushCleaning, ConciergeBell, UtensilsCrossed } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -17,13 +14,15 @@ import { Button } from "@/components/ui/button";
 type RoomServiceDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onViewMenu: () => void;
+  veiewMenu: () => void;
+  requestRoomService: () => void;
 };
 
 export function RoomServiceDialog({
   open,
   onOpenChange,
-  onViewMenu,
+  veiewMenu,
+  requestRoomService,
 }: RoomServiceDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -43,21 +42,16 @@ export function RoomServiceDialog({
         <div className="grid gap-2">
           <Button
             className="h-11 justify-start rounded-2xl bg-amber-200/90 text-black hover:bg-amber-200"
-            asChild
+            onClick={requestRoomService}
           >
-            <Link href="tel:+9512300136">
-              <PhoneCall className="mr-2 size-4" />
-              Call Reception (+95 1 230 0136)
-            </Link>
+            <BrushCleaning />
+            Request Room Service
           </Button>
 
           <Button
             variant="outline"
             className="h-11 justify-start rounded-2xl"
-            onClick={() => {
-              onOpenChange(false);
-              onViewMenu();
-            }}
+            onClick={veiewMenu}
             type="button"
           >
             <UtensilsCrossed className="mr-2 size-4" />
@@ -74,4 +68,3 @@ export function RoomServiceDialog({
     </Dialog>
   );
 }
-

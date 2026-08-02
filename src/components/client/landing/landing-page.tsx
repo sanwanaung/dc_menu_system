@@ -1,7 +1,5 @@
 "use client";
 
-import * as React from "react";
-
 import { LandingHeader } from "@/components/client/landing/landing-header";
 import { Reveal } from "@/components/client/landing/reveal";
 import { LandingSection } from "@/components/client/landing/section";
@@ -12,6 +10,8 @@ import { MenuPreview } from "@/components/client/landing/menu-preview";
 import { RoomServiceCta } from "@/components/client/landing/room-service-cta";
 import { LandingFooter } from "@/components/client/landing/footer";
 import { RoomServiceDialog } from "@/components/client/landing/room-service-dialog";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 function jumpTo(id: string) {
   const el = document.getElementById(id);
@@ -20,24 +20,39 @@ function jumpTo(id: string) {
 }
 
 export function LandingPage() {
-  const [roomServiceOpen, setRoomServiceOpen] = React.useState(false);
+  const [roomServiceOpen, setRoomServiceOpen] = useState(false);
+  const router = useRouter();
+
+  const veiewMenu = () => {
+    router.push(
+      "https://skyline-hub-two.vercel.app/menu?room=812&roomQR=QR-RN-812",
+    );
+  };
+
+  const requestRoomService = () => {
+    router.push(
+      "https://skyline-hub-two.vercel.app/room-service?room=812&roomQR=QR-RN-812",
+    );
+  };
 
   return (
     <div className="bg-[#faf7f0] text-foreground">
       <LandingHeader
         onJump={(id) => jumpTo(id)}
         onRoomService={() => setRoomServiceOpen(true)}
+        viewMenu={veiewMenu}
       />
 
       <RoomServiceDialog
         open={roomServiceOpen}
         onOpenChange={setRoomServiceOpen}
-        onViewMenu={() => jumpTo("menu")}
+        veiewMenu={veiewMenu}
+        requestRoomService={requestRoomService}
       />
 
       <Reveal className="animate-in fade-in-0 duration-700">
         <Hero
-          onMenu={() => jumpTo("menu")}
+          onMenu={veiewMenu}
           onRoomService={() => setRoomServiceOpen(true)}
         />
       </Reveal>

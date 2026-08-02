@@ -1,9 +1,4 @@
-import {
-  BarChart3,
-  ShieldCheck,
-  Sparkles,
-  UtensilsCrossed,
-} from "lucide-react";
+import { BarChart3, ShieldCheck, UtensilsCrossed } from "lucide-react";
 import Image from "next/image";
 import logo from "./../../../public/logo.png";
 
@@ -87,13 +82,6 @@ const WelcomeMsg = () => {
             </div>
           </li>
         </ul>
-      </div>
-
-      <div className="relative rounded-2xl border bg-background/60 p-5 ring-1 ring-foreground/10">
-        <p className="text-sm font-medium">Tip</p>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Use your work account for faster approvals and fewer access issues.
-        </p>
       </div>
     </section>
   );

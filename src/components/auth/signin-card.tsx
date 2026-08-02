@@ -1,7 +1,7 @@
 "use client";
 
 import * as z from "zod";
-import { Loader2, Sparkles } from "lucide-react";
+import { Info, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -152,13 +152,23 @@ const SigninCard = () => {
           </FieldGroup>
         </form>
       </CardContent>
-      <CardFooter className="flex flex-col items-center gap-2 sm:flex-row sm:justify-between">
-        <span className="text-xs text-muted-foreground">
-          By continuing, you agree to our{" "}
-          <span className="font-medium text-foreground">Terms</span> and{" "}
-          <span className="font-medium text-foreground">Privacy Policy</span>
-        </span>
-        <p className="text-xs text-muted-foreground">v0.1</p>
+      <CardFooter className="border-t bg-muted/40 px-6 py-4">
+        <div className="flex items-start gap-2.5 w-full">
+          <Info className="mt-0.5 h-4 w-4 text-muted-foreground shrink-0" />
+          <div className="space-y-1.5">
+            <p className="text-sm font-medium leading-none">
+              Use this account for demo
+            </p>
+            <div className="flex flex-wrap gap-x-5 gap-y-1 text-xs">
+              <span className="font-mono text-muted-foreground">
+                Email: admin001@gmail.com
+              </span>
+              <span className="font-mono text-muted-foreground">
+                Password: admin001
+              </span>
+            </div>
+          </div>
+        </div>
       </CardFooter>
     </Card>
   );

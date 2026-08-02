@@ -1,8 +1,8 @@
 "use client";
 
-import * as React from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Diamond, Phone, UtensilsCrossed } from "lucide-react";
+import { Phone, UtensilsCrossed } from "lucide-react";
 import logo from "./../../../../public/logo.png";
 
 import { Button } from "@/components/ui/button";
@@ -12,12 +12,17 @@ import Image from "next/image";
 type LandingHeaderProps = {
   onJump: (id: string) => void;
   onRoomService: () => void;
+  viewMenu: () => void;
 };
 
-export function LandingHeader({ onJump, onRoomService }: LandingHeaderProps) {
-  const [isScrolled, setIsScrolled] = React.useState(false);
+export function LandingHeader({
+  onJump,
+  onRoomService,
+  viewMenu,
+}: LandingHeaderProps) {
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -39,7 +44,6 @@ export function LandingHeader({ onJump, onRoomService }: LandingHeaderProps) {
           className="inline-flex items-center gap-2 text-white"
         >
           <span className="inline-flex size-9 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/15">
-            {/* <Diamond className="size-4 text-white/90" /> */}
             <Image
               src={logo}
               alt="logo"
@@ -88,7 +92,7 @@ export function LandingHeader({ onJump, onRoomService }: LandingHeaderProps) {
           <Button
             variant="outline"
             className="hidden border-white/20 bg-white/10 text-white backdrop-blur-md hover:bg-white/15 md:inline-flex"
-            onClick={() => onJump("menu")}
+            onClick={viewMenu}
           >
             <UtensilsCrossed className="mr-2 size-4" />
             View Menu
