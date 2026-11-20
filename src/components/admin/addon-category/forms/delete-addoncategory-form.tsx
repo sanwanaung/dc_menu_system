@@ -29,7 +29,6 @@ export const DeleteAddonCategoryForm = () => {
     mutation.mutate({ id });
     handleDialogOpenChange(false);
   };
-  console.log("hello");
 
   return (
     <>
