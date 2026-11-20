@@ -1,399 +1,136 @@
+<div align="center">
+
 # 🍽️ Skyline Hub Menu System
 
-> ### 🚀 Modern Hotel & Restaurant Digital Menu Platform
->
-> **Developed by: San Wan Aung**
->
-> A QR-powered digital menu and room service management system built with a modern full-stack architecture.
+**A QR-powered digital dining and room-service platform for Skyline Hub Hotel.**
+
+[![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black?logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-149eca?logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript)](https://www.typescriptlang.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-7-2d3748?logo=prisma)](https://www.prisma.io/)
+
+[🌐 Open the live site](https://skyline-hub-two.vercel.app)
+
+</div>
 
 ---
 
-# ✨ Overview
+## ✨ About
 
-Skyline Hub Menu System is a full-stack hotel and restaurant digital menu platform built with **Next.js App Router**, **PostgreSQL**, **Prisma**, and **Better Auth**.
+Skyline Hub Menu System lets hotel guests scan a room QR code to browse the digital menu and access room service. Hotel staff use the admin area to manage rooms, menus, add-ons, variants, ratings, users, and service requests.
 
-## 🎯 Guest Experience
+### Guest experience
 
-Guests can:
+- Browse menu categories, item details, prices, availability, variants, and add-ons.
+- Access the menu and room-service experience using room-specific QR codes.
+- Submit room-service requests and leave menu-item ratings and feedback.
 
-- 🍔 Browse food & beverage menus
-- 📱 Scan room QR codes
-- 🛎️ Request room services
-- 📂 Explore menu categories
-- 🍽️ View menu items and details
-- 🎨 Select variants and add-ons
-- ⭐ Submit ratings and feedback
+### Administration
 
-## 🛠️ Administration Features
+- Manage rooms and their QR codes, menu categories and items, add-on categories, and variants.
+- Review room-service requests and ratings, and manage user accounts and dashboard data.
 
-Administrators can manage:
+## 🧰 Technology
 
-- 🏨 Rooms
-- 🔳 QR Codes
-- 📋 Menu Categories
-- 🍴 Menu Items
-- ➕ Add-ons
-- 🎛️ Variant Options
-- 🛎️ Room Service Requests
-- 👥 User Accounts
-- 📊 Analytics
+- **Application:** Next.js 16 App Router, React 19, TypeScript
+- **Data:** PostgreSQL, Prisma ORM
+- **Authentication:** Better Auth with email/password and Google and GitHub providers
+- **UI:** Tailwind CSS 4, Radix UI, Base UI, Lucide React
+- **Client state and forms:** TanStack Query, Zustand, React Hook Form, Zod
+- **Uploads and QR codes:** UploadThing and `qrcode`
 
----
-
-# 🌟 Features
-
-## 👤 Guest Features
-
-### 🏠 Landing Page
-
-- Hotel branding & information
-- Smooth navigation
-- Quick access to menu & room service
-
-### 📖 Digital Menu
-
-- 📂 Category browsing
-- 🍽️ Menu item details
-- 🖼️ Item images
-- 🎛️ Variant selection
-- ➕ Add-on selection
-- 💰 Dynamic pricing
-- ✅ Availability control
-
-### 🔳 QR-Based Room Access
-
-Each room contains a unique QR code.
+## 🗂️ Project layout
 
 ```text
-RQ-RN-102
+src/
+├── app/          Next.js routes, layouts, and API route handlers
+├── components/   Shared UI and guest/admin components
+├── features/    Feature modules, server actions, schemas, and types
+├── hooks/       Shared hooks and client-side stores
+├── lib/         Authentication, Prisma, permissions, QR, and integrations
+├── providers/   React Query and application providers
+└── utils/        Formatting, logging, and query utilities
+prisma/
+└── schema.prisma PostgreSQL data model
 ```
 
-The QR system enables:
+Feature modules include authentication, menu items and categories, rooms, room service, add-ons, variants, users, and dashboard data. Prisma models connect those workflows to the PostgreSQL database.
 
-- 🏨 Room detection
-- ⭐ Rating association
-- 🛎️ Room service tracking
+## 🚀 Getting started
 
-### 🛎️ Room Service Booking
+### Requirements
 
-Guests can:
-
-- 📅 Select service date
-- ⏰ Choose start time
-- ⏰ Choose end time
-- 📝 Add notes
-- 📤 Submit requests
-
-### ⭐ Rating System
-
-Guests can:
-
-- ⭐ Rate menu items
-- 💬 Leave feedback
-- 🏨 Associate ratings with rooms
-
----
-
-# 🔐 Admin Features
-
-## 📊 Dashboard
-
-- 📈 System overview
-- 👥 User management
-- 🍽️ Menu management
-- 🏨 Room management
-- 🛎️ Service management
-
-## 🏨 Room Management
-
-Manage:
-
-- 🏷️ Room names
-- 🛏️ Room types
-- 🏢 Floor information
-- 🔳 QR identifiers
-- 🖼️ Room images
-
-Features:
-
-- ⚡ QR generation
-- 🖨️ QR printing
-- 📤 Image uploads
-
-## 📋 Menu Category Management
-
-Examples:
-
-- 🌅 Breakfast
-- ☀️ Lunch
-- 🌙 Dinner
-- 🥤 Drinks
-- 🍰 Desserts
-
-## 🍴 Menu Item Management
-
-Manage:
-
-- 🏷️ Name
-- 📝 Description
-- 💰 Price
-- 🖼️ Images
-- ✅ Availability
-- 📂 Category assignments
-
-## ➕ Add-on Management
-
-Examples:
-
-- 🧀 Extra Cheese
-- 🥫 Extra Sauce
-- 🍨 Ice Cream Scoop
-- 🍫 Additional Toppings
-
-## 🎛️ Variant Management
-
-Examples:
-
-- 🔹 Small
-- 🔸 Medium
-- 🔷 Large
-
-or
-
-- 🔥 Hot
-- ❄️ Cold
-
-Each variant supports:
-
-- 💰 Custom pricing
-- 🖼️ Images
-- ✅ Availability settings
-
-## 👥 User Management
-
-Roles:
-
-- 👤 USER
-- 🛡️ ADMIN
-- ⚙️ SUBADMIN
-
-## 🛎️ Room Service Management
-
-Track:
-
-- 🟡 Pending
-- 🔵 Approved
-- 🟢 Completed
-- 🔴 Cancelled
-
----
-
-# 🏗️ Architecture
-
-## 🎨 Frontend
-
-### Framework
-
-- Next.js 16
-- React 19
-- TypeScript
-
-### UI Stack
-
-- Tailwind CSS
-- shadcn/ui
-- Radix UI
-- Lucide Icons
-
-### State Management
-
-- Zustand
-
-### Data Fetching
-
-- TanStack React Query
-
-### Forms
-
-- React Hook Form
-- Zod
-
----
-
-## ⚙️ Backend
-
-### Server
-
-- Next.js Server Actions
-- Route Handlers
-
-### Authentication
-
-- Better Auth
-- Email / Password
-- Google OAuth
-- GitHub OAuth
-
-### Database
-
+- Node.js compatible with the project's Next.js 16 dependencies
+- [pnpm](https://pnpm.io/)
 - PostgreSQL
-- Prisma ORM
 
-### File Uploads
-
-- UploadThing
-
-### QR Generation
-
-- qrcode package
-
----
-
-# 🧭 Main Routes
-
-## 🌐 Public Routes
-
-| Route         | Purpose      |
-| ------------- | ------------ |
-| /             | Landing Page |
-| /menu         | Digital Menu |
-| /room-service | Room Service |
-| /auth/signin  | Sign In      |
-| /auth/signup  | Sign Up      |
-
-## 🔒 Admin Routes
-
-| Route                   | Purpose           |
-| ----------------------- | ----------------- |
-| /admin                  | Admin Home        |
-| /admin/dashboard        | Dashboard         |
-| /admin/users            | Users             |
-| /admin/rooms            | Rooms             |
-| /admin/menu-categories  | Categories        |
-| /admin/menu-items       | Menu Items        |
-| /admin/addons           | Add-ons           |
-| /admin/addon-categories | Add-on Categories |
-| /admin/variant-options  | Variants          |
-| /admin/room-services    | Room Services     |
-| /admin/ratings          | Ratings           |
-| /admin/analytics        | Analytics         |
-
----
-
-# 🗄️ Database Overview
-
-### Core Entities
-
-- 👤 User
-- 🔐 Session
-- 🔗 Account
-- ✅ Verification
-- 🏨 Room
-- 🛎️ RoomServiceOrder
-- 📂 MenuCategory
-- 🍴 MenuItem
-- ⭐ MenuItemRating
-- ➕ Addon
-- 📦 AddonCategory
-- 🎛️ VariantOption
-- 🖼️ VariantImage
-
----
-
-# 💻 Technology Stack
-
-## 🚀 Core
-
-- Next.js 16.1.6
-- React 19.2.3
-- TypeScript
-
-## 🗄️ Database
-
-- PostgreSQL
-- Prisma
-
-## 🔐 Authentication
-
-- Better Auth
-
-## 🎨 UI
-
-- Tailwind CSS
-- Radix UI
-- Lucide React
-- Sonner
-
-## 📡 State & Data
-
-- Zustand
-- TanStack Query
-
-## ✅ Validation
-
-- Zod
-- React Hook Form
-
-## 📤 Uploads
-
-- UploadThing
-
----
-
-# ⚙️ Environment Variables
-
-```env
-DATABASE_URL=
-
-APP_URL=
-
-NEXT_PUBLIC_APP_NAME=
-
-UPLOADTHING_TOKEN=
-UPLOADTHING_APIURL=
-
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-
-GITHUB_CLIENT_ID=
-GITHUB_CLIENT_SECRET=
-```
-
----
-
-# 🚀 Development
+### Install and configure
 
 ```bash
+git clone https://github.com/sanwanaung/dc_menu_system.git
+cd dc_menu_system
 pnpm install
+```
+
+Create a `.env` file in the project root and configure the variables below. Set `BETTER_AUTH_URL` to the app's base URL (for local development, typically `http://localhost:3000`). Configure the database and any external providers you intend to use.
+
+| Variable | Purpose |
+| --- | --- |
+| `DATABASE_URL` | PostgreSQL connection string used by Prisma |
+| `BETTER_AUTH_URL` | Base URL for Better Auth and generated room QR links |
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Google sign-in credentials |
+| `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` | GitHub sign-in credentials |
+| `UPLOADTHING_TOKEN` / `UPLOADTHING_APIURL` | UploadThing credentials and API URL for image uploads |
+| `NEXT_PUBLIC_APP_NAME` | Optional app-name override in the UI |
+
+Keep credentials private: do not commit `.env` or production secrets.
+
+### Run locally
+
+```bash
 pnpm dev
 ```
 
-### Production Build
+Then open [http://localhost:3000](http://localhost:3000).
+
+### Build and run
 
 ```bash
 pnpm build
 pnpm start
 ```
 
+Run the configured lint check with `pnpm lint`. The package does not currently define a test script.
+
+## 🧭 Main routes
+
+| Route | Description |
+| --- | --- |
+| `/` | Hotel landing page |
+| `/menu` | Guest digital menu; reached with room QR parameters |
+| `/room-service` | Guest room-service requests; reached with room QR parameters |
+| `/admin` | Admin area |
+| `/admin/dashboard` | Dashboard |
+| `/admin/rooms` | Room and QR-code management |
+| `/admin/menu-categories` | Menu category management |
+| `/admin/menu-items` | Menu item management |
+| `/admin/addons` | Add-on management |
+| `/admin/variant-options` | Variant management |
+| `/admin/room-services` | Room-service request management |
+| `/admin/ratings` | Rating management |
+| `/admin/users` | User management |
+| `/admin/analytics` | Analytics |
+
+Room QR links carry `room` and `roomQR` parameters. Guest menu and room-service pages use these values to establish a scan session before showing room-specific content.
+
+## 🧱 Data model
+
+The Prisma schema defines authentication records alongside hospitality data, including `Room`, `RoomSessionToken`, `RoomServiceOrder`, `MenuCategory`, `MenuItem`, `VariantOption`, `Addon`, and `MenuItemRating`. Room-service requests have a status lifecycle, and menu items can be associated with multiple categories, variants, and add-on categories.
+
+## 👨‍💻 Maintainer
+
+**San Wan Aung** — Full-stack developer
+
 ---
 
-# 🎯 Project Goal
-
-Replace traditional hotel room menus and manual room-service workflows with a modern, QR-powered digital experience that improves:
-
-- 🚀 Guest Convenience
-- ⚡ Operational Efficiency
-- 📊 Service Visibility
-- ⭐ Customer Satisfaction
-
----
-
-## 👨‍💻 Developer
-
-**San Wan Aung**
-
-Full-Stack Developer • Next.js • React • TypeScript • PostgreSQL
-
----
-
-⭐ Built for modern hospitality experiences.
+<p align="center">Built to make hotel dining and room service simpler for guests and staff. ⭐</p>
