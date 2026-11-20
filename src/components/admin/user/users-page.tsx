@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { DataTable } from "./data-table";
 import { columns, UserType } from "./columns";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { getUsers } from "@/actions/user";
+import { getUsers } from "@/features/user/actions";
 import { PaginationState } from "@tanstack/react-table";
 import { Loader2 } from "lucide-react";
 

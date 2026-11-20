@@ -1,4 +1,4 @@
-import { verifyScanSessionToken } from "@/actions/client";
+import { verifyScanSessionToken } from "@/features/client/actions";
 import { SCAN_SESSION_TOKEN } from "@/lib";
 import { cookies } from "next/headers";
 import { ReactNode } from "react";

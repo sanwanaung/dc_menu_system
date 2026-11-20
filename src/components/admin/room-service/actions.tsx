@@ -8,14 +8,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { useAcceptRsMutation } from "@/hooks/mutations/room-service/use-accept-rs";
-import { useFinishRsMutation } from "@/hooks/mutations/room-service/use-finish-rs";
-import { useCancelRs } from "@/hooks/use-cancel-rs";
-import { useDeleteRs } from "@/hooks/use-delete-rs";
-import { useViewRsNotes } from "@/hooks/use-view-rs";
+import { useAcceptRsMutation } from "@/features/room-service/hooks/mutations/use-accept-rs";
+import { useFinishRsMutation } from "@/features/room-service/hooks/mutations/use-finish-rs";
+import { useCancelRs } from "@/hooks/stores/use-cancel-rs";
+import { useDeleteRs } from "@/hooks/stores/use-delete-rs";
+import { useViewRsNotes } from "@/hooks/stores/use-view-rs";
 import { allowedUserRole } from "@/lib";
 import { authClient } from "@/lib/auth-client";
-import { RoomServiceDTO, RoomServiceDTOStatus } from "@/types/room-service";
+import { RoomServiceDTO, RoomServiceDTOStatus } from "@/features/room-service/types";
 
 import {
   CheckCircle2,

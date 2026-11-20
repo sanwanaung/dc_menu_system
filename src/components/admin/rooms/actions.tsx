@@ -1,6 +1,6 @@
 "use client";
 
-import { getRoom } from "@/actions/room";
+import { getRoom } from "@/features/room/actions";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -9,8 +9,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { useDeleteRoom } from "@/hooks/use-delete-room";
-import { useEditRoom } from "@/hooks/use-edit-room";
+import { useDeleteRoom } from "@/hooks/stores/use-delete-room";
+import { useEditRoom } from "@/hooks/stores/use-edit-room";
 import { allowedUserRole } from "@/lib";
 import { authClient } from "@/lib/auth-client";
 import { EyeIcon, MoreHorizontal, Pencil, Trash2 } from "lucide-react";

@@ -17,9 +17,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Tag } from "@/components/admin/shared/tag";
-import { AddonWithAddonCategoryDTO } from "@/types/addon";
-import { useNewAddon } from "@/hooks/use-new-addon";
-import { useDeleteAddon } from "@/hooks/use-delete-addon";
+import { AddonWithAddonCategoryDTO } from "@/features/addon/types";
+import { useNewAddon } from "@/hooks/stores/use-new-addon";
+import { useDeleteAddon } from "@/hooks/stores/use-delete-addon";
 
 export function AddonCard({ addon }: { addon: AddonWithAddonCategoryDTO }) {
   const { onOpenEditAddon } = useNewAddon();

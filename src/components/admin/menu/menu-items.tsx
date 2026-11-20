@@ -1,6 +1,6 @@
 "use client";
 
-import { getMenuItems } from "@/actions/menu-item";
+import { getMenuItems } from "@/features/menu-item/actions";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { MenuTotalCard } from "./menu-total-card";
 import { useMemo, useState } from "react";
@@ -14,7 +14,7 @@ import {
 import { normalize } from "@/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useMenuItem } from "@/hooks/use-menu-item";
+import { useMenuItem } from "@/hooks/stores/use-menu-item";
 import {
   Accordion,
   AccordionContent,

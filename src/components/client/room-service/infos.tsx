@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useDeleteRoomService } from "@/hooks/client/use-delete-room-service";
+import { useDeleteRoomService } from "@/features/client/room-service/hooks/mutations/use-delete-room-service";
 import { getRoomServiceDisplayDate } from "@/lib/room-service-date";
 
 export function getStatusBadge(status: RoomServiceStatus) {

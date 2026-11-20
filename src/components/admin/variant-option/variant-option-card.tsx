@@ -11,7 +11,7 @@ import {
 //@ts-ignore
 import { format } from "date-fns";
 import { MoreHorizontal, Pencil, Trash2, Eye, EyeOff } from "lucide-react";
-import { VariantOptionDTO } from "@/types/variant-option";
+import { VariantOptionDTO } from "@/features/variant-option/types";
 import { cn } from "@/lib/utils";
 import { formatedCurrency } from "./variant-option-utils";
 

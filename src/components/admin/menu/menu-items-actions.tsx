@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/select";
 import { LayoutGrid, Plus, Search } from "lucide-react";
 import { AvailabilityFilter, CategoryFilter, SortKey } from "./menu-utils";
-import { MenuItemDTO } from "@/types/menu-item";
-import { useMenuItem } from "@/hooks/use-menu-item";
+import { MenuItemDTO } from "@/features/menu-item/types";
+import { useMenuItem } from "@/hooks/stores/use-menu-item";
 import { useMemo } from "react";
 
 type Props = {

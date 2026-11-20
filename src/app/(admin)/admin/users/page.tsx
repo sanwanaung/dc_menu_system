@@ -1,4 +1,4 @@
-import { getUsers } from "@/actions/user";
+import { getUsers } from "@/features/user/actions";
 import { AdminLayout } from "@/components/admin/admin-layout";
 import UsersPage from "@/components/admin/user/users-page";
 import { QueryClient } from "@tanstack/react-query";

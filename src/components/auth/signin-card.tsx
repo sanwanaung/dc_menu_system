@@ -23,7 +23,7 @@ import { Input } from "@/components/ui/input";
 import SocialAuth from "@/components/auth/social-auth";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signinSchema } from "@/schemas/auth";
+import { signinSchema } from "@/features/auth/schema";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";

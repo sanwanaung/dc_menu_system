@@ -22,7 +22,7 @@ import {
   useComboboxAnchor,
 } from "@/components/ui/combobox";
 
-import { MenuCategoryDTO } from "@/types/menu-category";
+import { MenuCategoryDTO } from "@/features/menu-category/types";
 
 type Option = Pick<MenuCategoryDTO, "id" | "name">;
 

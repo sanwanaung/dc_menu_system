@@ -25,8 +25,8 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { AddonDTO } from "@/types/addon";
-import { AddonCategoryDTO } from "@/types/addon-category";
+import { AddonDTO } from "@/features/addon/types";
+import { AddonCategoryDTO } from "@/features/addon-category/types";
 
 const addonFormSchema = z.object({
   name: z

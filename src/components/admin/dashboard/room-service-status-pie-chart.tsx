@@ -9,7 +9,7 @@ import {
   type ChartConfig,
 } from "@/components/ui/chart";
 import { Label, Pie, PieChart } from "recharts";
-import type { RoomServiceStatusChartPoint } from "@/actions/dashboard";
+import type { RoomServiceStatusChartPoint } from "@/features/dashboard/actions";
 
 const chartConfig = {
   pending: { label: "Pending", color: "#f59e0b" },

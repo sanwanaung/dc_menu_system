@@ -16,12 +16,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2, Plus } from "lucide-react";
 import { AddonCategoryCard } from "./addon-category-card";
-import { useNewAddonCategory } from "@/hooks/use-new-addon-category";
-import { getAddonCategories } from "@/actions/addon-category";
-import { AddonCategoryDTO } from "@/types/addon-category";
+import { useNewAddonCategory } from "@/hooks/stores/use-new-addon-category";
+import { getAddonCategories } from "@/features/addon-category/actions";
+import { AddonCategoryDTO } from "@/features/addon-category/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useUpdateAddonCategoryAvailability } from "@/hooks/mutations/addon-category/use-update-addoncategory-availability";
-import { useDeleteAddonCategory } from "@/hooks/use-delete-addoncategory";
+import { useUpdateAddonCategoryAvailability } from "@/features/addon-category/hooks/mutations/use-update-addoncategory-availability";
+import { useDeleteAddonCategory } from "@/hooks/stores/use-delete-addoncategory";
 
 const AddonCategoryPage = () => {
   const { onOpenEditAddonCategory } = useNewAddonCategory();

@@ -18,7 +18,7 @@ import { Tag } from "../shared/tag";
 import {
   RoomServiceDTOStatus,
   RoomServiceWithRoomDTO,
-} from "@/types/room-service/room-service.dto";
+} from "@/features/room-service/types";
 import { OnChangeFn, PaginationState } from "@tanstack/react-table";
 
 type Props = {

@@ -1,4 +1,4 @@
-import { getMenuItems } from "@/actions/menu-item";
+import { getMenuItems } from "@/features/menu-item/actions";
 import { AdminLayout } from "@/components/admin/admin-layout";
 import MenuItemPage from "@/components/admin/menu/menu-items";
 import { QueryClient } from "@tanstack/react-query";

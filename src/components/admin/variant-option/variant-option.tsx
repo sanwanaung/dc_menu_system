@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import VariantOptionTotalCard from "./variant-option-total-card";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getVariantOptions } from "@/actions/variant-option";
+import { getVariantOptions } from "@/features/variant-option/actions";
 import { Loader2, Plus } from "lucide-react";
 import VariantOptionActions from "./variant-option-actions";
 import {
@@ -15,12 +15,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { normalize } from "@/utils";
 import VariantOptionCard from "./variant-option-card";
-import { VariantOptionDTO } from "@/types/variant-option";
+import { VariantOptionDTO } from "@/features/variant-option/types";
 import { authClient } from "@/lib/auth-client";
 import { allowedUserRole } from "@/lib";
 import { toast } from "sonner";
-import { useToggleAvailabilityMutation } from "@/hooks/mutations/variant-option/use-toggle-availability";
-import { useVariantOption } from "@/hooks/use-variant-option";
+import { useToggleAvailabilityMutation } from "@/features/variant-option/hooks/mutations/use-toggle-availability";
+import { useVariantOption } from "@/hooks/stores/use-variant-option";
 
 const VariantOption = () => {
   const { onOpenEditVariantOptin, onOpenDeleteVariantOption } =

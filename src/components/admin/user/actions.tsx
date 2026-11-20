@@ -8,8 +8,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { useViewUserDetail } from "@/hooks/use-view-user-detail";
-import { useChangeUserRole } from "@/hooks/user-change-user-role";
+import { useViewUserDetail } from "@/hooks/stores/use-view-user-detail";
+import { useChangeUserRole } from "@/hooks/stores/user-change-user-role";
 import { authClient } from "@/lib/auth-client";
 import { MoreHorizontal, ShieldAlert, User2, UserLock } from "lucide-react";
 import { toast } from "sonner";
