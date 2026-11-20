@@ -18,7 +18,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { useMemo, useState } from "react";
-import { AddonCategoryDTO } from "@/types/addon-category";
+import { AddonCategoryDTO } from "@/features/addon-category/types";
 
 export function AddonCategoryCombobox({
   categories,

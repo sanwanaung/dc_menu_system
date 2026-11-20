@@ -1,0 +1,30 @@
+import { ApiResponse, PaginatedData } from "@/features/shared/types";
+import { MenuCategory } from "./menu-category.type";
+
+export type MenuCategoryListResponse = Omit<
+  MenuCategory,
+  "createdAt" | "updatedAt"
+> & {
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type MenuCategoriesForMenuItem = Pick<MenuCategory, "id" | "name">;
+
+export type GetMenuCategoriesResponse = ApiResponse<
+  PaginatedData<MenuCategoryListResponse>
+>;
+
+export type GetMenuCategoryResponse = ApiResponse<MenuCategory>;
+
+export type CreateMenuCategoryResponse = ApiResponse<MenuCategory>;
+
+export type UpdateMenuCategoryResponse = ApiResponse<MenuCategory>;
+
+export type UpdateAvailabilityResponse = ApiResponse<MenuCategory>;
+
+export type DeleteMenuCategoryResponse = ApiResponse<null>;
+
+export type GetMenuCategoriesForMenuItemResponse = ApiResponse<
+  MenuCategoriesForMenuItem[]
+>;

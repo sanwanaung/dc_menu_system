@@ -1,4 +1,4 @@
-import { AddonDTO, AddonWithAddonCategoryDTO } from "@/types/addon";
+import { AddonDTO, AddonWithAddonCategoryDTO } from "@/features/addon/types";
 
 export type CategoryFilter = "all" | string;
 export type PriceFilter = "all" | "free" | "paid";

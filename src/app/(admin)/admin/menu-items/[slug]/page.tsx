@@ -1,9 +1,9 @@
-import { getAddonCategoriesForMenu } from "@/actions/addon-category";
-import { getMenuCategoriesForMenu } from "@/actions/menu-category";
-import { getMenuItemDetails } from "@/actions/menu-item";
-import { getVariantOptionsForMenu } from "@/actions/variant-option";
+import { getAddonCategoriesForMenu } from "@/features/addon-category/actions";
+import { getMenuCategoriesForMenu } from "@/features/menu-category/actions";
+import { getMenuItemDetails } from "@/features/menu-item/actions";
+import { getVariantOptionsForMenu } from "@/features/variant-option/actions";
 import { AdminLayout } from "@/components/admin/admin-layout";
-import MenuItemEditForm from "../../../../../form-sheets/menu-item-edit-form";
+import MenuItemEditForm from "@/components/admin/menu-item/forms/menu-item-edit-form";
 
 export default async function MenuItemDetailPage({
   params,

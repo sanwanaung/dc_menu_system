@@ -12,9 +12,9 @@ import {
 import { normalize } from "@/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useNewAddon } from "@/hooks/use-new-addon";
+import { useNewAddon } from "@/hooks/stores/use-new-addon";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getAddons } from "@/actions/addon";
+import { getAddons } from "@/features/addon/actions";
 import { AddonCard } from "./addon-card";
 import { Loader2 } from "lucide-react";
 

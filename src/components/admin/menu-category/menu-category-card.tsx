@@ -14,7 +14,7 @@ import {
 //@ts-ignore
 import { format } from "date-fns";
 import { MoreHorizontal, Pencil, Trash2, Eye, EyeOff } from "lucide-react";
-import { MenuCategoryDTO } from "@/types/menu-category";
+import { MenuCategoryDTO } from "@/features/menu-category/types";
 
 type Props = {
   category: MenuCategoryDTO;

@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { LayoutGrid, Plus, Search } from "lucide-react";
 import { AvailabilityFilter, SortKey } from "./addon-category-utils";
-import { useNewAddonCategory } from "@/hooks/use-new-addon-category";
+import { useNewAddonCategory } from "@/hooks/stores/use-new-addon-category";
 
 type Props = {
   filter: AvailabilityFilter;

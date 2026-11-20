@@ -1,6 +1,6 @@
 import RoomServicePage from "@/components/admin/room-service/room-service";
 import { AdminLayout } from "@/components/admin/admin-layout";
-import { getRoomServices } from "@/actions/room-service";
+import { getRoomServices } from "@/features/room-service/actions";
 import { QueryClient } from "@tanstack/react-query";
 
 export default async function AdminOrdersPage() {

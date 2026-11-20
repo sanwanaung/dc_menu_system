@@ -1,4 +1,4 @@
-import { VariantOptionDTO } from "@/types/variant-option";
+import { VariantOptionDTO } from "@/features/variant-option/types";
 
 export type AvailabilityFilter = "all" | "available" | "unavailable";
 export type SortKey = "displayOrderAsc" | "nameAsc" | "updatedDesc";

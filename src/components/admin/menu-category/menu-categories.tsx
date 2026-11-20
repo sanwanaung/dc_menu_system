@@ -13,15 +13,15 @@ import {
 } from "./menu-category-utils";
 import { normalize } from "@/utils";
 import { MenuCategoryCard } from "./menu-category-card";
-import { getMenuCategories } from "@/actions/menu-category";
+import { getMenuCategories } from "@/features/menu-category/actions";
 import { toast } from "sonner";
-import { useNewMenuCategory } from "@/hooks/use-new-menucategory";
+import { useNewMenuCategory } from "@/hooks/stores/use-new-menucategory";
 import { authClient } from "@/lib/auth-client";
 import { allowedUserRole } from "@/lib";
-import { useDeleteMenuCategory } from "@/hooks/use-delete-menucategory";
-import { MenuCategoryDTO } from "@/types/menu-category";
+import { useDeleteMenuCategory } from "@/hooks/stores/use-delete-menucategory";
+import { MenuCategoryDTO } from "@/features/menu-category/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useUpdateMenuCategoryAvailability } from "@/hooks/mutations/menu-category/use-update-menucategory-availability";
+import { useUpdateMenuCategoryAvailability } from "@/features/menu-category/hooks/mutations/use-update-menucategory-availability";
 
 const MenuCategories = () => {
   const { onOpenDelete } = useDeleteMenuCategory();

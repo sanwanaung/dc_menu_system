@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { LayoutGrid, Plus, Search } from "lucide-react";
 import { AvailabilityFilter, SortKey } from "./variant-option-utils";
-import { useVariantOption } from "@/hooks/use-variant-option";
+import { useVariantOption } from "@/hooks/stores/use-variant-option";
 
 type Props = {
   filter: AvailabilityFilter;

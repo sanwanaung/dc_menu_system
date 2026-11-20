@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/select";
 import { LayoutGrid, Plus, Search } from "lucide-react";
 import { CategoryFilter, PriceFilter, SortKey } from "./addon-utils";
-import { useNewAddon } from "@/hooks/use-new-addon";
-import { AddonWithAddonCategoryDTO } from "@/types/addon";
+import { useNewAddon } from "@/hooks/stores/use-new-addon";
+import { AddonWithAddonCategoryDTO } from "@/features/addon/types";
 import { useMemo } from "react";
 
 type Props = {

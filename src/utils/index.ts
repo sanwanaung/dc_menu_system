@@ -1,4 +1,4 @@
-import { RoomServiceDTOStatus } from "@/types/room-service/room-service.dto";
+import { RoomServiceDTOStatus } from "@/features/room-service/types";
 //@ts-ignore
 import { format, set } from "date-fns";
 

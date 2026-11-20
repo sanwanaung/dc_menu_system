@@ -13,7 +13,7 @@ import { formatTime, statusVariant, toStatusLabel } from "@/utils";
 import { format } from "date-fns";
 import { Tag } from "../shared/tag";
 import Actions from "./actions";
-import { RoomServiceDTO } from "@/types/room-service";
+import { RoomServiceDTO } from "@/features/room-service/types";
 
 type RoomServiceWithRoom = RoomServiceDTO & {
   room: {

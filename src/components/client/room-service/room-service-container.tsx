@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { getRoomServiceOrder } from "@/actions/client/room-service";
+import { getRoomServiceOrder } from "@/features/client/room-service/actions";
 import RoomServiceInfos from "./infos";
 import RoomServiceCard from "./room-service-card";
 

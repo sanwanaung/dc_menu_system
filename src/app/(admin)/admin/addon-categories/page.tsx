@@ -1,4 +1,4 @@
-import { getAddonCategories } from "@/actions/addon-category";
+import { getAddonCategories } from "@/features/addon-category/actions";
 import AddonCategoryPage from "@/components/admin/addon-category/addon-category";
 import { AdminLayout } from "@/components/admin/admin-layout";
 import { QueryClient } from "@tanstack/react-query";

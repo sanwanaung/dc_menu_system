@@ -6,7 +6,7 @@ import { DataTable } from "@/components/admin/rooms/data-table";
 import { columns } from "@/components/admin/rooms/columns";
 import { FilterOptionType } from "./room-utils";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { getRooms } from "@/actions/room";
+import { getRooms } from "@/features/room/actions";
 import { Loader2 } from "lucide-react";
 import { PaginationState } from "@tanstack/react-table";
 

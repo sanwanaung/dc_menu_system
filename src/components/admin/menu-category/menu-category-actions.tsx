@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useNewMenuCategory } from "@/hooks/use-new-menucategory";
+import { useNewMenuCategory } from "@/hooks/stores/use-new-menucategory";
 import { LayoutGrid, Plus, Search } from "lucide-react";
 import { AvailabilityFilter, SortKey } from "./menu-category-utils";
 

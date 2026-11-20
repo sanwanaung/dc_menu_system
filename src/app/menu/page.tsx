@@ -1,4 +1,4 @@
-import { getMenuItemsForCustomers } from "@/actions/client/menu";
+import { getMenuItemsForCustomers } from "@/features/client/menu/actions";
 import ClientLayout from "@/components/client/client-layout";
 import ClientShell from "@/components/client/client-shell";
 import { SCAN_SESSION_TOKEN } from "@/lib";
@@ -82,7 +82,7 @@ const MenuItem = async ({
       : (params.category?.trim() ?? "all");
 
   const availableCategoryNames = new Set(
-    menuItems.data?.categories.map((c) => c.name),
+    menuItems.data?.categories.map((c: any) => c.name),
   );
   const activeCategory =
     requestedCategory !== "all" &&

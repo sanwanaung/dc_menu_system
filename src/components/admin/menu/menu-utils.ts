@@ -1,4 +1,4 @@
-import { MenuItemDTO } from "@/types/menu-item";
+import { MenuItemDTO } from "@/features/menu-item/types";
 
 export type AvailabilityFilter = "all" | "available" | "unavailable";
 export type CategoryFilter = "all" | string;

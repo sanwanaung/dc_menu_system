@@ -2,8 +2,8 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { useOpenCartStore } from "@/hooks/client/use-open-cart-store";
-import { useSelectedMenuStore } from "@/hooks/client/use-selected-menu-store";
+import { useOpenCartStore } from "@/hooks/stores/use-open-cart-store";
+import { useSelectedMenuStore } from "@/hooks/stores/use-selected-menu-store";
 import ClientProviders from "@/providers/client-providers";
 import {
   ChevronLeft,

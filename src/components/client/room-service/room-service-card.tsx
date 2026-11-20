@@ -34,7 +34,7 @@ import {
 
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { useRequestRoomService } from "@/hooks/client/use-request-room-service";
+import { useRequestRoomService } from "@/features/client/room-service/hooks/mutations/use-request-room-service";
 import { RoomServiceOrder } from "generated/prisma/client";
 import { toast } from "sonner";
 import { getRoomServiceCalendarFloorDate } from "@/lib/room-service-date";

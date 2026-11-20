@@ -1,4 +1,4 @@
-import { MenuCategoryDTO } from "@/types/menu-category";
+import { MenuCategoryDTO } from "@/features/menu-category/types";
 
 export type AvailabilityFilter = "all" | "available" | "unavailable";
 export type SortKey = "displayOrderAsc" | "nameAsc" | "updatedDesc";

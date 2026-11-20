@@ -1,6 +1,6 @@
 import { AdminLayout } from "@/components/admin/admin-layout";
 import AddonPage from "@/components/admin/addon/addons-page";
-import { getAddons } from "@/actions/addon";
+import { getAddons } from "@/features/addon/actions";
 import {
   QueryClient,
   dehydrate,

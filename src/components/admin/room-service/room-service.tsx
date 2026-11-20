@@ -1,8 +1,8 @@
 "use client";
 
-import { getRoomServices } from "@/actions/room-service";
+import { getRoomServices } from "@/features/room-service/actions";
 import { DataTable } from "@/components/admin/room-service/data-table";
-import { RoomServiceDTOStatus } from "@/types/room-service";
+import { RoomServiceDTOStatus } from "@/features/room-service/types";
 import { normalize } from "@/utils";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { PaginationState } from "@tanstack/react-table";

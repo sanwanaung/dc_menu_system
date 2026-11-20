@@ -1,4 +1,4 @@
-import { AddonCategoryDTO } from "@/types/addon-category";
+import { AddonCategoryDTO } from "@/features/addon-category/types";
 
 export type AvailabilityFilter = "all" | "available" | "unavailable";
 export type SortKey = "displayOrderAsc" | "nameAsc" | "updatedDesc";

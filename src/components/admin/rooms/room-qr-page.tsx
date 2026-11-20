@@ -1,4 +1,4 @@
-import { getRoom } from "@/actions/room";
+import { getRoom } from "@/features/room/actions";
 import RoomQrView from "@/components/admin/rooms/room-qr-view";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { RoomDTO } from "@/types/room";
+import { RoomDTO } from "@/features/room/types";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 

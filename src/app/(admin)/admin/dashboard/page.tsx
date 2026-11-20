@@ -1,7 +1,7 @@
 import {
   getDashboardTotals,
   getRoomServiceStatusChart,
-} from "@/actions/dashboard";
+} from "@/features/dashboard/actions";
 
 import { KpiCard } from "@/components/admin/dashboard/kpi-card";
 import { RoomServiceAreaChart } from "@/components/admin/dashboard/room-service-area-chart";

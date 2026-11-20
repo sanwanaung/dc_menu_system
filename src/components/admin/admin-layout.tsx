@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useNewRoom } from "@/hooks/use-new-room";
+import { useNewRoom } from "@/hooks/stores/use-new-room";
 
 export const AdminLayout = ({
   children,

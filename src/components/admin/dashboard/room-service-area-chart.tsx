@@ -9,7 +9,7 @@ import {
   type ChartConfig,
 } from "@/components/ui/chart";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import type { RoomServiceStatusChartPoint } from "@/actions/dashboard";
+import type { RoomServiceStatusChartPoint } from "@/features/dashboard/actions";
 
 const chartConfig = {
   pending: { label: "Pending", color: "#f59e0b" },

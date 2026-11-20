@@ -1,4 +1,4 @@
-import { getMenuCategories } from "@/actions/menu-category";
+import { getMenuCategories } from "@/features/menu-category/actions";
 import { AdminLayout } from "@/components/admin/admin-layout";
 import VariantOption from "@/components/admin/variant-option/variant-option";
 import { QueryClient } from "@tanstack/react-query";
